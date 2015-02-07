@@ -1,0 +1,34 @@
+.top-blocks {
+    margin-top: 30px;
+}
+
+tr.even {
+    background-color: #ECF0F1;
+}
+
+th, td {
+    min-width: 80px;
+}
+
+tr.feriado {
+    background-color: #18BC9C;
+    color: white;
+}
+
+tr.tematica {
+    background-color: #3498DB;
+    color: white;
+}
+
+tr.prova {
+    background-color: #E74C3C;
+    color: white;
+}
+
+.container.content {
+    margin-top: 20px;
+}
+
+a {
+    color: #0068BD;
+}
