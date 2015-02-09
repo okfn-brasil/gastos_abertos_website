@@ -7,7 +7,7 @@ Static website for Gastos Abertos Project using Flask.
 
 ## Install Pandoc
 
-Yo need Pandoc to convert the Markdown files to HTML. Install it following:
+You need Pandoc to convert the Markdown files to HTML. Install it following:
 
 http://johnmacfarlane.net/pandoc/installing.html
 
