@@ -24,7 +24,7 @@ Do not use pip version, because it has Pandoc binary path hardcoded in it.
     $ cd pyandoc
     $ python setup.py install
 
-## Clone Gastos Aberto Repository
+## Clone Gastos Abertos Repository
 
     $ git clone https://github.com/okfn-brasil/gastos_abertos_website.git
 
