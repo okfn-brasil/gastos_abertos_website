@@ -6,4 +6,4 @@ deployment:
     production:
         branch: master
         commands:
-            - fab deploy
+            - fab build_static && fab build && fab deploy
