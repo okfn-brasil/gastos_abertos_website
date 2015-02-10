@@ -40,7 +40,7 @@ def build():
     ''''Build markdown and templates'''
     freeze()
 
-def run():
+def run_server():
     local('python site.py')
 
 def reset():
