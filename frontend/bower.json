@@ -1,0 +1,17 @@
+{
+  "name": "frontend",
+  "version": "0.0.0",
+  "homepage": "https://github.com/nucleo-digital/gastos_abertos_website",
+  "authors": [],
+  "license": "MIT",
+  "dependencies": {
+    "gastos_abertos_interface_module_example": "~0.0.1"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
