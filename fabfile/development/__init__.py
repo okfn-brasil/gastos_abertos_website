@@ -32,7 +32,7 @@ env.hosts = ['gastosabertos.org']
 
 def freeze():
     ''' Creates static html files '''
-    with prefix('source /home/gastosabertos/.virtualenvs/venv-system/bin/activate'):
+    with prefix('. /home/ubuntu/virtualenvs/venv-system/bin/activate'):
         local('python site.py build')
 
 @task
@@ -127,7 +127,8 @@ def install_backend_deps():
     with lcd(HOMEDIR):
         local("git clone git@github.com:kennethreitz/pyandoc.git")
         with lcd("pyandoc"):
-            local("python setup.py install")
+	    with prefix('. /home/ubuntu/virtualenvs/venv-system/bin/activate'):
+            	local("python setup.py install")
 
 
 @task
