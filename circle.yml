@@ -1,0 +1,9 @@
+machine:
+    timezone:
+        America/Los_Angeles
+
+deployment:
+    production:
+        branch: master
+        commands:
+            - fab deploy
