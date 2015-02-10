@@ -32,7 +32,8 @@ env.hosts = ['gastosabertos.org']
 
 def freeze():
     ''' Creates static html files '''
-    local('python site.py build')
+    with prefix('source /home/gastosabertos/.virtualenvs/venv-system/bin/activate'):
+        local('python site.py build')
 
 @task
 def build():
