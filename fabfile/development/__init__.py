@@ -123,7 +123,7 @@ def install_backend_deps():
     local("sudo apt-get install pandoc")
     # Install Pyandoc
     local("git clone git@github.com:kennethreitz/pyandoc.git")
-    whitg lcd("pyandoc"):
+    with lcd("pyandoc"):
         local("python setup.py install")
 
 
