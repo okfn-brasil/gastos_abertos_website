@@ -16,6 +16,7 @@ from fabric.context_managers import lcd
 
 BASEDIR = dirname(__file__)
 BACKENDDIR = abspath(join(abspath(BASEDIR), '../../'))
+HOMEDIR = abspath(join(abspath(BASEDIR), '../../..'))
 FRONTENDDIR = abspath(join(abspath(BASEDIR), '../../frontend'))
 LOGGER = logging.getLogger(__name__)
 
@@ -122,9 +123,10 @@ def install_backend_deps():
     # Install Pandoc
     local("sudo apt-get install pandoc")
     # Install Pyandoc
-    local("git clone git@github.com:kennethreitz/pyandoc.git")
-    with lcd("pyandoc"):
-        local("python setup.py install")
+    with lcd(HOMEDIR):
+        local("git clone git@github.com:kennethreitz/pyandoc.git")
+        with lcd("pyandoc"):
+            local("python setup.py install")
 
 
 @task
