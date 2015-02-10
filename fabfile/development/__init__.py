@@ -45,8 +45,8 @@ def reset():
     Reset local debug env.
     """
 
-    local("rm -rf ../../build")
-    local("mkdir ../../build")
+    local("rm -rf ./build")
+    local("mkdir ./build")
 
 def setup():
     """
