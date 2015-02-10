@@ -13,7 +13,6 @@ argparse==1.2.1
 ecdsa==0.13
 itsdangerous==0.24
 paramiko==1.15.2
-pyandoc==0.0.1
 pycrypto==2.6.1
 pytz==2014.10
 sh==1.11
