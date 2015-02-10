@@ -119,6 +119,8 @@ def install_backend_deps():
             'requirements_file': requirements_file
         }
         local(cmd)
+    # Install Pandoc
+    local("sudo apt-get install pandoc")
 
 @task
 def install_frontend_deps():
