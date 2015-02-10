@@ -33,6 +33,7 @@ def freeze():
     ''' Creates static html files '''
     local('python site.py build')
 
+@task
 def build():
     ''''Build markdown and templates'''
     freeze()
