@@ -98,10 +98,10 @@ def check_for(what, unrecoverable_msg, installation_cmd=None):
             failure()
 
 def get_node():
-    return check_for('/usr/local/bin/node', 'You need to install Node.js to run the Require.js optimiser and the frontend tests')
+    return check_for('node', 'You need to install Node.js to run the Require.js optimiser and the frontend tests')
 
 def get_npm():
-    return check_for('/usr/local/bin/npm', 'You need to install Node.js and npm to run gulp, less, require.js optimiser and the frontend tests')
+    return check_for('npm', 'You need to install Node.js and npm to run gulp, less, require.js optimiser and the frontend tests')
 
 def get_bower():
     return check_for('./node_modules/bower/bin/bower', 'You need to install Bower to be able to install JS libs', 'sudo npm install -g bower')
