@@ -164,5 +164,5 @@ def deploy():
 
     project_dir = '/home/gastosabertos/gastos_abertos_website'
     with cd(project_dir):
-        run("cp -R build/ build-old/")
-        put('build', 'build')
+        run("cp -r build build-old")
+        put('build', '.')
