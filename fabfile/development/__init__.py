@@ -28,17 +28,25 @@ project = "gastosabertos_website"
 
 env.user = 'gastosabertos'
 env.hosts = ['gastosabertos.org']
+env.local = False
 #env.key_filename = '~/.ssh/ga_id_rsa'
 
 def freeze():
     ''' Creates static html files '''
-    with prefix('. /home/ubuntu/virtualenvs/venv-system/bin/activate'):
+    if not env.local:
+        with prefix('. /home/ubuntu/virtualenvs/venv-system/bin/activate'):
+            local('python site.py build')
+    else:
         local('python site.py build')
 
 @task
 def build():
     ''''Build markdown and templates'''
     freeze()
+
+@task
+def run_local():
+    env.local = True
 
 def run_server():
     local('python site.py')
