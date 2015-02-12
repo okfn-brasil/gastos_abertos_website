@@ -1,6 +1,8 @@
 env
 build/*
 *pyc
+*swp
+*swo
 pyandoc
 frontend/bower_components
 frontend/node_modules
