@@ -37,12 +37,11 @@ Do not use pip version, because it has Pandoc binary path hardcoded in it.
 
 First build the pages to build/ directory:
 
-    $ fab run_local build
-    $ fab run_local install_backend_deps
+    $ fab run_local build_static
 
 Run localserver:
 
-    $ fab run
+    $ fab run_local run_server
 
 ## Tests
 
