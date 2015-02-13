@@ -48,6 +48,7 @@ def build():
 def run_local():
     env.local = True
 
+@task
 def run_server():
     local('python site.py')
 
@@ -69,7 +70,6 @@ def setup():
     # local("workon py")
     activate_this = "env/bin/activate_this.py"
     execfile(activate_this, dict(__file__=activate_this))
-
 
 # def get_venv():
 #     """ Get the current virtual environment name

@@ -1,22 +1,20 @@
-    Gastos Abertos Website
-==================================
-
+# Gastos Abertos Website
 Static website for Gastos Abertos Project using Flask.
 
-# Install
+## Install
 
-## Install Pandoc
+### Install Pandoc
 
 You need Pandoc to convert the Markdown files to HTML. Install it following:
 
 http://johnmacfarlane.net/pandoc/installing.html
 
-## Create Virtual environment
+### Create Virtual environment
 
     $ mkvirtualenv py
     $ workon py
 
-## Instal Pyandoc
+### Instal Pyandoc
 
 Do not use pip version, because it has Pandoc binary path hardcoded in it.
 
@@ -24,11 +22,11 @@ Do not use pip version, because it has Pandoc binary path hardcoded in it.
     $ cd pyandoc
     $ python setup.py install
 
-## Clone Gastos Abertos Repository
+### Clone Gastos Abertos Repository
 
     $ git clone https://github.com/okfn-brasil/gastos_abertos_website.git
 
-## Install dependencies
+### Install dependencies
 
     $ cd gastos_abertos_website
     $ pip install -r requirements.txt
@@ -37,12 +35,11 @@ Do not use pip version, because it has Pandoc binary path hardcoded in it.
 
 First build the pages to build/ directory:
 
-    $ fab run_local build
-    $ fab run_local install_backend_deps
+    $ fab run_local build_static
 
 Run localserver:
 
-    $ fab run
+    $ fab run_local run_server
 
 ## Tests
 

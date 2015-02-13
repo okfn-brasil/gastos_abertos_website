@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <style type=text/css>
+    h1 { background-image: url({{ url_for('static', filename='community.png') }}); }
+  </style>
+{% endblock %}
+
+{% block body_title %}
+  <h1><span>Gastos Abertos</span></h1>
+{% endblock %}
+
+{% block title %}Receitas{% endblock %}
+
+{% block body %}
+    <h2>Receitas</h2>
+
+    {{page}}
+
+    <div class="container-grafico"></div>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='javascripts/receitas/main.js') }}"></script>
+{% endblock %}
+
