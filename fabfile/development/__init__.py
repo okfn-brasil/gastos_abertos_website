@@ -176,3 +176,14 @@ def deploy():
     with cd(project_dir):
         run("cp -r build build-old")
         put('build', '.')
+
+
+@task
+def test():
+    """
+    Run frontend tests
+    """
+
+    with lcd(FRONTENDDIR):
+        cmd = '%(npm)s test' % {'npm': get_npm()}
+        local(cmd)

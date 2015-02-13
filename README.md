@@ -1,4 +1,4 @@
-Gastos Abertos Website
+    Gastos Abertos Website
 ==================================
 
 Static website for Gastos Abertos Project using Flask.
@@ -37,10 +37,13 @@ Do not use pip version, because it has Pandoc binary path hardcoded in it.
 
 First build the pages to build/ directory:
 
-    $ fab build
+    $ fab run_local build
+    $ fab run_local install_backend_deps
 
 Run localserver:
 
     $ fab run
 
+## Tests
 
+    $ fab test
