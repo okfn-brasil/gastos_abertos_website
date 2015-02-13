@@ -18,9 +18,9 @@
     <h1><a href="/">Gastoas Abertos</a></h1>
   {% endblock %}
   <nav>
-    <a href="/receitas">receitas</a>
-    <a href="/planejamento">planejamento</a>
-    <a href="/execucao">execução</a>
+    <a href="{{ url_for('page', path='receitas') }}">receitas</a>
+    <a href="{{ url_for('page', path='planejamento') }}">planejamento</a>
+    <a href="{{ url_for('page', path='execucao') }}">execução</a>
   </nav>
 </header>
   {% for message in get_flashed_messages() %}

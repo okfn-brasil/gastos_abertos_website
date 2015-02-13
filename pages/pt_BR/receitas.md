@@ -1,6 +1,5 @@
 template: receitas.html
 
-
 * Texto em markdown
 
 ```
