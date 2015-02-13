@@ -1,3 +1,7 @@
 template: receitas.html
 
-pagina de receita
+* Texto em markdown
+
+```
+teste de código
+```
