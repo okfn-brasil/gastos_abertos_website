@@ -1,42 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title> - Gastos Abertos</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
-      <script src="../bower_components/respond/dest/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <header>
-      <h1><a href="{{ url_for('page', path='/') }}" class="navbar-brand">Gastos Abertos</a></h1>
-      <ul class="menu">
-        <li><a href="/receitas">Receitas</a></li>
-        <li><a href="/planejamento">Planejamento</a></li>
-        <li><a href="/execucao">Execução</a></li>
-      </ul>
-    </header>
+<!doctype html>
+{% block head %}
+  <title>{% block title %}Página Inicial{% endblock %} | Gastos Abertos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+    <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+    <script src="../bower_components/respond/dest/respond.min.js"></script>
+  <![endif]-->
 
-    <div class="content">
-      {% block content %}
-      {% endblock content %}
-    </div>
-    <div class="extracontent">
-      {% block extracontent %}
-      {% endblock extracontent %}
-    </div>
+  <meta charset=utf-8>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}">
+  <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+{% endblock %}
+<header>
+  {% block body_title %}
+    <h1><span>{{ self.title() }}</span></h1>
+  {% endblock %}
+  <nav>
+    <a href="{{ url_for('receitas') }}">receitas</a>
+    <a href="{{ url_for('planejamento') }}">planejamento</a>
+    <a href="{{ url_for('execucao') }}">execução</a>
+  </nav>
+</header>
+  {% for message in get_flashed_messages() %}
+    <p class=message>{{ message }}
+  {% endfor %}
 
-    <footer>
-      <p>2015 - OKFN Brasil</p>
-    </footer>
+  <div class="container">
+    {% block body %}{% endblock %}
+
+  <p class=footer>
+    &copy; 2015 - OKFN Brasil
 
    <script src="{{ url_for('static', filename='vendor/requirejs/js/require.js') }}"></script>
-   <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+   <script src="{{ url_for('static', filename='javascripts/config.js') }}"></script>
   {% block script %}
+    <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
   {% endblock script %}
   </body>
 </html>
