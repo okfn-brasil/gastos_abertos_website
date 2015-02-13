@@ -1,4 +1,3 @@
 template: receitas.html
 
-
-page: Receitasssss
+pagina de receita

@@ -17,9 +17,9 @@
     <h1><span>{{ self.title() }}</span></h1>
   {% endblock %}
   <nav>
-    <a href="{{ url_for('receitas') }}">receitas</a>
-    <a href="{{ url_for('planejamento') }}">planejamento</a>
-    <a href="{{ url_for('execucao') }}">execução</a>
+    <a href="{{ url_for('page', path='receitas') }}">receitas</a>
+    <a href="{{ url_for('page', path='planejamento') }}">planejamento</a>
+    <a href="{{ url_for('page', path='execucao') }}">execução</a>
   </nav>
 </header>
   {% for message in get_flashed_messages() %}
