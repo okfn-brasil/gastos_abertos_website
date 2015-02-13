@@ -9,17 +9,18 @@
   <![endif]-->
 
   <meta charset=utf-8>
-  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='main.css') }}">
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/main.css') }}">
   <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 {% endblock %}
 <header>
   {% block body_title %}
-    <h1><span>{{ self.title() }}</span></h1>
+    <!--{{ self.title() }}-->
+    <h1><a href="/">Gastoas Abertos</a></h1>
   {% endblock %}
   <nav>
-    <a href="{{ url_for('receitas') }}">receitas</a>
-    <a href="{{ url_for('planejamento') }}">planejamento</a>
-    <a href="{{ url_for('execucao') }}">execução</a>
+    <a href="/receitas">receitas</a>
+    <a href="/planejamento">planejamento</a>
+    <a href="/execucao">execução</a>
   </nav>
 </header>
   {% for message in get_flashed_messages() %}
