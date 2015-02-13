@@ -1,4 +1,8 @@
 template: receitas.html
 
 
-page: Receitasssss
+* Texto em markdown
+
+```
+teste de código
+```
