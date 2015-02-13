@@ -7,3 +7,6 @@ deployment:
         branch: master
         commands:
             - fab build_static && fab build && fab deploy
+test:
+  override:
+    - fab test
