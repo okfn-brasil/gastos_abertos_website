@@ -28,6 +28,9 @@ gulp.task('less', function() {
 gulp.task('copy', function() {
     gulp.src(src + '/**/*.js')
         .pipe(gulp.dest(dest));
+
+    gulp.src(src + '/favicon.ico')
+        .pipe(gulp.dest(dest));
 });
 
 gulp.task('riotjs', function() {
