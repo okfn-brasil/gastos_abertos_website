@@ -5,7 +5,7 @@
   "authors": [],
   "license": "MIT",
   "dependencies": {
-    "gastos_abertos_interface_module_example": "~0.0.4"
+    "gastos_abertos_interface_module_example": "~0.0.5"
   },
   "ignore": [
     "**/.*",

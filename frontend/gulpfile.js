@@ -29,6 +29,9 @@ gulp.task('copy', function() {
     gulp.src(src + '/**/*.js')
         .pipe(gulp.dest(dest));
 
+    gulp.src('bower_components/gastos_abertos_interface_module_example/dist/js/example/**/*')
+        .pipe(gulp.dest(dest+'/vendor/gastos_abertos_interface_module_example/'));
+
     gulp.src(src + '/favicon.ico')
         .pipe(gulp.dest(dest));
 });

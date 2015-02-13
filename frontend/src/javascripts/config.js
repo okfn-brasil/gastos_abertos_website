@@ -6,18 +6,17 @@ requirejs.config({
     baseUrl: './static',
     paths : {
         riot : 'vendor/riotjs/js/riot',
-        // tags : '',
+        // tags : 'tag',
         // ga_interface_example: 'vendor/gastos_abertos_interface_module_example/js'
     },
     packages: [{
         name: "example",
-        location: "vendor/gastos_abertos_interface_module_example/js",
+        location: "vendor/gastos_abertos_interface_module_example",
     }],
     shim : {
         'riot': {
             exports: 'riot'
         }
     }
+
 });
-
-
