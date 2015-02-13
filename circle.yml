@@ -9,4 +9,4 @@ deployment:
             - fab build_static && fab build && fab deploy
 test:
   override:
-    - fab test
+    - fab install_frontend_deps && fab test
