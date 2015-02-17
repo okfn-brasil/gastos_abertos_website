@@ -15,12 +15,16 @@
 {% block body %}
     <h2>Receitas</h2>
 
-    {{page}}
+    <div id="bars-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 
-    <div class="container-grafico"></div>
 {% endblock %}
 
 {% block script %}
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+    <script src="http://code.highcharts.com/modules/drilldown.js"></script>
+    <script src="http://code.highcharts.com/modules/exporting.js"></script>
+    <script src="{{ url_for('static', filename='javascripts/receitas/jquery.deserialize.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/receitas/main.js') }}"></script>
 {% endblock %}
 
