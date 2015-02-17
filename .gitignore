@@ -6,4 +6,3 @@ build/*
 pyandoc
 frontend/bower_components
 frontend/node_modules
-static
