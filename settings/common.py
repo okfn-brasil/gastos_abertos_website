@@ -15,4 +15,4 @@ FLATPAGES_EXTENSION = '.md'
 
 BABEL_DEFAULT_LOCALE = DEFAULT_LOCALE
 
-API_URL = 'http://demo.gastosabertos.org/'
+API_URL = 'http://demo.gastosabertos.org'
