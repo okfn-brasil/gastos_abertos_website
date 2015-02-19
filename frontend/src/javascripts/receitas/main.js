@@ -7,7 +7,7 @@ $(function () {
     } else {
 	get_drilldown = function (e) {
 		var chart = e.currentTarget;
-		var response_data = $.get('http://localhost:5000/api/v1/receita/total?code=' + e.point.code + '&years=2014&drilldown=true').done(function (resp) {
+		var response_data = $.get(api_url + '/api/v1/receita/total?code=' + e.point.code + '&years=2014&drilldown=true').done(function (resp) {
 			if (resp.data) {
 				var drill_var = resp;
 				var imp_drilldown = {id: e.point.code, data:[]};
@@ -25,7 +25,7 @@ $(function () {
 
         impostos_request = $.ajax({
                 type: 'GET',
-                url: 'http://localhost:5000/api/v1/receita/total?code=1.1.1&code=1.1.2&code=1.2.3&years=2014',
+                url: api_url + '/api/v1/receita/total?code=1.1.1&code=1.1.2&code=1.2.3&years=2014',
                 xhrFields: {
                     withCredentials: false
                 }
