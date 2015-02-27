@@ -2,11 +2,15 @@
 
 {% block head %}
   {{ super() }}
-  <style type=text/css>
+  <style type="text/css">
     a {
         text-decoration: none;
     }
+    table {
+      color: black;
+    }
   </style>
+  <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.5/css/jquery.dataTables.min.css">
 {% endblock %}
 
 
@@ -16,6 +20,8 @@
     <h2>Receitas</h2>
 
     <div id="bars-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
+    <table id="data-table" class="display" cellspacing="0" width="100%">
+    </table>
 
 {% endblock %}
 
@@ -30,4 +36,3 @@
     <script src="{{ url_for('static', filename='javascripts/receitas/jquery.deserialize.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/receitas/main.js') }}"></script>
 {% endblock %}
-
