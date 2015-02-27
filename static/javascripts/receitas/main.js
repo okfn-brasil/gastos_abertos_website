@@ -74,14 +74,12 @@ require(['datatables'], function (datatable) {
       // Publish changes on `page` and `per_page_num` params.
       if (this.pubSub) {
         this.$el.on('page.dt', function () {
-          that.params.page = that.table.page();
-          that.pubSub.publish("page:changed", [{ value: that.table.page() }, that]);
+          that._publishPageChanged();
         });
 
         this.$el.on('length.dt', function () {
-          that.params.page = that.table.page();
-          that.params.per_page_num = that.table.page.len();
-          that.pubSub.publish("per_page_num:changed", [{ value: that.table.page.len() }, that]);
+          that._publishPerPageNumChanged();
+          that._publishPageChanged();
         });
 
         // Subscribe to params changes.
@@ -109,8 +107,20 @@ require(['datatables'], function (datatable) {
       } else {
         this.params[name] = value;
         this.table.ajax.reload();
+        // The current paging position is reset when reloading.
+        this._publishPageChanged();
       }
       return this;
+    },
+
+    _publishPageChanged: function() {
+      this.params.page = this.table.page();
+      this.pubSub.publish("page:changed", [{ value: this.table.page() }, this]);
+    },
+
+    _publishPerPageNumChanged: function() {
+      this.params.per_page_num = this.table.page.len();
+      this.pubSub.publish("per_page_num:changed", [{ value: this.table.page.len() }, this]);
     },
 
     _createUrl: function(url, params) {
