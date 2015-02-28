@@ -273,9 +273,9 @@ create_bars = function(year_data, initial_level) {
         chart: {
             type: 'bar',
             events: {
-                drilldown: function(e) {
-                    split_in_series(e);
-                }
+                // drilldown: function(e) {
+                //     split_in_series(e);
+                // }
             }
         },
         title: {
@@ -315,17 +315,55 @@ create_bars = function(year_data, initial_level) {
                 dataLabels: {
                     enabled: false
                 }
+            },
+            series: {
+                cursor: 'pointer',
+                events: {
+                    click: function (event) {
+                        console.log(event)
+                        console.log(this)
+                        set_series(this.options.code)
+                    }
+                }
             }
         },
         credits: {
             enabled: false
         },
-        series: [initial_level],
-        drilldown: {
-            series: year_data
-        }
+        series: [],
+        // series: [initial_level],
+        // drilldown: {
+        //     series: year_data
+        // }
     });
 };
+
+set_series = function(level) {
+    element = year_data[level];
+    console.log("a")
+    console.log(level)
+    console.log(element)
+    bar_chart = $('#bars-container').highcharts();
+    bar_chart.setTitle({ text: element.name });
+
+    // points = bar_chart.series[0].points
+    num_series = bar_chart.series.length
+    for (var i = 0; i < num_series; ++i) {
+        bar_chart.series[0].remove();
+    //     console.log(bar_chart.series[0].name)
+    //     console.log(points[i])
+    //     points[i].remove()
+    }
+
+    // data = e.seriesOptions.data;
+    // (e.seriesOptions.data).forEach(function(point){
+    for (var i = 0; i < element.children.length; ++i) {
+        console.log("AAAADDDDDDDDDDDDDDDDDDD")
+        bar_chart.addSeries(element.children[i])
+    }
+
+    
+}
 
 $(function() {
     var uriParams = window.location.search.substring(1);
@@ -354,23 +392,9 @@ $(function() {
         }
     }).done(function(response_data) {
         year_data = response_data
-        if (level == null) {
-            initial_level = year_data[0];
-        } else {
-            initial_level = null
-            for (var i = 0; i < year_data.length; ++i) {
-                item = year_data[i]
-                if (item['id'] == level) {
-                    initial_level = item
-                    break
-                }
-            }
-            if (initial_level == null) {
-                console.log("Coldn't find level: " + level)
-                initial_level = year_data[0]
-            }
-        }
-        initial_level.colorByPoint = true
-        create_bars(year_data, initial_level);
+        if (level == null) level = 'BASE';
+        // initial_level.colorByPoint = true
+        create_bars();
+        set_series(level)
     });
 });
