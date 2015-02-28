@@ -17,6 +17,16 @@ require(['datatables'], function (datatable) {
   }
 
 
+  var PubSub = function() { this.init && this.init.apply(this, arguments); };
+
+  PubSub.prototype = {
+    init: function() { this.aggregator = $({}); },
+    subscribe: function() { this.aggregator.on.apply(this.aggregator, arguments); },
+    unsubscribe: function() { this.aggregator.off.apply(this.aggregator, arguments); },
+    publish: function() { this.aggregator.trigger.apply(this.aggregator, arguments); }
+  };
+
+
   var DataTable = function() { this.init && this.init.apply(this, arguments); };
 
   DataTable.prototype = {
@@ -27,73 +37,53 @@ require(['datatables'], function (datatable) {
       this.columns = opts.columns;
       this.dataTablesOpts = opts.options;
       this.params = $.extend({page: null, per_page_num: null}, opts.params);
-      this.collectFormatters().createTableHeader().initTable().handleEvents();
-      return this;
-    },
-
-    collectFormatters: function() {
-      this.formatters = {};
-      for (var i=0, len=this.columns.length; i<len; i++) {
-        if ($.isFunction(this.columns[i].formatter)) {
-          this.formatters[this.columns[i].field] = this.columns[i].formatter;
-        } else if (this.columns[i].formatter !== undefined) {
-          throw new TypeError("formatter should be callable");
-        }
-      }
+      this.formatters = opts.formatters;
+      this.createTableHeader().initTable().handleEvents();
       return this;
     },
 
     createTableHeader: function() {
       var $tr = $('<tr>');
-      for (var i=0, len=this.columns.length; i<len; i++) {
-        $tr.append($('<th>').text(this.columns[i].title));
-      }
+      $.each(this.columns, function(i, column) {
+        $tr.append($('<th>').text(column.title));
+      });
       this.$el.append($('<thead>').append($tr));
       return this;
     },
 
     initTable: function() {
       var page = this.params.page || 0,
-          perPageNum = this.params.per_page_num || 10;
-
-      var opts = $.extend({}, this.dataTablesOpts, {
-        serverSide: true,
-        ajax: this._ajaxRequest.bind(this),
-        columns: $.map(this.columns, function(col, i) { return { data: col.field } }),
-        pageLength: perPageNum,
-        displayStart: (page * perPageNum)
-      });
+          perPageNum = this.params.per_page_num || 10,
+          opts = $.extend({}, this.dataTablesOpts, {
+            serverSide: true,
+            ajax: this._ajaxRequest.bind(this),
+            columns: $.map(this.columns, function(col) { return {data: col.field} }),
+            pageLength: perPageNum,
+            displayStart: (page * perPageNum)
+          });
       this.table = this.$el.dataTable(opts).api();
-
       return this;
     },
 
     handleEvents: function() {
       var that = this;
-
       // Publish changes on `page` and `per_page_num` params.
       if (this.pubSub) {
-        this.$el.on('page.dt', function () {
-          that._publishPageChanged();
-        });
-
+        this.$el.on('page.dt',   function () { that._publishPageChanged(); });
         this.$el.on('length.dt', function () {
-          that._publishPerPageNumChanged();
           that._publishPageChanged();
+          that._publishPerPageNumChanged();
         });
 
         // Subscribe to params changes.
-        for (var paramName in this.params) {
-          if (this.params.hasOwnProperty(paramName)) {
-            (function(paramName) {
-              that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
-                if (sender != that) {  // Ignore changes published by this instance
-                  that.setParam(paramName, content.value);
-                }
-              });
-            })(paramName);
-          }
-        }
+        $.each(this.params, function(name, value) {
+          (function(paramName) {
+            that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
+              // Ignore changes published by this instance
+              if (sender != that) that.setParam(paramName, content.value);
+            });
+          })(name);
+        });
       }
       return this;
     },
@@ -101,14 +91,12 @@ require(['datatables'], function (datatable) {
     setParam: function(name, value) {
       // `page` and `per_page_num` are special params.
       if (name == 'page') {
-        this.table.page(value).draw(false);
+        this.table.page(parseInt(value)).draw(false);
       } else if (name == 'per_page_num') {
-        this.table.page.len(value).draw(false);
+        this.table.page.len(parseInt(value)).draw(false);
       } else {
         this.params[name] = value;
-        this.table.ajax.reload();
-        // The current paging position is reset when reloading.
-        this._publishPageChanged();
+        this.table.ajax.reload(null, false);
       }
       return this;
     },
@@ -127,13 +115,9 @@ require(['datatables'], function (datatable) {
       var separator = '?';
       if (params) {
         params = $.extend({}, params)
-        for (var paramName in params) {
-          // Remove empty values
-          if (params.hasOwnProperty(paramName) &&
-               (params[paramName] === undefined || params[paramName] === null)) {
-            delete params[paramName];
-          }
-        }
+        $.each(params, function(key, param) {
+          if (param == null) delete params[key];  // Remove empty values
+        });
         url += separator + $.param(params, true);
       }
       return url;
@@ -141,23 +125,21 @@ require(['datatables'], function (datatable) {
 
     _formatData: function(data) {
       var formatters = this.formatters;
-      for (var i=0, len=data.length; i<len; i++) {  // Iterate rows
-        for (var field in formatters) {             // Iterate columns to be formatted
-          if (formatters.hasOwnProperty(field) && data[i][field] !== undefined) {
-            data[i][field] = formatters[field](data[i][field])
-          }
-        }
-      }
+      $.each(data, function(i, row) {
+        $.each(formatters, function(column, formatter) {
+          if (row[column] !== undefined) row[column] = formatter(row[column]);
+        });
+      });
       return data;
     },
 
     _ajaxRequest: function(data, callback, settings) {
-      var that = this;
-      var draw = data.draw;
-      var params = $.extend({}, this.params, {
-        per_page_num: data.length,
-        page: (data.start / data.length)
-      });
+      var that = this,
+          draw = data.draw,
+          params = $.extend({}, this.params, {
+            per_page_num: data.length,
+            page: (data.start / data.length)
+          });
 
       $.ajax({
         type: 'GET',
@@ -166,12 +148,10 @@ require(['datatables'], function (datatable) {
       })
       .done(function(data, textStatus, jqXHR) {
         var totalCount = jqXHR.getResponseHeader('x-total-count');
-        if (totalCount === null) {
-          // `X-Total-Count` header not present
+        if (totalCount === null) {  // `X-Total-Count` header not present
           totalCount = 10000;
         }
-        callback({
-          // Ref: http://datatables.net/manual/server-side
+        callback({  // Ref: http://datatables.net/manual/server-side
           draw: draw,
           recordsTotal: totalCount,
           recordsFiltered: totalCount,
@@ -183,35 +163,201 @@ require(['datatables'], function (datatable) {
   };
 
 
-  var PubSub = function() { this.init && this.init.apply(this, arguments); };
+  var HistoryManager = function() { this.init && this.init.apply(this, arguments); };
 
-  PubSub.prototype = {
-    init: function() { this.aggregator = $({}); },
-    subscribe: function() { this.aggregator.on.apply(this.aggregator, arguments); },
-    unsubscribe: function() { this.aggregator.off.apply(this.aggregator, arguments); },
-    publish: function() { this.aggregator.trigger.apply(this.aggregator, arguments); }
+  HistoryManager.prototype = {
+    init: function(opts) {
+      this.pubSub = opts.pubSub;
+      this.format = opts.format;
+      this.location = opts.location || window.location;
+      this.parsers = opts.parsers;
+      this._extractMainParamsNames();
+      this.defaultParams = $.extend({}, opts.params);
+      this.params = $.extend({}, this.defaultParams, this.extractParams());
+      this.handleEvents();
+      return this;
+    },
+
+    handleEvents: function() {
+      var that = this;
+      window.onhashchange = function() {
+        if (this.location.hash != that.createURL()) that.update();
+      };
+      $.each(this.params, function(name, value) {
+        (function(paramName) {
+          that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
+            // Ignore changes published by this instance
+            if (sender != that) that.setParam(paramName, content.value);
+          });
+        })(name);
+      })
+      return this;
+    },
+
+    setParam: function(name, value) {
+      if (this.params[name] != value) {
+        this.params[name] = value;
+        this.location.hash = this.createURL();  // Update URL fragment.
+      }
+      return this;
+    },
+
+    getParam: function(name) {
+      return this.params[name];
+    },
+
+    update: function() {
+      var that = this,
+          oldParams = this.params;
+      this.params = this.extractParams();
+      $.each(this._getDiff(oldParams, this.params), function(name, value) {
+        that.pubSub.publish(name + ':changed', [{ value: value }, that]);
+      });
+      return this;
+    },
+
+    extractParams: function() {
+      var that = this,
+          params = {},
+          hash = this.getHash(),
+          search = this.getSearch().slice(1),
+          mainParamsValues = hash == "" ? [] : hash.split('/'),
+          extraParams = search == "" ? [] : search.split('&');
+      // Extract main params
+      $.each(this.mainParamsNames, function(i, key) {
+        var value = mainParamsValues[i];
+        if (value !== undefined) {
+          if($.isFunction(that.parsers[key])) {
+            value = that.parsers[key](value);
+          }
+          params[key] = value;
+        }
+      });
+      // Extract extra params
+      $.each(extraParams, function(i, param) {
+        var parts = param.split('='),
+            name  = parts[0], value = parts[1];
+        if (params[name] !== undefined) {
+          // Already exist a param with current key, so create an array.
+          params[name] = [params[name]]
+        }
+        if ($.isFunction(that.parsers[name])) {
+          value = that.parsers[name](value);
+        }
+        if ($.isArray(params[name])) {
+          params[name].push(value);
+        } else {
+          params[name] = value;
+        }
+      });
+      return $.extend({}, this.defaultParams, params);
+    },
+
+    createURL: function() {
+      var that = this,
+          url = this.format,
+          params = $.extend({}, this.params);
+      $.each(this.mainParamsNames, function(i, name) {
+        url = url.replace('{{' + name + '}}',
+              $.isArray(params[name]) ? params[name].join('-') : params[name]);
+        delete params[name];
+      });
+      $.each(params, function(name, value) {
+        // Remove unmodified params.
+        if (value == that.defaultParams[name]) delete params[name];
+      });
+      var serializedParams = $.param(params, true);
+      if (serializedParams == '') {
+        url = url.replace('?{{params}}', '');
+      } else {
+        if (url.indexOf('{{params}}') != -1) {
+          url = url.replace('{{params}}', serializedParams);
+        } else {
+          url += '?' + serializedParams;
+        }
+      }
+      return url;
+    },
+
+    getSearch: function() {
+      var match = this.location.href.match(/\?.+/);
+      return match ? match[0].replace(/#.*/, '') : '';
+    },
+
+    getHash: function(window) {
+      var match = this.location.href.match(/#(.*)$/);
+      return match ? match[1].replace(/\?.*/, '') : '';
+    },
+
+    _getDiff: function(oldParams, newParams) {
+      var newParamsKeys = $.map(newParams, function(o, key) { return key; }),
+          oldParamsKeys = $.map(oldParams, function(o, key) { return key; }),
+          paramsDiff = {};
+      $.each($.unique(newParamsKeys.concat(oldParamsKeys)), function(i, key) {
+        if(JSON.stringify(newParams[key]) != JSON.stringify(oldParams[key])) {
+          paramsDiff[key] = newParams[key];
+        }
+      })
+      return paramsDiff;
+    },
+
+    _extractMainParamsNames: function() {
+      var match = this.format.replace(/\?.*/).match(/{{([^}]*)}}/g);
+      this.mainParamsNames = $.map(match, function(param) {
+        return param.substring(2, param.length-2);
+      });
+      return this;
+    }
   };
 
 
   $(function main() {
     var pubSub = window.pubSub = new PubSub();
+
+    var historyManager = window.historyManager = new HistoryManager({
+      format: '#{{years}}/{{code}}?{{params}}',
+      // Add all relevant params. This object will be used to subscribe for changes using pubSub.
+      // Use `null` or `undefined` for optional params with no initial values.
+      params: {
+        years: [2013, 2014],
+        code: '1.1.1',
+        page: 0,
+        per_page_num: 10
+      },
+      parsers: {
+        years: function(value) {
+          return $.map(value.split('-'), function(value) {
+            return parseInt(value);
+          });
+        },
+        page: parseInt,
+        per_page_num: parseInt
+      },
+      pubSub: pubSub
+    });
+
     try {
       var dataTable = new DataTable('#data-table', {
         url: api_url + '/api/v1/receita/list',
         columns: [
           { field: 'id',                title: 'ID'},
-          { field: 'date',              title: 'Data',      formatter: formatDate },
+          { field: 'date',              title: 'Data'},
           { field: 'code',              title: 'Código'},
           { field: 'description',       title: 'Descrição'},
-          { field: 'monthly_predicted', title: 'Previsto',  formatter: formatCurrency },
-          { field: 'monthly_outcome',   title: 'Realizado', formatter: formatCurrency }
+          { field: 'monthly_predicted', title: 'Previsto'},
+          { field: 'monthly_outcome',   title: 'Realizado'}
         ],
+        formatters: {
+          date: formatDate,
+          monthly_predicted: formatCurrency,
+          monthly_outcome: formatCurrency
+        },
         // Add all relevant params. This object will be used to subscribe for changes using pubSub.
         // Use `null` or `undefined` for optional params with no initial values.
         params: {
-          years: 2014,
-          page: 0,
-          per_page_num: 10
+          years: historyManager.getParam('years'),
+          page: historyManager.getParam('page'),
+          per_page_num: historyManager.getParam('per_page_num')
         },
         // DataTables options
         options: {
@@ -219,14 +365,6 @@ require(['datatables'], function (datatable) {
           ordering: false
         },
         pubSub: pubSub,
-      });
-
-      // PubSub usage example.
-
-      // pubSub.publish('years:changed', {value: [2012, 2014]});
-
-      pubSub.subscribe('page:changed', function(evt, content, sender) {
-        console.log('page: ' + content.value);
       });
 
     } catch(e) {
