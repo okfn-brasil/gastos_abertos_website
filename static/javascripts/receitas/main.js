@@ -242,16 +242,41 @@ require(['datatables'], function (datatable) {
 //            BAR CHART
 // ****************************************************
 
+split_in_series = function(e) {
+    console.log("AAAAAAAAAAAAA")
+    console.log(e.point)
+    console.log(e.seriesOptions)
+    bar_chart = $('#bars-container').highcharts();
+    bar_chart.setTitle({ text: e.point.name });
+
+    // points = bar_chart.series[0].points
+    // for (var i = 1; i < points.length; ++i) {
+    //     console.log(bar_chart.series[0].name)
+    //     console.log(points[i])
+    //     points[i].remove()
+    // }
+
+    bar_chart.series[0].remove();
+    data = e.seriesOptions.data;
+    // (e.seriesOptions.data).forEach(function(point){
+    for (var i = 0; i < data.length; ++i) {
+        point = data[i]
+        point.data = [point]
+        console.log("AAAADDDDDDDDDDDDDDDDDDD")
+        bar_chart.addSeries(point)
+    }
+}
+
 // Create chart
 create_bars = function(year_data, initial_level) {
     $('#bars-container').highcharts({
         chart: {
             type: 'bar',
-            // events: {
-            //     drilldown: function(e) {
-            //         get_drilldown(e);
-            //     }
-            // }
+            events: {
+                drilldown: function(e) {
+                    split_in_series(e);
+                }
+            }
         },
         title: {
             text: 'Receitas Prefeitura de Sao Paulo'
@@ -310,6 +335,7 @@ $(function() {
     if (query.hasOwnProperty('year')) {
         year = query.year;
     } else {
+        //TODO: change this...
         year = '2014'
     }
 
@@ -344,6 +370,7 @@ $(function() {
                 initial_level = year_data[0]
             }
         }
+        initial_level.colorByPoint = true
         create_bars(year_data, initial_level);
     });
 });
