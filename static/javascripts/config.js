@@ -6,6 +6,7 @@ requirejs.config({
     baseUrl: './static',
     paths : {
         riot : 'vendor/riotjs/js/riot',
+        datatables: '//cdn.datatables.net/1.10.5/js/jquery.dataTables'
         // tags : 'tag',
         // ga_interface_example: 'vendor/gastos_abertos_interface_module_example/js'
     },

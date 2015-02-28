@@ -13,6 +13,9 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
 
     <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
+
+    {% block head %}
+    {% endblock %}
 </head>
 
 <body data-spy="scroll" data-target=".navbar-custom">
