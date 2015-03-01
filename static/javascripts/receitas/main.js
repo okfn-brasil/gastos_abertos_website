@@ -242,30 +242,29 @@ require(['datatables'], function (datatable) {
 //            BAR CHART
 // ****************************************************
 
-split_in_series = function(e) {
-    console.log("AAAAAAAAAAAAA")
-    console.log(e.point)
-    console.log(e.seriesOptions)
-    bar_chart = $('#bars-container').highcharts();
-    bar_chart.setTitle({ text: e.point.name });
+// split_in_series = function(e) {
+//     console.log("AAAAAAAAAAAAA")
+//     console.log(e.point)
+//     console.log(e.seriesOptions)
+//     bar_chart.setTitle({ text: e.point.name });
 
-    // points = bar_chart.series[0].points
-    // for (var i = 1; i < points.length; ++i) {
-    //     console.log(bar_chart.series[0].name)
-    //     console.log(points[i])
-    //     points[i].remove()
-    // }
+//     // points = bar_chart.series[0].points
+//     // for (var i = 1; i < points.length; ++i) {
+//     //     console.log(bar_chart.series[0].name)
+//     //     console.log(points[i])
+//     //     points[i].remove()
+//     // }
 
-    bar_chart.series[0].remove();
-    data = e.seriesOptions.data;
-    // (e.seriesOptions.data).forEach(function(point){
-    for (var i = 0; i < data.length; ++i) {
-        point = data[i]
-        point.data = [point]
-        console.log("AAAADDDDDDDDDDDDDDDDDDD")
-        bar_chart.addSeries(point)
-    }
-}
+//     bar_chart.series[0].remove();
+//     data = e.seriesOptions.data;
+//     // (e.seriesOptions.data).forEach(function(point){
+//     for (var i = 0; i < data.length; ++i) {
+//         point = data[i]
+//         point.data = [point]
+//         console.log("AAAADDDDDDDDDDDDDDDDDDD")
+//         bar_chart.addSeries(point)
+//     }
+// }
 
 // Create chart
 create_bars = function(year_data, initial_level) {
@@ -282,7 +281,10 @@ create_bars = function(year_data, initial_level) {
             text: 'Receitas Prefeitura de Sao Paulo'
         },
         xAxis: {
-            type: 'category'
+            type: 'category',
+            labels: {
+              enabled: false
+            }
         },
         yAxis: {
             // min: 0,
@@ -294,22 +296,11 @@ create_bars = function(year_data, initial_level) {
                 overflow: 'justify'
             }
         },
-        // stackLabels: {
-        //     enabled: true,
-        //     style: {
-        //         fontWeight: 'bold',
-        //         color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-        //     },
-        //     formatter: function() {
-        //         return number_format(this.total, 2, '.', ',');
-        //     }
-        // },
-        // labels: {
-        //     formatter: function() {
-        //         return number_format(this.value, 2, '.', ',');
-        //     }
-        // },
-        tooltip: {},
+        tooltip: {
+            formatter: function() {
+                return '<b>' + this.series.name + '</b>: R$ ' + this.y
+            }
+                 },
         plotOptions: {
             bar: {
                 dataLabels: {
@@ -320,8 +311,6 @@ create_bars = function(year_data, initial_level) {
                 cursor: 'pointer',
                 events: {
                     click: function (event) {
-                        console.log(event)
-                        console.log(this)
                         set_series(this.options.code)
                     }
                 }
@@ -336,14 +325,32 @@ create_bars = function(year_data, initial_level) {
         //     series: year_data
         // }
     });
+    bar_chart = $('#bars-container').highcharts();
+    bar_up_button = $('#bars-up-button')
+    bar_up_button.click(go_level_up)
 };
 
+// get upper level for level
+get_upper_level = function(level) {
+    // If in level '1', '2' or '9'
+    if (current_level.length == 1){
+        return 'BASE'
+    } else if (current_level != 'BASE') {
+        var levels = current_level.split('.')
+        levels.pop()
+        return levels.join('.')
+    } else {
+        return null
+    }
+}
+
+// Set displayed series in bar-chart to level
 set_series = function(level) {
+    current_level = level
     element = year_data[level];
     console.log("a")
     console.log(level)
     console.log(element)
-    bar_chart = $('#bars-container').highcharts();
     bar_chart.setTitle({ text: element.name });
 
     // points = bar_chart.series[0].points
@@ -357,12 +364,24 @@ set_series = function(level) {
 
     // data = e.seriesOptions.data;
     // (e.seriesOptions.data).forEach(function(point){
-    for (var i = 0; i < element.children.length; ++i) {
-        console.log("AAAADDDDDDDDDDDDDDDDDDD")
+    for (var i = element.children.length; i >= 0; --i) {
         bar_chart.addSeries(element.children[i])
     }
+    upper_data = year_data[get_upper_level(current_level)]
+    if (upper_data) {
+        bar_up_button.text("Subir para: " + upper_data.name)
+        bar_up_button.show()
+    } else {
+        bar_up_button.hide()
+    }
+}
 
-    
+// Go to a upper level in bar chart
+go_level_up = function() {
+    var upper_level = get_upper_level(current_level)
+    if (upper_level) {
+        set_series(upper_level)
+    }
 }
 
 $(function() {
