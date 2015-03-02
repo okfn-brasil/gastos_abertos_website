@@ -361,9 +361,28 @@ go_level_up = function() {
     }
 }
 
+// Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
+
 $(function() {
     var uriParams = window.location.search.substring(1);
     var query = $.deserialize(uriParams);
+    var year = null
 
     // Get year param
     if (query.hasOwnProperty('year')) {
@@ -380,13 +399,36 @@ $(function() {
     }
 
     // Load ALL data for a year
-    $.ajax({
-        type: 'GET',
-        url: api_url + '/receita/static/total_by_year_by_code/' + year + '.json',
-        xhrFields: {
-            withCredentials: false
-        }
-    }).done(function(response_data) {
+//     $.ajax({
+//         type: 'GET',
+// headers: {
+//     // Set any custom headers here.
+//     // If you set any non-simple headers, your server must include these
+//     // headers in the 'Access-Control-Allow-Headers' response header.
+//   },
+//         contentType: 'text/json',
+//         url: api_url + '/receita/static/total_by_year_by_code/' + year + '.json'y,
+//         xhrFields: {
+//             withCredentials: false
+//         },
+// success: function() {
+//     // Here's where you handle a successful response.
+//     console.log("AEEEEEE")
+//   },
+
+//         error: function(a,b,c) {
+//     // Here's where you handle an error response.
+//     // Note that if the error was due to a CORS issue,
+//     // this function will still fire, but there won't be any additional
+//     // information about the error.
+//             console.log(a)
+//             console.log(b)
+//             console.log(c)
+//     console.log("=(((((((())))))))")
+//   }
+//     }
+    $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
+    .done(function(response_data) {
         year_data = response_data
         if (level == null) level = 'BASE';
         // initial_level.colorByPoint = true
