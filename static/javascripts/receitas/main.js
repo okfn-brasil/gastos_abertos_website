@@ -385,17 +385,20 @@ create_bars = function(year_data, initial_level) {
     $('#bars-container').highcharts({
         chart: {
             type: 'bar',
-            // events: {
-            //     drilldown: function(e) {
-            //         get_drilldown(e);
-            //     }
-            // }
+            events: {
+                // drilldown: function(e) {
+                //     split_in_series(e);
+                // }
+            }
         },
         title: {
             text: 'Receitas Prefeitura de Sao Paulo'
         },
         xAxis: {
-            type: 'category'
+            type: 'category',
+            labels: {
+              enabled: false
+            }
         },
         yAxis: {
             // min: 0,
@@ -407,47 +410,123 @@ create_bars = function(year_data, initial_level) {
                 overflow: 'justify'
             }
         },
-        // stackLabels: {
-        //     enabled: true,
-        //     style: {
-        //         fontWeight: 'bold',
-        //         color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-        //     },
-        //     formatter: function() {
-        //         return number_format(this.total, 2, '.', ',');
-        //     }
-        // },
-        // labels: {
-        //     formatter: function() {
-        //         return number_format(this.value, 2, '.', ',');
-        //     }
-        // },
-        tooltip: {},
+        tooltip: {
+            formatter: function() {
+                return '<b>' + this.series.name + '</b>: R$ ' + this.y
+            }
+                 },
         plotOptions: {
             bar: {
                 dataLabels: {
                     enabled: false
+                }
+            },
+            series: {
+                cursor: 'pointer',
+                events: {
+                    click: function (event) {
+                        set_series(this.options.code)
+                    }
                 }
             }
         },
         credits: {
             enabled: false
         },
-        series: [initial_level],
-        drilldown: {
-            series: year_data
-        }
+        series: [],
+        // series: [initial_level],
+        // drilldown: {
+        //     series: year_data
+        // }
     });
+    bar_chart = $('#bars-container').highcharts();
+    bar_up_button = $('#bars-up-button')
+    bar_up_button.click(go_level_up)
 };
+
+// get upper level for level
+get_upper_level = function(level) {
+    // If in level '1', '2' or '9'
+    if (current_level.length == 1){
+        return 'BASE'
+    } else if (current_level != 'BASE') {
+        var levels = current_level.split('.')
+        levels.pop()
+        return levels.join('.')
+    } else {
+        return null
+    }
+}
+
+// Set displayed series in bar-chart to level
+set_series = function(level) {
+    element = year_data[level];
+    // console.log(level)
+    // console.log(element.hasOwnProperty('children'))
+    if (element.hasOwnProperty('children')) {
+        current_level = level
+        bar_chart.setTitle({ text: element.name });
+
+        // points = bar_chart.series[0].points
+        num_series = bar_chart.series.length
+        for (var i = 0; i < num_series; ++i) {
+            bar_chart.series[0].remove();
+        //     console.log(bar_chart.series[0].name)
+        //     console.log(points[i])
+        //     points[i].remove()
+        }
+
+        // data = e.seriesOptions.data;
+        // (e.seriesOptions.data).forEach(function(point){
+        for (var i = element.children.length; i >= 0; --i) {
+            bar_chart.addSeries(element.children[i])
+        }
+        upper_data = year_data[get_upper_level(current_level)]
+        if (upper_data) {
+            bar_up_button.text("Subir para: " + upper_data.name)
+            bar_up_button.show()
+        } else {
+            bar_up_button.hide()
+        }
+    }
+}
+
+// Go to a upper level in bar chart
+go_level_up = function() {
+    var upper_level = get_upper_level(current_level)
+    if (upper_level) {
+        set_series(upper_level)
+    }
+}
+
+// Create the XHR object.
+function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    xhr = null;
+  }
+  return xhr;
+}
+
 
 $(function() {
     var uriParams = window.location.search.substring(1);
     var query = $.deserialize(uriParams);
+    var year = null
 
     // Get year param
     if (query.hasOwnProperty('year')) {
         year = query.year;
     } else {
+        //TODO: change this...
         year = '2014'
     }
 
@@ -458,30 +537,40 @@ $(function() {
     }
 
     // Load ALL data for a year
-    $.ajax({
-        type: 'GET',
-        url: api_url + '/api/v1/receita/totaldrilldown?year=' + year,
-        xhrFields: {
-            withCredentials: false
-        }
-    }).done(function(response_data) {
+//     $.ajax({
+//         type: 'GET',
+// headers: {
+//     // Set any custom headers here.
+//     // If you set any non-simple headers, your server must include these
+//     // headers in the 'Access-Control-Allow-Headers' response header.
+//   },
+//         contentType: 'text/json',
+//         url: api_url + '/receita/static/total_by_year_by_code/' + year + '.json'y,
+//         xhrFields: {
+//             withCredentials: false
+//         },
+// success: function() {
+//     // Here's where you handle a successful response.
+//     console.log("AEEEEEE")
+//   },
+
+//         error: function(a,b,c) {
+//     // Here's where you handle an error response.
+//     // Note that if the error was due to a CORS issue,
+//     // this function will still fire, but there won't be any additional
+//     // information about the error.
+//             console.log(a)
+//             console.log(b)
+//             console.log(c)
+//     console.log("=(((((((())))))))")
+//   }
+//     }
+    $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
+    .done(function(response_data) {
         year_data = response_data
-        if (level == null) {
-            initial_level = year_data[0];
-        } else {
-            initial_level = null
-            for (var i = 0; i < year_data.length; ++i) {
-                item = year_data[i]
-                if (item['id'] == level) {
-                    initial_level = item
-                    break
-                }
-            }
-            if (initial_level == null) {
-                console.log("Coldn't find level: " + level)
-                initial_level = year_data[0]
-            }
-        }
-        create_bars(year_data, initial_level);
+        if (level == null) level = 'BASE';
+        // initial_level.colorByPoint = true
+        create_bars();
+        set_series(level)
     });
 });
