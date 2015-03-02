@@ -322,33 +322,34 @@ get_upper_level = function(level) {
 
 // Set displayed series in bar-chart to level
 set_series = function(level) {
-    current_level = level
     element = year_data[level];
-    console.log("a")
-    console.log(level)
-    console.log(element)
-    bar_chart.setTitle({ text: element.name });
+    // console.log(level)
+    // console.log(element.hasOwnProperty('children'))
+    if (element.hasOwnProperty('children')) {
+        current_level = level
+        bar_chart.setTitle({ text: element.name });
 
-    // points = bar_chart.series[0].points
-    num_series = bar_chart.series.length
-    for (var i = 0; i < num_series; ++i) {
-        bar_chart.series[0].remove();
-    //     console.log(bar_chart.series[0].name)
-    //     console.log(points[i])
-    //     points[i].remove()
-    }
+        // points = bar_chart.series[0].points
+        num_series = bar_chart.series.length
+        for (var i = 0; i < num_series; ++i) {
+            bar_chart.series[0].remove();
+        //     console.log(bar_chart.series[0].name)
+        //     console.log(points[i])
+        //     points[i].remove()
+        }
 
-    // data = e.seriesOptions.data;
-    // (e.seriesOptions.data).forEach(function(point){
-    for (var i = element.children.length; i >= 0; --i) {
-        bar_chart.addSeries(element.children[i])
-    }
-    upper_data = year_data[get_upper_level(current_level)]
-    if (upper_data) {
-        bar_up_button.text("Subir para: " + upper_data.name)
-        bar_up_button.show()
-    } else {
-        bar_up_button.hide()
+        // data = e.seriesOptions.data;
+        // (e.seriesOptions.data).forEach(function(point){
+        for (var i = element.children.length; i >= 0; --i) {
+            bar_chart.addSeries(element.children[i])
+        }
+        upper_data = year_data[get_upper_level(current_level)]
+        if (upper_data) {
+            bar_up_button.text("Subir para: " + upper_data.name)
+            bar_up_button.show()
+        } else {
+            bar_up_button.hide()
+        }
     }
 }
 
