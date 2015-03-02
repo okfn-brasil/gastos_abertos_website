@@ -382,7 +382,7 @@ $(function() {
     // Load ALL data for a year
     $.ajax({
         type: 'GET',
-        url: api_url + '/api/v1/receita/totaldrilldown?year=' + year,
+        url: api_url + '/receita/static/total_by_year_by_code/' + year + '.json',
         xhrFields: {
             withCredentials: false
         }
