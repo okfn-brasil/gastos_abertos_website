@@ -302,17 +302,17 @@ create_bars = function(year_data, initial_level) {
         // }
     });
     bar_chart = $('#bars-container').highcharts();
-    bar_up_button = $('#bars-up-button')
-    bar_up_button.click(go_level_up)
+    // bar_up_button = $('#bars-up-button')
+    // bar_up_button.click(go_level_up)
 };
 
 // get upper level for level
 get_upper_level = function(level) {
     // If in level '1', '2' or '9'
-    if (current_level.length == 1){
+    if (level.length == 1){
         return 'BASE'
-    } else if (current_level != 'BASE') {
-        var levels = current_level.split('.')
+    } else if (level != 'BASE') {
+        var levels = level.split('.')
         levels.pop()
         return levels.join('.')
     } else {
@@ -320,36 +320,52 @@ get_upper_level = function(level) {
     }
 }
 
+function createBreadcrumbs(current_level) {
+    level = current_level
+    // Remove ALL previous breadcrumbs TODO: this is sub-optimum...
+    $(".bars-breadcrumbs-item").remove()
+    // avoids this code from exploding in a strange case
+    anti_bomb = 10
+    // creates a crumb for upper level
+    do {
+        upper = get_upper_level(level)        
+        if (upper) {
+            description = year_data[upper].name
+            button = "<button class='bars-breadcrumbs-button' data-code='" + upper + "'>" + description + "</button>"
+            item = "<li class='bars-breadcrumbs-item'>"+ button + "</li>"
+            $("#bars-breadcrumbs-list").append(item)
+        }
+        level = upper
+        anti_bomb -= 1
+    } while (level && anti_bomb > 0)
+
+    // adds the callback to the buttons, so they change the chart
+    $(".bars-breadcrumbs-button").click(function(e) {
+        set_series(e.target.dataset.code)
+    })
+}
+
 // Set displayed series in bar-chart to level
 set_series = function(level) {
     element = year_data[level];
-    // console.log(level)
-    // console.log(element.hasOwnProperty('children'))
     if (element.hasOwnProperty('children')) {
         current_level = level
         bar_chart.setTitle({ text: element.name });
-
-        // points = bar_chart.series[0].points
         num_series = bar_chart.series.length
         for (var i = 0; i < num_series; ++i) {
             bar_chart.series[0].remove();
-        //     console.log(bar_chart.series[0].name)
-        //     console.log(points[i])
-        //     points[i].remove()
         }
-
-        // data = e.seriesOptions.data;
-        // (e.seriesOptions.data).forEach(function(point){
         for (var i = element.children.length; i >= 0; --i) {
             bar_chart.addSeries(element.children[i])
         }
-        upper_data = year_data[get_upper_level(current_level)]
-        if (upper_data) {
-            bar_up_button.text("Subir para: " + upper_data.name)
-            bar_up_button.show()
-        } else {
-            bar_up_button.hide()
-        }
+        createBreadcrumbs(current_level)
+        // upper_data = year_data[get_upper_level(current_level)]
+        // if (upper_data) {
+        //     bar_up_button.text("Subir para: " + upper_data.name)
+        //     bar_up_button.show()
+        // } else {
+        //     bar_up_button.hide()
+        // }
     }
 }
 
@@ -360,24 +376,6 @@ go_level_up = function() {
         set_series(upper_level)
     }
 }
-
-// Create the XHR object.
-function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-    // XHR for Chrome/Firefox/Opera/Safari.
-    xhr.open(method, url, true);
-  } else if (typeof XDomainRequest != "undefined") {
-    // XDomainRequest for IE.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  } else {
-    // CORS not supported.
-    xhr = null;
-  }
-  return xhr;
-}
-
 
 $(function() {
     var uriParams = window.location.search.substring(1);
@@ -399,34 +397,6 @@ $(function() {
     }
 
     // Load ALL data for a year
-//     $.ajax({
-//         type: 'GET',
-// headers: {
-//     // Set any custom headers here.
-//     // If you set any non-simple headers, your server must include these
-//     // headers in the 'Access-Control-Allow-Headers' response header.
-//   },
-//         contentType: 'text/json',
-//         url: api_url + '/receita/static/total_by_year_by_code/' + year + '.json'y,
-//         xhrFields: {
-//             withCredentials: false
-//         },
-// success: function() {
-//     // Here's where you handle a successful response.
-//     console.log("AEEEEEE")
-//   },
-
-//         error: function(a,b,c) {
-//     // Here's where you handle an error response.
-//     // Note that if the error was due to a CORS issue,
-//     // this function will still fire, but there won't be any additional
-//     // information about the error.
-//             console.log(a)
-//             console.log(b)
-//             console.log(c)
-//     console.log("=(((((((())))))))")
-//   }
-//     }
     $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
     .done(function(response_data) {
         year_data = response_data
