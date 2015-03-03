@@ -3,19 +3,26 @@ require(['datatables'], function (datatable) {
   "use strict";
 
 
-  function formatDate(value) {
-    var date = new Date(value);
-    // Add 1 to month value since Javascript numbers months as 0-11.
-    return date.getUTCDate() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
-  }
+  // ****************************************************
+  //                      PUB/SUB
+  // ****************************************************
+  /* Usage:
 
-  function formatCurrency(value) {
-    var number = new Number(value).toFixed(2)         // Force the length of decimal
-                .replace('.', ',')                    // Use comma as decimal mark
-                .replace(/\d(?=(\d{3})+\,)/g, '$&.'); // Add points as thousands separator
-    return "R$&nbsp;" + number;
-  }
+      var pubSub = new PubSub();
 
+      function handler(evt, content) {
+        console.log('Spam: ' + content);
+      }
+
+      pubSub.subscribe('spam', handler);
+      pubSub.publish('spam', 'eggs');
+      // Will display: "Spam: eggs"
+
+      pubSub.unsubscribe('span', handler);
+      pubSub.publish('spam', 'eggs');
+      // Will display nothing
+
+  */
 
   var PubSub = function() { this.init && this.init.apply(this, arguments); };
 
@@ -26,6 +33,51 @@ require(['datatables'], function (datatable) {
     publish: function() { this.aggregator.trigger.apply(this.aggregator, arguments); }
   };
 
+
+  // ****************************************************
+  //                    DATA TABLE
+  // ****************************************************
+  /* Usage:
+
+      var dataTable = new DataTable('#data-table', {
+        // The API endpoint. Should return an array of objects.
+        url: api_url + '/api/v1/receita/list',
+        // Define the table columns.
+        // Format: [ {field: 'jsonObjectField', title: "Column Title"}, ... ]
+        columns: [
+          { field: 'id',                title: 'ID'},
+          { field: 'date',              title: 'Data'},
+          { field: 'code',              title: 'Código'},
+          { field: 'description',       title: 'Descrição'},
+          { field: 'monthly_predicted', title: 'Previsto'},
+          { field: 'monthly_outcome',   title: 'Realizado'}
+        ],
+        // Functions to format each field value.
+        formatters: {
+          date: formatDate,
+          monthly_predicted: formatCurrency,
+          monthly_outcome: formatCurrency
+        },
+        // Add all relevant params. This object will be used to subscribe for
+        // changes using pubSub. Use `null` or `undefined` for optional params
+        // with no initial values.
+        params: {
+          years: 2014,
+          page: 0,
+          per_page_num: 10
+        },
+        // DataTables options
+        options: {
+          searching: false,
+          ordering: false
+        },
+        // The same `PubSub` object used by all components to be synced.
+        pubSub: pubSub,
+      });
+      // When the user change the current page or the number of items per page
+      // it will publish "page:changed" and "per_page_num:changed", respectively
+
+  */
 
   var DataTable = function() { this.init && this.init.apply(this, arguments); };
 
@@ -56,11 +108,15 @@ require(['datatables'], function (datatable) {
           perPageNum = this.params.per_page_num || 10,
           opts = $.extend({}, this.dataTablesOpts, {
             serverSide: true,
+            // Use our ajax request function.
             ajax: this._ajaxRequest.bind(this),
+            // Extrac coluns from options.
             columns: $.map(this.columns, function(col) { return {data: col.field} }),
+            // set the page and how many items to display.
             pageLength: perPageNum,
             displayStart: (page * perPageNum)
           });
+      // Get a reference to DataTables API.
       this.table = this.$el.dataTable(opts).api();
       return this;
     },
@@ -163,26 +219,75 @@ require(['datatables'], function (datatable) {
   };
 
 
-  var HistoryManager = function() { this.init && this.init.apply(this, arguments); };
+  // ****************************************************
+  //                    URL MANAGER
+  // ****************************************************
+  /* Usage:
 
-  HistoryManager.prototype = {
+      var urlManager = new UrlManager({
+        // Define the Hash format with the main params positions.
+        // The extra params will be treated as query string.
+        format: '#{{mainParam1}}/{{mainParam2}}',
+        // Add all relevant params. This object will be used to subscribe for
+        // changes using pubSub. Use `null` or `undefined` for optional params
+        // with no initial values.
+        params: {
+          mainParam1: "mainParam1DefaultValue",
+          mainParam2: "mainParam2DefaultValue",
+          extraParam1: 0,
+          extraParam2: null
+        },
+        // Define functions to parse params that are not strings.
+        // In this example "extraParam1" is an integer.
+        parsers: {
+          extraParam1: parseInt
+        },
+        // The same `PubSub` object used by all components to be synced with the
+        // URL params.
+        pubSub: pubSub
+      });
+      // The URL "/#spam/eggs?extraParam1=2&extraParam2=foo" will result in
+      // {
+      //    mainParam1: "spam",
+      //    mainParam2: "eggs",
+      //    extraParam1: 2,
+      //    extraParam2: "foo"
+      // }
+      //
+      // `pubSub.publish('mainParam1:changed', { value: 'ham' })` will change
+      // the URL to "/#ham/eggs?extraParam1=2&extraParam2=foo"
+      //
+      // Changing any extra param to its default value will remove it from URL.
+      //
+      // `pubSub.publish('extraParam1:changed', { value: 0 })` will change
+      // the URL to "/#ham/eggs?extraParam2=foo"
+  */
+
+  var UrlManager = function() { this.init && this.init.apply(this, arguments); };
+
+  UrlManager.prototype = {
     init: function(opts) {
       this.pubSub = opts.pubSub;
       this.format = opts.format;
       this.location = opts.location || window.location;
+      this.url = this.location.hash;
       this.parsers = opts.parsers;
-      this._extractMainParamsNames();
       this.defaultParams = $.extend({}, opts.params);
-      this.params = $.extend({}, this.defaultParams, this.extractParams());
+      this.params = $.extend({}, this.defaultParams, this.extractParamsFromUrl());
       this.handleEvents();
       return this;
     },
 
     handleEvents: function() {
       var that = this;
+      // Listen to hashchange event.
       window.onhashchange = function() {
-        if (this.location.hash != that.createURL()) that.update();
+        if (this.location.hash != that.url) {
+          that.url = this.location.hash;
+          that.publish();
+        }
       };
+      // Get params from options and listen to each param change notification
       $.each(this.params, function(name, value) {
         (function(paramName) {
           that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
@@ -197,7 +302,7 @@ require(['datatables'], function (datatable) {
     setParam: function(name, value) {
       if (this.params[name] != value) {
         this.params[name] = value;
-        this.location.hash = this.createURL();  // Update URL fragment.
+        this.location.hash = this.createURL();  // Update URL.
       }
       return this;
     },
@@ -206,42 +311,52 @@ require(['datatables'], function (datatable) {
       return this.params[name];
     },
 
-    update: function() {
+    publish: function() {
+      // Broadcast all changes.
       var that = this,
           oldParams = this.params;
-      this.params = this.extractParams();
+      this.params = this.extractParamsFromUrl();
       $.each(this._getDiff(oldParams, this.params), function(name, value) {
         that.pubSub.publish(name + ':changed', [{ value: value }, that]);
       });
       return this;
     },
 
-    extractParams: function() {
+    extractParamsFromUrl: function() {
       var that = this,
           params = {},
-          hash = this.getHash(),
-          search = this.getSearch().slice(1),
+          hash = this.getHash(),              // Get URL hash
+          query = this.getQuery().slice(1),   // Get query string
+          // Get params from URL hash and query string
+          // The URL "/#spam/eggs?foo=bar&bla=ble" will result in
+          //  mainParamsValues = ['spam', 'eggs']
+          //  extraParams = ['foo=bar', 'bla=ble']
           mainParamsValues = hash == "" ? [] : hash.split('/'),
-          extraParams = search == "" ? [] : search.split('&');
-      // Extract main params
-      $.each(this.mainParamsNames, function(i, key) {
+          extraParams = query == "" ? [] : query.split('&');
+      // Extract main params.
+      // We get the main params keys from `format` option.
+      $.each(this._getMainParamsNames(), function(i, key) {
         var value = mainParamsValues[i];
         if (value !== undefined) {
           if($.isFunction(that.parsers[key])) {
+            // Parse the extracted value
             value = that.parsers[key](value);
           }
           params[key] = value;
         }
       });
-      // Extract extra params
+      // Extract extra params.
       $.each(extraParams, function(i, param) {
+        // Separate the extra param key from its value.
         var parts = param.split('='),
-            name  = parts[0], value = parts[1];
+            name  = parts[0],
+            value = parts[1];
         if (params[name] !== undefined) {
-          // Already exist a param with current key, so create an array.
+          // Already exist a param with the same key, so create an array.
           params[name] = [params[name]]
         }
         if ($.isFunction(that.parsers[name])) {
+          // Parse the extracted value
           value = that.parsers[name](value);
         }
         if ($.isArray(params[name])) {
@@ -250,22 +365,25 @@ require(['datatables'], function (datatable) {
           params[name] = value;
         }
       });
+      // Add default value to params not extracted from url;
       return $.extend({}, this.defaultParams, params);
     },
 
     createURL: function() {
       var that = this,
-          url = this.format,
+          url = this.format,  // Use the `format` option as a template.
           params = $.extend({}, this.params);
+      // Interpolate the main params.
       $.each(this.mainParamsNames, function(i, name) {
         url = url.replace('{{' + name + '}}',
               $.isArray(params[name]) ? params[name].join('-') : params[name]);
         delete params[name];
       });
+        // Remove the extra with the default values.
       $.each(params, function(name, value) {
-        // Remove unmodified params.
         if (value == that.defaultParams[name]) delete params[name];
       });
+      // Serialize the extra params and then interpolate.
       var serializedParams = $.param(params, true);
       if (serializedParams == '') {
         url = url.replace('?{{params}}', '');
@@ -279,7 +397,7 @@ require(['datatables'], function (datatable) {
       return url;
     },
 
-    getSearch: function() {
+    getQuery: function() {
       var match = this.location.href.match(/\?.+/);
       return match ? match[0].replace(/#.*/, '') : '';
     },
@@ -301,26 +419,51 @@ require(['datatables'], function (datatable) {
       return paramsDiff;
     },
 
-    _extractMainParamsNames: function() {
-      var match = this.format.replace(/\?.*/).match(/{{([^}]*)}}/g);
-      this.mainParamsNames = $.map(match, function(param) {
-        return param.substring(2, param.length-2);
-      });
-      return this;
+    _getMainParamsNames: function() {
+      if (this.mainParamsNames == null) {
+        var match = this.format.replace(/\?.*/).match(/{{([^}]*)}}/g);
+        this.mainParamsNames = $.map(match, function(param) {
+          return param.substring(2, param.length-2);
+        });
+      }
+      return this.mainParamsNames;
     }
   };
 
 
+  // ****************************************************
+  //               DATA TABLE FORMATTERS
+  // ****************************************************
+
+  function formatDate(value) {
+    // Format Dates as "dd/mm/yy".
+    var date = new Date(value);
+    // Add 1 to month value since Javascript numbers months as 0-11.
+    return date.getUTCDate() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
+  }
+
+  function formatCurrency(value) {
+    // Format currency values as "R$ 123.456,78".
+    var number = new Number(value).toFixed(2)         // Force the length of decimal
+                .replace('.', ',')                    // Use comma as decimal mark
+                .replace(/\d(?=(\d{3})+\,)/g, '$&.'); // Add points as thousands separator
+    return "R$&nbsp;" + number;
+  }
+
+
+  // ****************************************************
+  //       PUB/SUB AND DATA TABLE INITIALIZATION
+  // ****************************************************
+
   $(function main() {
+    // This pubSub object should be used by all objects that will be synced.
     var pubSub = window.pubSub = new PubSub();
 
-    var historyManager = window.historyManager = new HistoryManager({
+    var urlManager = window.urlManager = new UrlManager({
       format: '#{{years}}/{{code}}?{{params}}',
-      // Add all relevant params. This object will be used to subscribe for changes using pubSub.
-      // Use `null` or `undefined` for optional params with no initial values.
       params: {
         years: [2013, 2014],
-        code: '1.1.1',
+        code: '1',
         page: 0,
         per_page_num: 10
       },
@@ -352,14 +495,14 @@ require(['datatables'], function (datatable) {
           monthly_predicted: formatCurrency,
           monthly_outcome: formatCurrency
         },
-        // Add all relevant params. This object will be used to subscribe for changes using pubSub.
-        // Use `null` or `undefined` for optional params with no initial values.
         params: {
-          years: historyManager.getParam('years'),
-          page: historyManager.getParam('page'),
-          per_page_num: historyManager.getParam('per_page_num')
+          years: urlManager.getParam('years'),
+          code: urlManager.getParam('code'),
+          page: urlManager.getParam('page'),
+          per_page_num: urlManager.getParam('per_page_num')
         },
-        // DataTables options
+        // DataTables options.
+        // Disable searching and ordering.
         options: {
           searching: false,
           ordering: false
