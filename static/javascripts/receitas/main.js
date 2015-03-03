@@ -243,7 +243,7 @@ require(['datatables'], function (datatable) {
 // ****************************************************
 
 // Create chart
-create_bars = function(year_data, initial_level) {
+function createBarChart(year_data, initial_level) {
     $('#bars-container').highcharts({
         chart: {
             type: 'bar',
@@ -287,7 +287,7 @@ create_bars = function(year_data, initial_level) {
                 cursor: 'pointer',
                 events: {
                     click: function (event) {
-                        set_series(this.options.code)
+                        setSeries(this.options.code, event.point)
                     }
                 }
             }
@@ -307,7 +307,7 @@ create_bars = function(year_data, initial_level) {
 };
 
 // get upper level for level
-get_upper_level = function(level) {
+function getUpperLevel(level) {
     // If in level '1', '2' or '9'
     if (level.length == 1){
         return 'BASE'
@@ -328,7 +328,7 @@ function createBreadcrumbs(current_level) {
     anti_bomb = 10
     // creates a crumb for upper level
     do {
-        upper = get_upper_level(level)        
+        upper = getUpperLevel(level)        
         if (upper) {
             description = year_data[upper].name
             button = "<button class='bars-breadcrumbs-button' data-code='" + upper + "'>" + description + "</button>"
@@ -341,12 +341,12 @@ function createBreadcrumbs(current_level) {
 
     // adds the callback to the buttons, so they change the chart
     $(".bars-breadcrumbs-button").click(function(e) {
-        set_series(e.target.dataset.code)
+        setSeries(e.target.dataset.code)
     })
 }
 
 // Set displayed series in bar-chart to level
-set_series = function(level) {
+function setSeries(level, point) {
     element = year_data[level];
     if (element.hasOwnProperty('children')) {
         current_level = level
@@ -357,9 +357,14 @@ set_series = function(level) {
         }
         for (var i = element.children.length; i >= 0; --i) {
             bar_chart.addSeries(element.children[i])
+            // if (point) {
+            //     bar_chart.addSeriesAsDrilldown(point, element.children[i])
+            // } else {
+            //     bar_chart.addSeries(element.children[i])
+            // }
         }
         createBreadcrumbs(current_level)
-        // upper_data = year_data[get_upper_level(current_level)]
+        // upper_data = year_data[getUpperLevel(current_level)]
         // if (upper_data) {
         //     bar_up_button.text("Subir para: " + upper_data.name)
         //     bar_up_button.show()
@@ -369,13 +374,13 @@ set_series = function(level) {
     }
 }
 
-// Go to a upper level in bar chart
-go_level_up = function() {
-    var upper_level = get_upper_level(current_level)
-    if (upper_level) {
-        set_series(upper_level)
-    }
-}
+// // Go to a upper level in bar chart
+// function go_level_up() {
+//     var upper_level = getUpperLevel(current_level)
+//     if (upper_level) {
+//         setSeries(upper_level)
+//     }
+// }
 
 $(function() {
     var uriParams = window.location.search.substring(1);
@@ -402,7 +407,7 @@ $(function() {
         year_data = response_data
         if (level == null) level = 'BASE';
         // initial_level.colorByPoint = true
-        create_bars();
-        set_series(level)
+        createBarChart();
+        setSeries(level)
     });
 });
