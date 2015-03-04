@@ -462,7 +462,7 @@ require(['datatables'], function (datatable) {
     var urlManager = window.urlManager = new UrlManager({
       format: '#{{years}}/{{code}}?{{params}}',
       params: {
-        years: [2013, 2014],
+        years: [2014],
         code: '1',
         page: 0,
         per_page_num: 10
@@ -609,7 +609,7 @@ function createBreadcrumbs(current_level) {
     anti_bomb = 10
     // creates a crumb for upper level
     do {
-        upper = getUpperLevel(level)        
+        upper = getUpperLevel(level)
         if (upper) {
             description = year_data[upper].name
             button = "<button class='bars-breadcrumbs-button' data-code='" + upper + "'>" + description + "</button>"
