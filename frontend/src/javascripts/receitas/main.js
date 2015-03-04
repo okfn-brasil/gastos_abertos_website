@@ -1,38 +1,6 @@
-require(['datatables'], function (datatable) {
+require(['datatables', 'pubsub'], function (datatable, pubsub) {
 
   "use strict";
-
-
-  // ****************************************************
-  //                      PUB/SUB
-  // ****************************************************
-  /* Usage:
-
-      var pubSub = new PubSub();
-
-      function handler(evt, content) {
-        console.log('Spam: ' + content);
-      }
-
-      pubSub.subscribe('spam', handler);
-      pubSub.publish('spam', 'eggs');
-      // Will display: "Spam: eggs"
-
-      pubSub.unsubscribe('span', handler);
-      pubSub.publish('spam', 'eggs');
-      // Will display nothing
-
-  */
-
-  var PubSub = function() { this.init && this.init.apply(this, arguments); };
-
-  PubSub.prototype = {
-    init: function() { this.aggregator = $({}); },
-    subscribe: function() { this.aggregator.on.apply(this.aggregator, arguments); },
-    unsubscribe: function() { this.aggregator.off.apply(this.aggregator, arguments); },
-    publish: function() { this.aggregator.trigger.apply(this.aggregator, arguments); }
-  };
-
 
   // ****************************************************
   //                    DATA TABLE
@@ -59,7 +27,7 @@ require(['datatables'], function (datatable) {
           monthly_outcome: formatCurrency
         },
         // Add all relevant params. This object will be used to subscribe for
-        // changes using pubSub. Use `null` or `undefined` for optional params
+        // changes using pubsub. Use `null` or `undefined` for optional params
         // with no initial values.
         params: {
           years: 2014,
@@ -71,11 +39,11 @@ require(['datatables'], function (datatable) {
           searching: false,
           ordering: false
         },
-        // The same `PubSub` object used by all components to be synced.
-        pubSub: pubSub,
+        // The same `pubsub` object used by all components to be synced.
+        pubsub: pubsub,
       });
       // When the user change the current page or the number of items per page
-      // it will publish "page:changed" and "per_page_num:changed", respectively
+      // it will publish "page.changed" and "per_page_num.changed", respectively
 
   */
 
@@ -84,7 +52,7 @@ require(['datatables'], function (datatable) {
   DataTable.prototype = {
     init: function(el, opts) {
       this.$el = $(el);
-      this.pubSub = opts.pubSub;
+      this.pubsub = opts.pubsub;
       this.url = opts.url;
       this.columns = opts.columns;
       this.dataTablesOpts = opts.options;
@@ -124,7 +92,7 @@ require(['datatables'], function (datatable) {
     handleEvents: function() {
       var that = this;
       // Publish changes on `page` and `per_page_num` params.
-      if (this.pubSub) {
+      if (this.pubsub) {
         this.$el.on('page.dt',   function () { that._publishPageChanged(); });
         this.$el.on('length.dt', function () {
           that._publishPageChanged();
@@ -134,9 +102,11 @@ require(['datatables'], function (datatable) {
         // Subscribe to params changes.
         $.each(this.params, function(name, value) {
           (function(paramName) {
-            that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
+            that.pubsub.subscribe(paramName + ".changed", function(msg, content, sender) {
               // Ignore changes published by this instance
-              if (sender != that) that.setParam(paramName, content.value);
+              if (sender != that && content.value != that.getParam(paramName)) {
+                that.setParam(paramName, content.value);
+              }
             });
           })(name);
         });
@@ -157,14 +127,18 @@ require(['datatables'], function (datatable) {
       return this;
     },
 
+    getParam: function(name) {
+      return this.params[name];
+    },
+
     _publishPageChanged: function() {
       this.params.page = this.table.page();
-      this.pubSub.publish("page:changed", [{ value: this.table.page() }, this]);
+      this.pubsub.publish("page.changed", { value: this.table.page() }, this);
     },
 
     _publishPerPageNumChanged: function() {
       this.params.per_page_num = this.table.page.len();
-      this.pubSub.publish("per_page_num:changed", [{ value: this.table.page.len() }, this]);
+      this.pubsub.publish("per_page_num.changed", { value: this.table.page.len() }, this);
     },
 
     _createUrl: function(url, params) {
@@ -203,7 +177,7 @@ require(['datatables'], function (datatable) {
         xhrFields: { withCredentials: false }
       })
       .done(function(data, textStatus, jqXHR) {
-        var totalCount = jqXHR.getResponseHeader('x-total-count');
+        var totalCount = jqXHR.getResponseHeader('X-Total-Count');
         if (totalCount === null) {  // `X-Total-Count` header not present
           totalCount = 10000;
         }
@@ -229,7 +203,7 @@ require(['datatables'], function (datatable) {
         // The extra params will be treated as query string.
         format: '#{{mainParam1}}/{{mainParam2}}',
         // Add all relevant params. This object will be used to subscribe for
-        // changes using pubSub. Use `null` or `undefined` for optional params
+        // changes using pubsub. Use `null` or `undefined` for optional params
         // with no initial values.
         params: {
           mainParam1: "mainParam1DefaultValue",
@@ -242,9 +216,9 @@ require(['datatables'], function (datatable) {
         parsers: {
           extraParam1: parseInt
         },
-        // The same `PubSub` object used by all components to be synced with the
+        // The same `pubsub` object used by all components to be synced with the
         // URL params.
-        pubSub: pubSub
+        pubsub: pubsub
       });
       // The URL "/#spam/eggs?extraParam1=2&extraParam2=foo" will result in
       // {
@@ -254,12 +228,12 @@ require(['datatables'], function (datatable) {
       //    extraParam2: "foo"
       // }
       //
-      // `pubSub.publish('mainParam1:changed', { value: 'ham' })` will change
+      // `pubsub.publish('mainParam1.changed', { value: 'ham' })` will change
       // the URL to "/#ham/eggs?extraParam1=2&extraParam2=foo"
       //
       // Changing any extra param to its default value will remove it from URL.
       //
-      // `pubSub.publish('extraParam1:changed', { value: 0 })` will change
+      // `pubsub.publish('extraParam1.changed', { value: 0 })` will change
       // the URL to "/#ham/eggs?extraParam2=foo"
   */
 
@@ -267,7 +241,7 @@ require(['datatables'], function (datatable) {
 
   UrlManager.prototype = {
     init: function(opts) {
-      this.pubSub = opts.pubSub;
+      this.pubsub = opts.pubsub;
       this.format = opts.format;
       this.location = opts.location || window.location;
       this.url = this.location.hash;
@@ -290,9 +264,11 @@ require(['datatables'], function (datatable) {
       // Get params from options and listen to each param change notification
       $.each(this.params, function(name, value) {
         (function(paramName) {
-          that.pubSub.subscribe(paramName + ":changed", function(evt, content, sender) {
+          that.pubsub.subscribe(paramName + ".changed", function(msg, content, sender) {
             // Ignore changes published by this instance
-            if (sender != that) that.setParam(paramName, content.value);
+            if (sender != that && content.value != that.getParam(paramName)) {
+              that.setParam(paramName, content.value);
+            }
           });
         })(name);
       })
@@ -317,7 +293,7 @@ require(['datatables'], function (datatable) {
           oldParams = this.params;
       this.params = this.extractParamsFromUrl();
       $.each(this._getDiff(oldParams, this.params), function(name, value) {
-        that.pubSub.publish(name + ':changed', [{ value: value }, that]);
+        that.pubsub.publish(name + '.changed', { value: value }, that);
       });
       return this;
     },
@@ -452,12 +428,12 @@ require(['datatables'], function (datatable) {
 
 
   // ****************************************************
-  //       PUB/SUB AND DATA TABLE INITIALIZATION
+  //          DATA TABLE INITIALIZATION
   // ****************************************************
 
   $(function main() {
-    // This pubSub object should be used by all objects that will be synced.
-    var pubSub = window.pubSub = new PubSub();
+    // This pubsub object should be used by all objects that will be synced.
+    window.pubsub = pubsub;
 
     var urlManager = window.urlManager = new UrlManager({
       format: '#{{years}}/{{code}}?{{params}}',
@@ -476,7 +452,7 @@ require(['datatables'], function (datatable) {
         page: parseInt,
         per_page_num: parseInt
       },
-      pubSub: pubSub
+      pubsub: pubsub
     });
 
     try {
@@ -507,7 +483,7 @@ require(['datatables'], function (datatable) {
           searching: false,
           ordering: false
         },
-        pubSub: pubSub,
+        pubsub: pubsub,
       });
 
     } catch(e) {

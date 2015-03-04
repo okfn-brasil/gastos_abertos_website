@@ -5,7 +5,8 @@
   "authors": [],
   "license": "MIT",
   "dependencies": {
-    "gastos_abertos_interface_module_example": "~0.0.5"
+    "gastos_abertos_interface_module_example": "~0.0.5",
+    "pubsub-js": "~1.5.2"
   },
   "ignore": [
     "**/.*",
