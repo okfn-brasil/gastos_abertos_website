@@ -205,9 +205,15 @@ function setSeries(level, point) {
         current_level = level
         bar_chart.setTitle({ text: element.name });
         num_series = bar_chart.series.length
+        // Remove all current series
         for (var i = 0; i < num_series; ++i) {
             bar_chart.series[0].remove();
         }
+        // Sort in decrescent order
+        element.children.sort(function (a, b) {
+            return b.data[0] - a.data[0]
+        })
+        // Add series
         for (var i = element.children.length; i >= 0; --i) {
             bar_chart.addSeries(element.children[i])
             // if (point) {
