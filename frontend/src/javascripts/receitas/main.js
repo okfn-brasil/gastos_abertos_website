@@ -23,10 +23,6 @@ function ($, datatable, pubsub, UrlManager, DataTable) {
   }
 
 
-  // ****************************************************
-  //          DATA TABLE INITIALIZATION
-  // ****************************************************
-
   $(function main() {
     // This pubsub object should be used by all objects that will be synced.
     window.pubsub = pubsub;
@@ -51,6 +47,13 @@ function ($, datatable, pubsub, UrlManager, DataTable) {
       pubsub: pubsub
     });
 
+    populateYearSelector(urlManager.getParam('years'))
+    createBarChart()
+    populateBarChart(urlManager.getParam('years'), urlManager.getParam('code'))
+
+    // ****************************************************
+    //          DATA TABLE INITIALIZATION
+    // ****************************************************
     try {
       var dataTable = new DataTable('#data-table', {
         url: api_url + '/api/v1/receita/list',
@@ -96,7 +99,7 @@ function ($, datatable, pubsub, UrlManager, DataTable) {
 // ****************************************************
 
 // Create chart
-function createBarChart(year_data, initial_level) {
+function createBarChart() {
     $('#bars-container').highcharts({
         chart: {
             type: 'bar',
@@ -140,7 +143,9 @@ function createBarChart(year_data, initial_level) {
                 cursor: 'pointer',
                 events: {
                     click: function (event) {
-                        setSeries(this.options.code, event.point)
+                        // Publish code change
+                        pubsub.publish('code.changed', {value: [this.options.code]})
+                        // setSeries(this.options.code, event.point)
                     }
                 }
             }
@@ -154,9 +159,19 @@ function createBarChart(year_data, initial_level) {
         //     series: year_data
         // }
     });
+
     bar_chart = $('#bars-container').highcharts();
-    // bar_up_button = $('#bars-up-button')
-    // bar_up_button.click(go_level_up)
+
+    drilldown_cache = {}
+
+    // Subscribe to year change
+    pubsub.subscribe("years.changed", function (event, data) {
+        populateBarChart(data.value, null)
+    })
+    // Subscribe to code change
+    pubsub.subscribe("code.changed", function (event, data) {
+        populateBarChart(null, data.value)
+    })
 };
 
 // get upper level for level
@@ -194,7 +209,10 @@ function createBreadcrumbs(current_level) {
 
     // adds the callback to the buttons, so they change the chart
     $(".bars-breadcrumbs-button").click(function(e) {
-        setSeries(e.target.dataset.code)
+        code = (e.target.dataset.code == "BASE") ? "" : e.target.dataset.code
+        // Publish code change
+        pubsub.publish('code.changed', {value: [code]})
+        // setSeries(e.target.dataset.code)
     })
 }
 
@@ -206,21 +224,28 @@ function setSeries(level, point) {
         bar_chart.setTitle({ text: element.name });
         num_series = bar_chart.series.length
         // Remove all current series
+            // if (point) {
+            // } else {
         for (var i = 0; i < num_series; ++i) {
             bar_chart.series[0].remove();
         }
+            // }
         // Sort in decrescent order
         element.children.sort(function (a, b) {
             return b.data[0] - a.data[0]
         })
         // Add series
+        // var t = 1
         for (var i = element.children.length; i >= 0; --i) {
             bar_chart.addSeries(element.children[i])
-            // if (point) {
+            // if (point && t) {
+            //     console.log(point.x)
+            //     console.log(point.y)
             //     bar_chart.addSeriesAsDrilldown(point, element.children[i])
             // } else {
             //     bar_chart.addSeries(element.children[i])
             // }
+            // t =1
         }
         createBreadcrumbs(current_level)
         // upper_data = year_data[getUpperLevel(current_level)]
@@ -241,32 +266,55 @@ function setSeries(level, point) {
 //     }
 // }
 
-$(function() {
-    var uriParams = window.location.search.substring(1);
-    var query = $.deserialize(uriParams);
-    var year = null
-
-    // Get year param
-    if (query.hasOwnProperty('year')) {
-        year = query.year;
-    } else {
-        //TODO: change this...
-        year = '2014'
-    }
-
-    if (query.hasOwnProperty('level')) {
-        level = query.level;
-    } else {
-        level = null
-    }
-
-    // Load ALL data for a year
-    $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
+// Populate selector and prepare its publisher
+function populateYearSelector(years) {
+    $.getJSON(api_url + '/api/v1/receita/info')
     .done(function(response_data) {
-        year_data = response_data
-        if (level == null) level = 'BASE';
-        // initial_level.colorByPoint = true
-        createBarChart();
-        setSeries(level)
+        for (var i = 0; i < response_data.length; ++i) {
+            year = response_data[i].year
+            item = '<option value="' + year + '">' + year + '</option>'
+            $("#year-selector").append(item)
+        }
+        // Set current year
+        // TODO: getting only first year... how to use more?
+        if (year) $("#year-selector").val(years[0])
+        // Subscribe to year change
+        pubsub.subscribe("years.changed", function (event, data) {
+            $("#year-selector").val(data.value)
+        })
     });
-});
+    $("#year-selector").change(function (e) {
+        // Publish year change
+        pubsub.publish('years.changed', {value: [e.target.value]})
+    })
+}
+
+function populateBarChart(years, code) {
+    if (years) {
+        // TODO: use all years? how?
+        year = years[0]   
+        same_year = false
+    } else {
+        same_year = true
+    }
+    if (!code) code = 'BASE';
+
+    bar_chart.showLoading('Carregando...');
+
+    // Look first in cache
+    if (drilldown_cache[year] || same_year) {
+        setSeries(code)
+        bar_chart.hideLoading()
+    } else {
+        // Load ALL data for a year
+        $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
+        .done(function(response_data) {
+            drilldown_cache[year] = response_data
+            // TODO: fix this year_data global thing... use only drilldown_cache? remove the "if" in the beginnig of this func and the "same_year" thing too
+            year_data = response_data
+            // initial_code.colorByPoint = true
+            setSeries(code)
+            bar_chart.hideLoading()
+        });
+    }
+}

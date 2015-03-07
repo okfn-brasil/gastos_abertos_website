@@ -3,6 +3,9 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
+    * {
+        color: black;
+    }
     a {
         text-decoration: none;
     }
@@ -19,6 +22,8 @@
 {% block body %}
     <h2>Receitas</h2>
 
+    <select id="year-selector">
+    </select>
     <div id="bars-container" style="min-width: 310px; max-width: 800px; height: 400px; margin: 0 auto"></div>
 	<div id="bars-breadcrumbs">
 		<ul id="bars-breadcrumbs-list">
