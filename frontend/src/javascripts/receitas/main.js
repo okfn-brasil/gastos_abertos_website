@@ -198,7 +198,7 @@ function createBreadcrumbs(current_level) {
     do {
         upper = getUpperLevel(level)
         if (upper) {
-            description = year_data[upper].name
+            description = drilldown_cache[current_year][upper].name
             button = "<button class='bars-breadcrumbs-button' data-code='" + upper + "'>" + description + "</button>"
             item = "<li class='bars-breadcrumbs-item'>"+ button + "</li>"
             $("#bars-breadcrumbs-list").append(item)
@@ -218,7 +218,7 @@ function createBreadcrumbs(current_level) {
 
 // Set displayed series in bar-chart to level
 function setSeries(level, point) {
-    element = year_data[level];
+    element = drilldown_cache[current_year][level];
     if (element.hasOwnProperty('children')) {
         current_level = level
         bar_chart.setTitle({ text: element.name });
@@ -290,30 +290,28 @@ function populateYearSelector(years) {
 }
 
 function populateBarChart(years, code) {
-    if (years) {
-        // TODO: use all years? how?
-        year = years[0]   
-        same_year = false
-    } else {
-        same_year = true
+    // TODO: use all years? how?
+    if (years) current_year = years[0]   
+
+    if (code == "") {
+        current_code = 'BASE'
+    } else if (code) {
+        current_code = code
     }
-    if (!code) code = 'BASE';
 
     bar_chart.showLoading('Carregando...');
 
     // Look first in cache
-    if (drilldown_cache[year] || same_year) {
-        setSeries(code)
+    if (drilldown_cache[current_year]) {
+        setSeries(current_code)
         bar_chart.hideLoading()
     } else {
         // Load ALL data for a year
-        $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + year + '.json')
+        $.getJSON(api_url + '/receita/static/total_by_year_by_code/' + current_year + '.json')
         .done(function(response_data) {
-            drilldown_cache[year] = response_data
-            // TODO: fix this year_data global thing... use only drilldown_cache? remove the "if" in the beginnig of this func and the "same_year" thing too
-            year_data = response_data
+            drilldown_cache[current_year] = response_data
             // initial_code.colorByPoint = true
-            setSeries(code)
+            setSeries(current_code)
             bar_chart.hideLoading()
         });
     }
