@@ -5,7 +5,8 @@ from __future__ import unicode_literals  # unicode by default
 import sys
 import datetime
 from collections import OrderedDict
-import pandoc
+#import pandoc
+import pypandoc
 
 from flask import Flask
 from flask import render_template, redirect, url_for
@@ -13,7 +14,7 @@ from flask.ext.babel import Babel
 from flask_flatpages import FlatPages
 from flask_frozen import Freezer
 
-pandoc.core.PANDOC_PATH = '/usr/bin/pandoc'
+#pandoc.core.PANDOC_PATH = '/usr/bin/pandoc'
 
 # TODO:
 # * Get babel locale from request path
@@ -86,9 +87,10 @@ app.jinja_env.globals.update(remove_l10n_prefix=remove_l10n_prefix)
 
 def render_markdown(text):
     ''' Render Markdown text to HTML. '''
-    doc = pandoc.Document()
-    doc.markdown = text.encode('utf8')
-    return unicode(doc.html, 'utf8')
+    # doc = pandoc.Document()
+    # doc.markdown = text.encode('utf8')
+    # return unicode(doc.html, 'utf8')
+    return pypandoc.convert(text.encode('utf8'), 'html', format='md')
 
 app.config['FLATPAGES_HTML_RENDERER'] = render_markdown
 
