@@ -13,6 +13,8 @@ from flask.ext.babel import Babel
 from flask_flatpages import FlatPages
 from flask_frozen import Freezer
 
+pandoc.core.PANDOC_PATH = '/usr/bin/pandoc'
+
 # TODO:
 # * Get babel locale from request path
 
@@ -78,7 +80,9 @@ def remove_l10n_prefix(path, locale=app.config.get('DEFAULT_LOCALE')):
 # Make remove_l10n_prefix accessible to Jinja
 app.jinja_env.globals.update(remove_l10n_prefix=remove_l10n_prefix)
 
+
 # Structure helpers
+
 
 def render_markdown(text):
     ''' Render Markdown text to HTML. '''
