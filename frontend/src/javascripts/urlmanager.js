@@ -127,6 +127,7 @@ define(["jquery"], function ($) {
             // Parse the extracted value
             value = that.parsers[key](value);
           }
+          if (value == 'null' || value == 'undefined') value = null;
           params[key] = value;
         }
       });
@@ -160,11 +161,13 @@ define(["jquery"], function ($) {
           params = $.extend({}, this.params);
       // Interpolate the main params.
       $.each(this.mainParamsNames, function(i, name) {
+        var value = params[name];
+        if (value == null) value = '';
         url = url.replace('{{' + name + '}}',
-              $.isArray(params[name]) ? params[name].join('-') : params[name]);
+              $.isArray(value) ? value.join('-') : value);
         delete params[name];
       });
-        // Remove the extra with the default values.
+        // Remove the extra params with the default values.
       $.each(params, function(name, value) {
         if (value == that.defaultParams[name]) delete params[name];
       });

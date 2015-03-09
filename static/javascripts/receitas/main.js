@@ -1,5 +1,5 @@
-require(['jquery', 'datatables', 'pubsub', 'urlmanager', 'datatable'],
-function ($, datatable, pubsub, UrlManager, DataTable) {
+require(['jquery', 'pubsub', 'urlmanager', 'datatable'],
+function ($, pubsub, UrlManager, DataTable) {
 
   "use strict";
 
@@ -31,7 +31,7 @@ function ($, datatable, pubsub, UrlManager, DataTable) {
       format: '#{{years}}/{{code}}?{{params}}',
       params: {
         years: [2014],
-        code: '1',
+        code: null,
         page: 0,
         per_page_num: 10
       },
@@ -291,9 +291,9 @@ function populateYearSelector(years) {
 
 function populateBarChart(years, code) {
     // TODO: use all years? how?
-    if (years) current_year = years[0]   
+    if (years) current_year = years[0]
 
-    if (code == "") {
+    if (code == null || code == "") {
         current_code = 'BASE'
     } else if (code) {
         current_code = code

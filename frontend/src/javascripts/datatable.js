@@ -122,7 +122,8 @@ define(['jquery', 'datatables'], function ($, datatables) {
         this.table.page.len(parseInt(value)).draw(false);
       } else {
         this.params[name] = value;
-        this.table.ajax.reload(null, false);
+        this.table.ajax.reload(null);
+        this._publishPageChanged();
       }
       return this;
     },
