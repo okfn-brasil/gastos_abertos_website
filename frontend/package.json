@@ -21,6 +21,8 @@
     "mocha": "~2.1.0"
   },
   "devDependencies": {
-    "karma-mocha-reporter": "~1.0.0"
+    "karma-mocha-reporter": "~1.0.0",
+    "karma-mocha": "~0.1.10",
+    "karma": "~0.12.31"
   }
 }
