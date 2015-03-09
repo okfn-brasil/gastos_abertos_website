@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/mocha/bin/mocha"
+    "test": "./node_modules/gulp/bin/gulp.js test"
   },
   "author": "",
   "license": "ISC",
@@ -19,5 +19,8 @@
     "gulp-riot": "~0.2.3",
     "gulp-bower-normalize": "^1.0.3",
     "mocha": "~2.1.0"
+  },
+  "devDependencies": {
+    "karma-mocha-reporter": "~1.0.0"
   }
 }

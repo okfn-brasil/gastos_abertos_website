@@ -2,6 +2,7 @@ var gulp = require('gulp'),
   less = require('gulp-less'),
   autoprefixer = require('gulp-autoprefixer'),
   sourcemaps = require('gulp-sourcemaps'),
+  karma = require('karma').server
   dest = '../static',
   src = './src',
   config = {
@@ -52,6 +53,15 @@ gulp.task('vendor', function() {
 gulp.task('build', function () {
   runSequence('riotjs', 'vendor', 'less', 'copy', function() {
     console.log('js and css build');
+  });
+});
+
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, function(exitStatus){
+    done(exitStatus ? "There are failing unit tests" : undefined);
   });
 });
 
