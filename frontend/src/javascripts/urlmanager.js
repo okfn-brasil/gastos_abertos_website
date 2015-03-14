@@ -54,7 +54,7 @@ define(["jquery"], function ($) {
       this.format = opts.format;
       this.location = opts.location || window.location;
       this.url = this.location.hash;
-      this.parsers = opts.parsers;
+      this.parsers = opts.parsers || {};
       this.defaultParams = $.extend({}, opts.params);
       this.params = $.extend({}, this.defaultParams, this.extractParamsFromUrl());
       this.handleEvents();
@@ -67,7 +67,8 @@ define(["jquery"], function ($) {
       window.onhashchange = function() {
         if (this.location.hash != that.url) {
           that.url = this.location.hash;
-          that.publish();
+          that.updateParams();
+          that.broadcast();
         }
       };
       // Get params from options and listen to each param change notification
@@ -96,11 +97,14 @@ define(["jquery"], function ($) {
       return this.params[name];
     },
 
-    publish: function() {
+    updateParams: function() {
+      this.params = this.extractParamsFromUrl();
+    },
+
+    broadcast: function() {
       // Broadcast all changes.
       var that = this,
           oldParams = this.params;
-      this.params = this.extractParamsFromUrl();
       $.each(this._getDiff(oldParams, this.params), function(name, value) {
         that.pubsub.publish(name + '.changed', { value: value }, that);
       });
@@ -110,8 +114,8 @@ define(["jquery"], function ($) {
     extractParamsFromUrl: function() {
       var that = this,
           params = {},
-          hash = this.getHash(),              // Get URL hash
-          query = this.getQuery().slice(1),   // Get query string
+          hash = this._getHash(),              // Get URL hash
+          query = this._getQuery().slice(1),   // Get query string
           // Get params from URL hash and query string
           // The URL "/#spam/eggs?foo=bar&bla=ble" will result in
           //  mainParamsValues = ['spam', 'eggs']
@@ -185,12 +189,12 @@ define(["jquery"], function ($) {
       return url;
     },
 
-    getQuery: function() {
+    _getQuery: function() {
       var match = this.location.href.match(/\?.+/);
       return match ? match[0].replace(/#.*/, '') : '';
     },
 
-    getHash: function(window) {
+    _getHash: function(window) {
       var match = this.location.href.match(/#(.*)$/);
       return match ? match[1].replace(/\?.*/, '') : '';
     },

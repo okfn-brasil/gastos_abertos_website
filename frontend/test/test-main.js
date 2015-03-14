@@ -37,24 +37,33 @@
     // example of using shim, to load non AMD libraries (such as underscore and jquery)
     paths: {
 
-      chai: bowerComponentPath('chai/chai'),
+      'chai': bowerComponentPath('chai/chai'),
+      'sinon': bowerComponentPath('sinon/lib/sinon'),
+      'sinon-chai': bowerComponentPath('sinon-chai/lib/sinon-chai'),
 
-      jquery: vendorPath('jquery/js/jquery'),
-      riot : vendorPath('riotjs/js/riot'),
-      pubsub : vendorPath('pubsub-js/js/pubsub'),
-      datatables: vendorPath('datatables/js/jquery.dataTables')
+      'jquery': vendorPath('jquery/js/jquery'),
+      'riot': vendorPath('riotjs/js/riot'),
+      'pubsub': vendorPath('pubsub-js/js/pubsub'),
+      'datatables': vendorPath('datatables/js/jquery.dataTables')
     },
 
     shim: {
-      chai: {
+      'chai': {
         exports: 'chai'
+      },
+      'sinon': {
+        exports: 'sinon'
       }
     },
 
     // dynamically load all test files
     deps: allTestFiles,
 
-    // we have to kickoff jasmine, as it is asynchronous
+    // we have to kickoff mocha, as it is asynchronous
     callback: window.__karma__.start
+  });
+
+  require(['chai', 'sinon', 'sinon-chai'], function(chai, sinon, sinonChai) {
+    chai.use(sinonChai);
   });
 })();

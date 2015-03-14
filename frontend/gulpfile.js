@@ -65,6 +65,15 @@ gulp.task('test', function (done) {
   });
 });
 
+gulp.task('tdd', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: false
+  }, function(exitStatus){
+    done(exitStatus ? "There are failing unit tests" : undefined);
+  });
+});
+
 gulp.task('server', ['build', 'watch']);
 
 gulp.task('watch', function() {

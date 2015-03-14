@@ -18,6 +18,8 @@
     "tests"
   ],
   "devDependencies": {
-    "chai": "~2.1.1"
+    "chai": "~2.1.1",
+    "sinon": "~1.13.0",
+    "sinon-chai": "~2.7.0"
   }
 }
