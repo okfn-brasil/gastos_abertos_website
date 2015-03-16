@@ -52,11 +52,13 @@ define(["jquery"], function ($) {
     init: function(opts) {
       this.pubsub = opts.pubsub;
       this.format = opts.format;
+      if (this.format.indexOf('{{params}}') == -1) this.format += "?{{params}}"
       this.location = opts.location || window.location;
-      this.url = this.location.hash;
+      this.url = this.location.href;
       this.parsers = opts.parsers || {};
       this.defaultParams = $.extend({}, opts.params);
       this.params = $.extend({}, this.defaultParams, this.extractParamsFromUrl());
+      this.lastChangedParams = {};
       this.handleEvents();
       return this;
     },
@@ -65,8 +67,8 @@ define(["jquery"], function ($) {
       var that = this;
       // Listen to hashchange event.
       window.onhashchange = function() {
-        if (this.location.hash != that.url) {
-          that.url = this.location.hash;
+        if (that.location.href != that.url) {
+          that.url = this.location.href;
           that.updateParams();
           that.broadcast();
         }
@@ -75,10 +77,7 @@ define(["jquery"], function ($) {
       $.each(this.params, function(name, value) {
         (function(paramName) {
           that.pubsub.subscribe(paramName + ".changed", function(msg, content, sender) {
-            // Ignore changes published by this instance
-            if (sender != that && content.value != that.getParam(paramName)) {
-              that.setParam(paramName, content.value);
-            }
+            that.setParam(paramName, content.value);
           });
         })(name);
       })
@@ -98,14 +97,15 @@ define(["jquery"], function ($) {
     },
 
     updateParams: function() {
+      var oldParams = this.params;
       this.params = this.extractParamsFromUrl();
+      this.lastChangedParams = this._getDiff(oldParams, this.params);
     },
 
     broadcast: function() {
       // Broadcast all changes.
-      var that = this,
-          oldParams = this.params;
-      $.each(this._getDiff(oldParams, this.params), function(name, value) {
+      var that = this;
+      $.each(this.lastChangedParams, function(name, value) {
         that.pubsub.publish(name + '.changed', { value: value }, that);
       });
       return this;
@@ -122,16 +122,21 @@ define(["jquery"], function ($) {
           //  extraParams = ['foo=bar', 'bla=ble']
           mainParamsValues = hash == "" ? [] : hash.split('/'),
           extraParams = query == "" ? [] : query.split('&');
+
+      var parse = function (key, value) {
+        if($.isFunction(that.parsers[key])) {
+          // Parse the extracted value
+          value = that.parsers[key](value);
+        }
+        return value;
+      };
       // Extract main params.
       // We get the main params keys from `format` option.
       $.each(this._getMainParamsNames(), function(i, key) {
         var value = mainParamsValues[i];
         if (value !== undefined) {
-          if($.isFunction(that.parsers[key])) {
-            // Parse the extracted value
-            value = that.parsers[key](value);
-          }
           if (value == 'null' || value == 'undefined') value = null;
+          value = parse(key, value);
           params[key] = value;
         }
       });
@@ -145,10 +150,7 @@ define(["jquery"], function ($) {
           // Already exist a param with the same key, so create an array.
           params[name] = [params[name]]
         }
-        if ($.isFunction(that.parsers[name])) {
-          // Parse the extracted value
-          value = that.parsers[name](value);
-        }
+        value = parse(name, value);
         if ($.isArray(params[name])) {
           params[name].push(value);
         } else {
@@ -180,11 +182,7 @@ define(["jquery"], function ($) {
       if (serializedParams == '') {
         url = url.replace('?{{params}}', '');
       } else {
-        if (url.indexOf('{{params}}') != -1) {
-          url = url.replace('{{params}}', serializedParams);
-        } else {
-          url += '?' + serializedParams;
-        }
+        url = url.replace('{{params}}', serializedParams);
       }
       return url;
     },
