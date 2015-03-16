@@ -196,3 +196,13 @@ def tdd():
     with lcd(FRONTENDDIR):
         cmd = '%(gulp)s tdd' % {'gulp': get_gulp()}
         local(cmd)
+
+@task
+def watch():
+    """
+    Watch files changes to build
+    """
+
+    with lcd(FRONTENDDIR):
+        cmd = '%(gulp)s watch' % {'gulp': get_gulp()}
+        local(cmd)
