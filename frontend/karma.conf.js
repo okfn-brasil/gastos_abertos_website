@@ -19,8 +19,9 @@ module.exports = function(config) {
       {pattern: 'frontend/src/javascripts/**/*.js', included: false},
       {pattern: 'frontend/test/**/*.test.js', included: false},
       {pattern: 'static/vendor/**/*.js', included: false},
-      {pattern: 'frontend/bower_components/chai/**/*.js', included: false},
-      {pattern: 'frontend/bower_components/sinon*/lib/**/*.js', included: false}
+      {pattern: 'frontend/bower_components/chai*/**/*.js', included: false},
+      {pattern: 'frontend/bower_components/sinon*/lib/**/*.js', included: false},
+      {pattern: 'frontend/node_modules/lolex/lolex.js', included: false}
     ],
 
 

@@ -52,14 +52,23 @@ define(['jquery', 'datatables'], function ($, datatables) {
   DataTable.prototype = {
     init: function(el, opts) {
       this.$el = $(el);
+      if (!this.$el.is('table')) {
+        this.$el = $('<table>');
+        $(el).append(this.$el);
+      }
       this.pubsub = opts.pubsub;
       this.url = opts.url;
       this.columns = opts.columns;
       this.dataTablesOpts = opts.options;
-      this.params = $.extend({page: null, per_page_num: null}, opts.params);
-      this.formatters = opts.formatters;
+      this.params = $.extend({page: 0, per_page_num: 10}, opts.params);
+      this.formatters = opts.formatters || {};
       this.createTableHeader().initTable().handleEvents();
       return this;
+    },
+
+    destroy: function() {
+      this.table.destroy(true);
+      // TODO: Unsubscribe pub/sub messages
     },
 
     createTableHeader: function() {
@@ -72,12 +81,13 @@ define(['jquery', 'datatables'], function ($, datatables) {
     },
 
     initTable: function() {
-      var page = this.params.page || 0,
-          perPageNum = this.params.per_page_num || 10,
+      var page = this.params.page,
+          that = this,
+          perPageNum = this.params.per_page_num,
           opts = $.extend({}, this.dataTablesOpts, {
             serverSide: true,
             // Use our ajax request function.
-            ajax: this._ajaxRequest.bind(this),
+            ajax: function() { that._ajaxRequest.apply(that, arguments); },
             // Extrac coluns from options.
             columns: $.map(this.columns, function(col) { return {data: col.field} }),
             // set the page and how many items to display.
@@ -92,19 +102,19 @@ define(['jquery', 'datatables'], function ($, datatables) {
     handleEvents: function() {
       var that = this;
       // Publish changes on `page` and `per_page_num` params.
-      if (this.pubsub) {
-        this.$el.on('page.dt',   function () { that._publishPageChanged(); });
-        this.$el.on('length.dt', function () {
-          that._publishPageChanged();
-          that._publishPerPageNumChanged();
-        });
+      this.$el.on('page.dt',   function () { that._publishPageChanged(); });
+      this.$el.on('length.dt', function () {
+        that._publishPageChanged();
+        that._publishPerPageNumChanged();
+      });
 
+      if (this.pubsub) {
         // Subscribe to params changes.
         $.each(this.params, function(name, value) {
           (function(paramName) {
-            that.pubsub.subscribe(paramName + ".changed", function(msg, content, sender) {
+            that.pubsub.subscribe(paramName + ".changed", function(msg, content) {
               // Ignore changes published by this instance
-              if (sender != that && content.value != that.getParam(paramName)) {
+              if (content.sender != that && content.value != that.getParam(paramName)) {
                 that.setParam(paramName, content.value);
               }
             });
@@ -134,31 +144,31 @@ define(['jquery', 'datatables'], function ($, datatables) {
 
     _publishPageChanged: function() {
       this.params.page = this.table.page();
-      this.pubsub.publish("page.changed", { value: this.table.page() }, this);
+      if (this.pubsub)
+        this.pubsub.publish("page.changed", { value: this.table.page(), sender: this });
     },
 
     _publishPerPageNumChanged: function() {
       this.params.per_page_num = this.table.page.len();
-      this.pubsub.publish("per_page_num.changed", { value: this.table.page.len() }, this);
+      if (this.pubsub)
+        this.pubsub.publish("per_page_num.changed", { value: this.table.page.len(), sender: this });
     },
 
     _createUrl: function(url, params) {
-      var separator = '?';
-      if (params) {
-        params = $.extend({}, params)
-        $.each(params, function(key, param) {
-          if (param == null) delete params[key];  // Remove empty values
-        });
-        url += separator + $.param(params, true);
-      }
-      return url;
+      params = $.extend({}, params)
+      $.each(params, function(key, param) {
+        if (param == null) delete params[key];  // Remove empty values
+      });
+      return url + '?' + $.param(params, true);
     },
 
     _formatData: function(data) {
       var formatters = this.formatters;
       $.each(data, function(i, row) {
         $.each(formatters, function(column, formatter) {
-          if (row[column] !== undefined) row[column] = formatter(row[column]);
+          if (row[column] !== undefined && $.isFunction(formatter)) {
+            row[column] = formatter(row[column]);
+          }
         });
       });
       return data;
@@ -179,9 +189,6 @@ define(['jquery', 'datatables'], function ($, datatables) {
       })
       .done(function(data, textStatus, jqXHR) {
         var totalCount = jqXHR.getResponseHeader('X-Total-Count');
-        if (totalCount === null) {  // `X-Total-Count` header not present
-          totalCount = 10000;
-        }
         callback({  // Ref: http://datatables.net/manual/server-side
           draw: draw,
           recordsTotal: totalCount,

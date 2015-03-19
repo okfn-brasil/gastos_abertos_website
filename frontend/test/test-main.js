@@ -40,6 +40,8 @@
       'chai': bowerComponentPath('chai/chai'),
       'sinon': bowerComponentPath('sinon/lib/sinon'),
       'sinon-chai': bowerComponentPath('sinon-chai/lib/sinon-chai'),
+      'chai-jquery': bowerComponentPath('chai-jquery/chai-jquery'),
+      'lolex': nodeModulePath('lolex/lolex'),
 
       'jquery': vendorPath('jquery/js/jquery'),
       'riot': vendorPath('riotjs/js/riot'),
@@ -47,23 +49,38 @@
       'datatables': vendorPath('datatables/js/jquery.dataTables')
     },
 
+    // Workaround to set global `lolex`
+    map: {
+      '*': { 'lolex': 'lolex-global' },
+      'lolex-global': { 'lolex': 'lolex' }
+    },
+
     shim: {
       'chai': {
         exports: 'chai'
       },
       'sinon': {
-        exports: 'sinon'
+        exports: 'sinon',
+        deps: ['lolex']
       }
     },
 
     // dynamically load all test files
-    deps: allTestFiles,
+    deps: allTestFiles.concat(['lolex']),
 
     // we have to kickoff mocha, as it is asynchronous
     callback: window.__karma__.start
   });
 
-  require(['chai', 'sinon', 'sinon-chai'], function(chai, sinon, sinonChai) {
+  // Workaround to set global `lolex`
+  define('lolex-global', ['lolex'], function(lolex) {
+    window.lolex = lolex;
+    return lolex;
+  });
+
+  require(['chai', 'sinon', 'sinon-chai', 'chai-jquery'],
+  function(chai, sinon, sinonChai, chaiJquery) {
     chai.use(sinonChai);
+    chai.use(chaiJquery);
   });
 })();

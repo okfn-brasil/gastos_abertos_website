@@ -62,14 +62,14 @@ function(chai, sinon, pubsub, UrlManager) {
           expect(urlManager.getParam('param1')).to.be.equal(opts.params.param1);
           locationFake.href = '/base#null/param2NewValue';
           urlManager.updateParams();
-          expect(urlManager.getParam('param1')).to.be.equal(null);
+          expect(urlManager.getParam('param1')).to.be.null;
         });
 
         it('should convert "undefined" string to null', function() {
           expect(urlManager.getParam('param1')).to.be.equal(opts.params.param1);
           locationFake.href = '/base#undefined/param2NewValue';
           urlManager.updateParams();
-          expect(urlManager.getParam('param1')).to.be.equal(null);
+          expect(urlManager.getParam('param1')).to.be.null;
         });
       });
 
@@ -101,6 +101,7 @@ function(chai, sinon, pubsub, UrlManager) {
           var spy = sinon.spy(urlManager, 'broadcast');
           window.onhashchange();
           expect(spy).to.not.have.been.called;
+          urlManager.broadcast.restore();
         });
       });
 
