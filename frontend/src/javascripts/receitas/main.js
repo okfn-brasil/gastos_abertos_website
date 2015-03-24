@@ -192,6 +192,11 @@ function createBreadcrumbs(current_level) {
     level = current_level
     // Remove ALL previous breadcrumbs TODO: this is sub-optimum...
     $(".bars-breadcrumbs-item").remove()
+
+    description = drilldown_cache[current_year][level].name
+    item = "<li class='bars-breadcrumbs-item'>"+ description + "</li>"
+    $("#bars-breadcrumbs-list").prepend(item)
+
     // avoids this code from exploding in a strange case
     anti_bomb = 10
     // creates a crumb for upper level
@@ -201,7 +206,7 @@ function createBreadcrumbs(current_level) {
             description = drilldown_cache[current_year][upper].name
             button = "<button class='bars-breadcrumbs-button' data-code='" + upper + "'>" + description + "</button>"
             item = "<li class='bars-breadcrumbs-item'>"+ button + "</li>"
-            $("#bars-breadcrumbs-list").append(item)
+            $("#bars-breadcrumbs-list").prepend(item)
         }
         level = upper
         anti_bomb -= 1
