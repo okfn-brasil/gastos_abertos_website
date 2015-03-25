@@ -74,7 +74,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
     createTableHeader: function() {
       var $tr = $('<tr>');
       $.each(this.columns, function(i, column) {
-        $tr.append($('<th>').text(column.title));
+        $tr.append($('<th>').text(column.title).addClass(column.className));
       });
       this.$el.append($('<thead>').append($tr));
       return this;
@@ -89,10 +89,23 @@ define(['jquery', 'datatables'], function ($, datatables) {
             // Use our ajax request function.
             ajax: function() { that._ajaxRequest.apply(that, arguments); },
             // Extrac coluns from options.
-            columns: $.map(this.columns, function(col) { return {data: col.field} }),
+            columns: $.map(this.columns, function(col) {
+              return {data: col.field, className: col.className}
+            }),
             // set the page and how many items to display.
             pageLength: perPageNum,
-            displayStart: (page * perPageNum)
+            displayStart: (page * perPageNum),
+            pagingType: 'full_numbers',
+            dom: '<"datatable-controls"lfp>rti',
+            language: {
+              search: '',
+              paginate: {
+                first: '<<',
+                previous: '<',
+                next: '>',
+                last: '>>'
+              }
+            }
           });
       // Get a reference to DataTables API.
       this.table = this.$el.dataTable(opts).api();
@@ -101,6 +114,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
 
     handleEvents: function() {
       var that = this;
+      this.$el.on('draw.dt',   function () { that._resizeSearchBox(); });
       // Publish changes on `page` and `per_page_num` params.
       this.$el.on('page.dt',   function () { that._publishPageChanged(); });
       this.$el.on('length.dt', function () {
@@ -140,6 +154,12 @@ define(['jquery', 'datatables'], function ($, datatables) {
 
     getParam: function(name) {
       return this.params[name];
+    },
+
+    _resizeSearchBox: function() {
+      var total = this.$el.parent().find('.datatable-controls').width();
+      var width = total - this.$el.parent().find('.dataTables_paginate').width() - 50;
+      this.$el.parent().find('.dataTables_filter input[type=search]').width(width);
     },
 
     _publishPageChanged: function() {
