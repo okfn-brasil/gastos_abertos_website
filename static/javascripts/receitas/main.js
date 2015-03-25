@@ -14,12 +14,17 @@ function ($, pubsub, UrlManager, DataTable) {
     return date.getUTCDate() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
   }
 
-  function formatCurrency(value) {
+  function formatCurrency(value, symbol) {
+    if (symbol == null) {
+      symbol = "";
+    } else {
+      symbol += "&nbsp;"
+    }
     // Format currency values as "R$ 123.456,78".
     var number = new Number(value).toFixed(2)         // Force the length of decimal
                 .replace('.', ',')                    // Use comma as decimal mark
                 .replace(/\d(?=(\d{3})+\,)/g, '$&.'); // Add points as thousands separator
-    return "R$&nbsp;" + number;
+    return symbol + number;
   }
 
 
@@ -62,8 +67,8 @@ function ($, pubsub, UrlManager, DataTable) {
           { field: 'date',              title: 'Data'},
           { field: 'code',              title: 'Código'},
           { field: 'description',       title: 'Descrição'},
-          { field: 'monthly_predicted', title: 'Previsto'},
-          { field: 'monthly_outcome',   title: 'Realizado'}
+          { field: 'monthly_predicted', title: 'Previsto (R$)', className: 'col-predicted'},
+          { field: 'monthly_outcome',   title: 'Realizado (R$)', className: 'col-outcome'}
         ],
         formatters: {
           date: formatDate,
@@ -79,7 +84,7 @@ function ($, pubsub, UrlManager, DataTable) {
         // DataTables options.
         // Disable searching and ordering.
         options: {
-          searching: false,
+          //searching: false,
           ordering: false
         },
         pubsub: pubsub,
