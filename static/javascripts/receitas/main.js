@@ -193,7 +193,6 @@ function createBreadcrumbs(current_level) {
     // Remove ALL previous breadcrumbs TODO: this is sub-optimum...
     $(".bars-breadcrumbs-item").remove()
 
-    // Add current level title
     description = drilldown_cache[current_year][level].name
     item = "<li class='bars-breadcrumbs-item'>"+ description + "</li>"
     $("#bars-breadcrumbs-list").prepend(item)
