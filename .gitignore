@@ -7,3 +7,4 @@ pyandoc
 frontend/bower_components
 frontend/node_modules
 settings/local_settings.py
+coverage

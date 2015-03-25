@@ -19,7 +19,9 @@ module.exports = function(config) {
       {pattern: 'frontend/src/javascripts/**/*.js', included: false},
       {pattern: 'frontend/test/**/*.test.js', included: false},
       {pattern: 'static/vendor/**/*.js', included: false},
-      {pattern: 'frontend/bower_components/chai/**/*.js', included: false}
+      {pattern: 'frontend/bower_components/chai*/**/*.js', included: false},
+      {pattern: 'frontend/bower_components/sinon*/lib/**/*.js', included: false},
+      {pattern: 'frontend/node_modules/lolex/lolex.js', included: false}
     ],
 
 
@@ -31,13 +33,14 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'frontend/src/javascripts/**/*.js': ['coverage']
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'coverage'],
 
 
     // web server port
@@ -54,7 +57,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // start these browsers
@@ -64,6 +67,13 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: true
+    singleRun: true,
+
+    coverageReporter: {
+      reporters:[
+        {type: 'html', dir:'coverage/'},
+        {type: 'text-summary'}
+      ],
+    }
   });
 };

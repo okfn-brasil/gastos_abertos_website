@@ -177,7 +177,6 @@ def deploy():
         run("cp -r build build-old")
         put('build', '.')
 
-
 @task
 def test():
     """
@@ -185,5 +184,25 @@ def test():
     """
 
     with lcd(FRONTENDDIR):
-        cmd = '%(npm)s test' % {'npm': get_npm()}
+        cmd = '%(gulp)s test' % {'gulp': get_gulp()}
+        local(cmd)
+
+@task
+def tdd():
+    """
+    Watch files changes to run frontend tests
+    """
+
+    with lcd(FRONTENDDIR):
+        cmd = '%(gulp)s tdd' % {'gulp': get_gulp()}
+        local(cmd)
+
+@task
+def watch():
+    """
+    Watch files changes to build
+    """
+
+    with lcd(FRONTENDDIR):
+        cmd = '%(gulp)s watch' % {'gulp': get_gulp()}
         local(cmd)

@@ -37,24 +37,50 @@
     // example of using shim, to load non AMD libraries (such as underscore and jquery)
     paths: {
 
-      chai: bowerComponentPath('chai/chai'),
+      'chai': bowerComponentPath('chai/chai'),
+      'sinon': bowerComponentPath('sinon/lib/sinon'),
+      'sinon-chai': bowerComponentPath('sinon-chai/lib/sinon-chai'),
+      'chai-jquery': bowerComponentPath('chai-jquery/chai-jquery'),
+      'lolex': nodeModulePath('lolex/lolex'),
 
-      jquery: vendorPath('jquery/js/jquery'),
-      riot : vendorPath('riotjs/js/riot'),
-      pubsub : vendorPath('pubsub-js/js/pubsub'),
-      datatables: vendorPath('datatables/js/jquery.dataTables')
+      'jquery': vendorPath('jquery/js/jquery'),
+      'riot': vendorPath('riotjs/js/riot'),
+      'pubsub': vendorPath('pubsub-js/js/pubsub'),
+      'datatables': vendorPath('datatables/js/jquery.dataTables')
+    },
+
+    // Workaround to set global `lolex`
+    map: {
+      '*': { 'lolex': 'lolex-global' },
+      'lolex-global': { 'lolex': 'lolex' }
     },
 
     shim: {
-      chai: {
+      'chai': {
         exports: 'chai'
+      },
+      'sinon': {
+        exports: 'sinon',
+        deps: ['lolex']
       }
     },
 
     // dynamically load all test files
-    deps: allTestFiles,
+    deps: allTestFiles.concat(['lolex']),
 
-    // we have to kickoff jasmine, as it is asynchronous
+    // we have to kickoff mocha, as it is asynchronous
     callback: window.__karma__.start
+  });
+
+  // Workaround to set global `lolex`
+  define('lolex-global', ['lolex'], function(lolex) {
+    window.lolex = lolex;
+    return lolex;
+  });
+
+  require(['chai', 'sinon', 'sinon-chai', 'chai-jquery'],
+  function(chai, sinon, sinonChai, chaiJquery) {
+    chai.use(sinonChai);
+    chai.use(chaiJquery);
   });
 })();
