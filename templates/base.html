@@ -58,62 +58,70 @@
         <!-- /.container -->
     </nav>
 
+    <section id="preintro">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-11 col-lg-offset-1">
+                    {% block preintro %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="intro">
         <div id="header-bg">
             <img src="{{ url_for('static', filename='img/bg-header.png') }}" border="0">
         </div>
-        <div id="header-container" class="container">
-            <div class="logo-header">
-               <div class="row">
-                    <div class="col-sm-2 col-sm-offset-5 col-xs-8 col-xs-offset-2">
-                        <img class="hr" src="{{ url_for('static', filename='img/hr-white.png') }}" height="1" border="0">
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!-- <div id="header-container" class="container"> -->
+        <!--     <div class="logo-header"> -->
+        <!--        <div class="row"> -->
+        <!--             <div class="col-sm-2 col-sm-offset-5 col-xs-8 col-xs-offset-2"> -->
+        <!--                 <img class="hr" src="{{ url_for('static', filename='img/hr-white.png') }}" height="1" border="0"> -->
+        <!--             </div> -->
+        <!--         </div> -->
+        <!--     </div> -->
+        <!-- </div> -->
     </section>
 
     <section class="content">
         <div class="container">
             <div class="row">
-                <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-                    {% block body %}{% endblock %}
+                <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-11 col-lg-offset-1">
+                    {% block content %}
+                    {% endblock %}
                 </div>
             </div>
         </div>
     </section>
 
-    {% block content %}
-    {% endblock %}
+    <!-- <section id="follow" class="content-section green-section text-center"> -->
+    <!--     <div class="container"> -->
+    <!--         <div class="row"> -->
+    <!--             <div class="col-lg-2 col-lg-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3"> -->
+    <!--                 <img class="full-width" src="{{ url_for('static', filename='img/follow-logo.svg') }}" border="0"> -->
+    <!--             </div> -->
+    <!--         </div> -->
 
-    <section id="follow" class="content-section green-section text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-lg-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
-                    <img class="full-width" src="{{ url_for('static', filename='img/follow-logo.svg') }}" border="0">
-                </div>
-            </div>
-
-            <p class="medium-text">Acompanhe o projeto <br>
-            <a class="irc" href="http://webchat.freenode.net/?channels=gastosabertos">#gastosabertos</a></p>
-        </div>
-    </section>
+    <!--         <p class="medium-text">Acompanhe o projeto <br> -->
+    <!--         <a class="irc" href="http://webchat.freenode.net/?channels=gastosabertos">#gastosabertos</a></p> -->
+    <!--     </div> -->
+    <!-- </section> -->
 
 	<footer>
 		<div class="container">
-            <p>
-                <div class="horizontaly-marged">
-                    Gastos Abertos é um projeto coordenado pela:
-                    <img src="{{ url_for('static', filename='img/okbr-logo.png') }}" border="0">
-                </div>
-                <div class="horizontaly-marged">
-                    Apoio:
-                    <img id="google-logo" src="{{ url_for('static', filename='img/google-logo.png') }}" border="0">
-                </div>
-            </p>
-            <p>
-                Um projeto da Open Knowledge Brasil 2014 - Todo conteúdo desse site é licensiado sob uma <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Licença Creative Commons Atribuição 3.0 Não Adaptada</a>.
-            </p>
+        <p>
+            <div class="horizontaly-marged">
+                Gastos Abertos é um projeto coordenado pela:
+                <img src="{{ url_for('static', filename='img/okbr-logo.png') }}" border="0">
+            </div>
+            <div class="horizontaly-marged">
+                Apoio:
+                <img id="google-logo" src="{{ url_for('static', filename='img/google-logo.png') }}" border="0">
+            </div>
+        </p>
+        <p>
+            Um projeto da Open Knowledge Brasil 2014 - Todo conteúdo desse site é licensiado sob uma <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Licença Creative Commons Atribuição 3.0 Não Adaptada</a>.
+        </p>
 		</div>
         <img class="full-width" src="{{ url_for('static', filename='img/footer-line.png') }}" border="0">
 	</footer>
