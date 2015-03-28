@@ -9,41 +9,6 @@
     table {
       color: black;
     }
-
-    #bars-breadcrumbs {
-      background-color: #fff;
-        color: #9D9D9D;
-        padding: 15px;
-        text-align: center;
-        border-radius: 5px;
-        box-shadow: 2px 2px #528c3e;
-        margin: 20px;
-    }
-    #bars-breadcrumbs ul {
-        margin: 0px;
-    }
-    #bars-breadcrumbs li {
-      display: inline;
-    }
-    #bars-breadcrumbs li:before {
-        content: ">";
-    }
-    #bars-breadcrumbs li:first-child:before {
-        content: " ";
-    }
-    #bars-breadcrumbs li:last-child:before {
-        color: #9D9D9D;
-        margin-right: 5px;
-        font-weight: normal;
-    }
-    #bars-breadcrumbs li:last-child {
-        font-weight: bold;
-        color: #528C3E;
-    }
-    #bars-breadcrumbs button {
-      background-color: rgba(153, 21, 78, 0.01);
-      border: none;
-    }
   </style>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">
 {% endblock %}
@@ -51,10 +16,14 @@
 
 {% block title %}Receitas{% endblock %}
 
-{% block body %}
-    <h2>Receitas</h2>
+{% block preintro %}
+    <h2>receitas</h2>
+    <hr/>
+    <p>informações blah blah
+{% endblock %}
 
-    <select id="year-selector">
+{% block content %}
+    <select class="center-block text-center" id="year-selector">
     </select>
 	  <div id="bars-breadcrumbs">
         <ul id="bars-breadcrumbs-list">
@@ -64,7 +33,6 @@
 
     <table id="data-table" class="display" cellspacing="0" width="100%">
     </table>
-
 {% endblock %}
 
 {% block script %}

@@ -1,0 +1,35 @@
+#bars-breadcrumbs {
+    background-color: #fff;
+    color: #9D9D9D;
+    padding: 22px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 2px 2px #528c3e;
+    margin: 20px;
+    font-size: 14pt;
+    ul {
+        margin: 0px;
+    }
+    li {
+        display: inline;
+        &:before {
+            content: ">";
+        }
+        &:first-child:before {
+            content: " ";
+        }
+        &:last-child:before {
+            color: #9D9D9D;
+            margin-right: 5px;
+            font-weight: normal;
+        }
+        &:last-child {
+            font-weight: bold;
+            color: #528C3E;
+        }
+    }
+    button {
+        background-color: rgba(153, 21, 78, 0.01);
+        border: none;
+    }
+}

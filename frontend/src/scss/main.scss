@@ -1,3 +1,37 @@
+$verde-claro: #73B29C;
+
 @import "partials/base";
 
 @import "partials/datatable";
+
+@import "partials/bargraph";
+
+
+#preintro {
+    border-bottom: 1px solid #cbcbcb;
+    font-size: 14pt;
+    margin-top: 50px; 
+    background-color: white;
+    h2 {
+       font-size: 46px;
+       font-weight: bold;
+    }
+    p {
+      margin-top: 10px;
+    }
+    hr {
+        margin: 0px auto;
+        border-color: #CBCBCB;
+    }
+}
+
+#year-selector {
+            color: $verde-claro;
+width: 350px;
+padding: 15pt;
+            background-color: white;
+font-size: 18pt;
+border-radius: 4px;
+border: 0px;
+box-shadow: 2px 2px #2D693F;
+}

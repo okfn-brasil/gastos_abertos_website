@@ -1,8 +1,8 @@
-/* Riot v2.0.11, @license MIT, (c) 2015 Muut Inc. + contributors */
+/* Riot v2.0.13, @license MIT, (c) 2015 Muut Inc. + contributors */
 
 ;(function() {
 
-  var riot = { version: 'v2.0.11', settings: {} }
+  var riot = { version: 'v2.0.13', settings: {} }
 
   'use strict'
 
@@ -62,6 +62,10 @@ riot.observable = function(el) {
       }
     }
 
+    if (callbacks.all && name != 'all') {
+      el.trigger.apply(el, ['all', name].concat(args))
+    }
+
     return el
   }
 
@@ -79,7 +83,7 @@ riot.observable = function(el) {
       current
 
   function hash() {
-    return loc.hash.slice(1)
+    return loc.href.split('#')[1] || ''
   }
 
   function parser(path) {
@@ -165,13 +169,14 @@ var brackets = (function(orig, s, b) {
     if (b != s) b = s.split(' ')
 
     // if regexp given, rewrite it with current brackets (only if differ from default)
-    // else, get brackets
     return x && x.test
       ? s == orig
         ? x : RegExp(x.source
                       .replace(/\{/g, b[0].replace(/(?=.)/g, '\\'))
                       .replace(/\}/g, b[1].replace(/(?=.)/g, '\\')),
                     x.global ? 'g' : '')
+
+      // else, get specific bracket
       : b[x]
 
   }
@@ -181,8 +186,7 @@ var brackets = (function(orig, s, b) {
 var tmpl = (function() {
 
   var cache = {},
-      re_expr = /({[\s\S]*?})/,
-      re_vars = /(['"\/]).*?[^\\]\1|\.\w*|\w*:|\b(?:(?:new|typeof|in|instanceof) |(?:this|true|false|null|undefined)\b|function *\()|([a-z_]\w*)/gi
+      re_vars = /(['"\/]).*?[^\\]\1|\.\w*|\w*:|\b(?:(?:new|typeof|in|instanceof) |(?:this|true|false|null|undefined)\b|function *\()|([a-z_$]\w*)/gi
               // [ 1               ][ 2  ][ 3 ][ 4                                                                                  ][ 5       ]
               // find variable names:
               // 1. skip quoted strings and regexps: "a b", 'a b', 'a \'b\'', /a b/
@@ -202,14 +206,14 @@ var tmpl = (function() {
   function tmpl(s, p) {
 
     // default template string to {}
-    p = (s || (brackets(0) + brackets(1)))
+    s = (s || (brackets(0) + brackets(1)))
 
       // temporarily convert \{ and \} to a non-character
-      .replace(brackets(/\\{/), '\uFFF0')
-      .replace(brackets(/\\}/), '\uFFF1')
+      .replace(brackets(/\\{/g), '\uFFF0')
+      .replace(brackets(/\\}/g), '\uFFF1')
 
-      // split string to expression and non-expresion parts
-      .split(brackets(re_expr))
+    // split string to expression and non-expresion parts
+    p = split(s, extract(s, brackets(/{/), brackets(/}/)))
 
     return new Function('d', 'return ' + (
 
@@ -226,7 +230,7 @@ var tmpl = (function() {
           return i % 2
 
               // evaluate the expressions
-              ? expr(s, 1)
+              ? expr(s, true)
 
               // process string parts of the template:
               : '"' + s
@@ -259,7 +263,7 @@ var tmpl = (function() {
       // convert new lines to spaces
       .replace(/\n/g, ' ')
 
-      // trim whitespace, curly brackets, strip comments
+      // trim whitespace, brackets, strip comments
       .replace(brackets(/^[{ ]+|[ }]+$|\/\*.+?\*\//g), '')
 
     // is it an object literal? i.e. { key : value }
@@ -267,11 +271,29 @@ var tmpl = (function() {
 
       // if object literal, return trueish keys
       // e.g.: { show: isOpen(), done: item.done } -> "show done"
-      ? '[' + s.replace(/\W*([\w- ]+)\W*:([^,]+)/g, function(_, k, v) {
+      ? '[' +
 
-        return v.replace(/[^&|=!><]+/g, wrap) + '?"' + k.trim() + '":"",'
+          // extract key:val pairs, ignoring any nested objects
+          extract(s,
 
-      }) + '].join(" ")'
+              // name part: name:, "name":, 'name':, name :
+              /["' ]*[\w- ]+["' ]*:/,
+
+              // expression part: everything upto a comma followed by a name (see above) or end of line
+              /,(?=["' ]*[\w- ]+["' ]*:)|}|$/
+              ).map(function(pair) {
+
+                // get key, val parts
+                return pair.replace(/^[ "']*(.+?)[ "']*: *(.+?),? *$/, function(_, k, v) {
+
+                  // wrap all conditional parts to ignore errors
+                  return v.replace(/[^&|=!><]+/g, wrap) + '?"' + k + '":"",'
+
+                })
+
+              }).join('')
+
+        + '].join(" ").trim()'
 
       // if js expression, evaluate as javascript
       : wrap(s, n)
@@ -286,7 +308,7 @@ var tmpl = (function() {
     return !s ? '' : '(function(v){try{v='
 
         // prefix vars (name => data.name)
-        + (s.replace(re_vars, function(s, _, v) { return v ? '(d.'+v+'===undefined?window.'+v+':d.'+v+')' : s })
+        + (s.replace(re_vars, function(s, _, v) { return v ? '(d.'+v+'===undefined?'+(typeof window == 'undefined' ? 'global.' : 'window.')+v+':d.'+v+')' : s })
 
           // break the expression if its empty (resulting in undefined value)
           || 'x')
@@ -294,12 +316,56 @@ var tmpl = (function() {
       + '}finally{return '
 
         // default to empty string for falsy values except zero
-        + (nonull ? '!v&&v!==0?"":v' : 'v')
+        + (nonull === true ? '!v&&v!==0?"":v' : 'v')
 
       + '}}).call(d)'
   }
 
+
+  // split string by an array of substrings
+
+  function split(str, substrings) {
+    var parts = []
+    substrings.map(function(sub, i) {
+
+      // push matched expression and part before it
+      i = str.indexOf(sub)
+      parts.push(str.slice(0, i), sub)
+      str = str.slice(i + sub.length)
+    })
+
+    // push the remaining part
+    return parts.concat(str)
+  }
+
+
+  // match strings between opening and closing regexp, skipping any inner/nested matches
+
+  function extract(str, open, close) {
+
+    var start,
+        level = 0,
+        matches = [],
+        re = new RegExp('('+open.source+')|('+close.source+')', 'g')
+
+    str.replace(re, function(_, open, close, pos) {
+
+      // if outer inner bracket, mark position
+      if(!level && open) start = pos
+
+      // in(de)crease bracket level
+      level += open ? 1 : -1
+
+      // if outer closing bracket, grab the match
+      if(!level && close != null) matches.push(str.slice(start, pos+close.length))
+
+    })
+
+    return matches
+  }
+
 })()
+
 // { key, i in items} -> { key, i, items }
 function loopKeys(expr) {
   var ret = { val: expr },
@@ -342,8 +408,7 @@ function _each(dom, parent, expr) {
     tags.splice(pos, 0, tag)
   }
 
-
-  // clean template code after update (and let walk finish it's parse)
+  // clean template code
   parent.one('update', function() {
     root.removeChild(dom)
 
@@ -373,7 +438,22 @@ function _each(dom, parent, expr) {
     }
 
     // unmount redundant
-    each(arrDiff(rendered, items), function(item) {
+    each(rendered, function(item) {
+      if (item instanceof Object) {
+        // skip existing items
+        if (items.indexOf(item) > -1) {
+          return
+        }
+      } else {
+        // find all non-objects
+        var newItems = arrFindEquals(items, item),
+            oldItems = arrFindEquals(rendered, item)
+
+        // if more or equal amount, no need to remove
+        if (newItems.length >= oldItems.length) {
+          return
+        }
+      }
       var pos = rendered.indexOf(item),
           tag = tags[pos]
 
@@ -386,8 +466,8 @@ function _each(dom, parent, expr) {
     })
 
     // mount new / reorder
-    var nodes = root.childNodes,
-        prev_index = [].indexOf.call(nodes, prev)
+    var nodes = [].slice.call(root.childNodes),
+        prev_index = nodes.indexOf(prev)
 
     each(items, function(item, i) {
 
@@ -399,17 +479,30 @@ function _each(dom, parent, expr) {
       pos < 0 && (pos = items.lastIndexOf(item, i))
       oldPos < 0 && (oldPos = rendered.lastIndexOf(item, i))
 
+      if (!(item instanceof Object)) {
+        // find all non-objects
+        var newItems = arrFindEquals(items, item),
+            oldItems = arrFindEquals(rendered, item)
+
+        // if more, should mount one new
+        if (newItems.length > oldItems.length) {
+          oldPos = -1
+        }
+      }
+
       // mount new
       if (oldPos < 0) {
+        rendered.push(item)
         if (!checksum && expr.key) item = mkitem(expr, item, pos)
 
         var tag = new Tag({ tmpl: template }, {
           before: nodes[prev_index + 1 + pos],
           parent: parent,
           root: root,
-          loop: true,
           item: item
         })
+
+        tag.mount()
 
         return add(pos, item, tag)
       }
@@ -436,17 +529,34 @@ function _each(dom, parent, expr) {
 
 }
 
-function parseNamedElements(root, tag, expressions) {
+
+function parseNamedElements(root, parent, child_tags) {
+
   walk(root, function(dom) {
     if (dom.nodeType == 1) {
+
+      // custom child tag
+      var child = getTag(dom)
+
+      if (child && !dom.getAttribute('each')) {
+        var tag = new Tag(child, { root: dom, parent: parent })
+        parent.tags[dom.getAttribute('name') || child.name] = tag
+        // empty the child node once we got its template
+        // to avoid that its children get compiled multiple times
+        dom.innerHTML = ''
+        child_tags.push(tag)
+      }
+
       each(dom.attributes, function(attr) {
-        if (/^(name|id)$/.test(attr.name)) tag[attr.value] = dom
+        if (/^(name|id)$/.test(attr.name)) parent[attr.value] = dom
       })
     }
+
   })
+
 }
 
-function parseLayout(root, tag, expressions) {
+function parseExpressions(root, tag, expressions) {
 
   function addExpr(dom, val, extra) {
     if (val.indexOf(brackets(0)) >= 0) {
@@ -478,15 +588,11 @@ function parseLayout(root, tag, expressions) {
 
     })
 
-    // custom child tag
-    var impl = tag_impl[dom.tagName.toLowerCase()]
-
-    if (impl) {
-      impl = new Tag(impl, { root: dom, parent: tag })
-      return false
-    }
+    // skip custom tags
+    if (getTag(dom)) return false
 
   })
+
 }
 
 function Tag(impl, conf) {
@@ -495,14 +601,18 @@ function Tag(impl, conf) {
       opts = inherit(conf.opts) || {},
       dom = mkdom(impl.tmpl),
       parent = conf.parent,
-      is_loop = conf.loop,
       expressions = [],
+      child_tags = [],
       root = conf.root,
       item = conf.item,
+      fn = impl.fn,
       attr = {},
       loop_dom
 
-  extend(this, { parent: parent, root: root, opts: opts }, item)
+  if (fn && root.riot) return
+  root.riot = true
+
+  extend(this, { parent: parent, root: root, opts: opts, tags: {} }, item)
 
   // grab attributes
   each(root.attributes, function(el) {
@@ -524,54 +634,67 @@ function Tag(impl, conf) {
     self.trigger('updated')
   }
 
+  this.mount = function() {
+
+    updateOpts()
+
+    // initialiation
+    fn && fn.call(self, opts)
+
+    toggle(true)
+
+    // parse layout after init. fn may calculate args for nested custom tags
+    parseExpressions(dom, self, expressions)
+
+    self.update()
+
+    // internal use only, fixes #403
+    self.trigger('premount')
+
+    if (fn) {
+      while (dom.firstChild) root.appendChild(dom.firstChild)
+
+    } else {
+      loop_dom = dom.firstChild
+      root.insertBefore(loop_dom, conf.before || null) // null needed for IE8
+    }
+
+    if (root.stub) self.root = root = parent.root
+    self.trigger('mount')
+
+  }
+
+
   this.unmount = function() {
-    var el = is_loop ? loop_dom : root,
+    var el = fn ? root : loop_dom,
         p = el.parentNode
 
     if (p) {
       if (parent) p.removeChild(el)
       else while (root.firstChild) root.removeChild(root.firstChild)
+      toggle()
       self.trigger('unmount')
-      parent && parent.off('update', self.update).off('unmount', self.unmount)
       self.off('*')
+      delete root.riot
     }
 
   }
 
-  function mount() {
+  function toggle(is_mount) {
 
-    // internal use only, fixes #403
-    self.trigger('premount')
+    // mount/unmount children
+    each(child_tags, function(child) { child[is_mount ? 'mount' : 'unmount']() })
 
-    if (is_loop) {
-      loop_dom = dom.firstChild
-      root.insertBefore(loop_dom, conf.before || null) // null needed for IE8
-
-    } else {
-      while (dom.firstChild) root.appendChild(dom.firstChild)
+    // listen/unlisten parent (events flow one way from parent to children)
+    if (parent) {
+      var evt = is_mount ? 'on' : 'off'
+      parent[evt]('update', self.update)[evt]('unmount', self.unmount)
     }
-
-    if (root.stub) self.root = root = parent.root
-
-    // one way data flow: propagate updates and unmounts downwards from parent to children
-    parent && parent.on('update', self.update).one('unmount', self.unmount)
-
-    self.trigger('mount')
   }
-
-  updateOpts()
 
   // named elements available for fn
-  parseNamedElements(dom, this)
+  parseNamedElements(dom, this, child_tags)
 
-  // fn (initialiation)
-  if (impl.fn) impl.fn.call(this, opts)
-
-  // parse layout after init. fn may calculate args for nested custom tags
-  parseLayout(dom, this, expressions)
-
-  this.update()
-  mount()
 
 }
 
@@ -614,9 +737,13 @@ function update(expressions, tag, item) {
 
     var dom = expr.dom,
         attr_name = expr.attr,
-        value = tmpl(expr.expr, tag)
+        value = tmpl(expr.expr, tag),
+        parent = expr.dom.parentNode
 
     if (value == null) value = ''
+
+    // leave out riot- prefixes from strings inside textarea
+    if (parent && parent.tagName == 'TEXTAREA') value = value.replace(/riot-/g, '')
 
     // no change
     if (expr.value === value) return
@@ -656,7 +783,7 @@ function update(expressions, tag, item) {
       dom.value = value
 
     // <img src="{ expr }">
-    } else if (attr_name.slice(0, 4) == 'riot') {
+    } else if (attr_name.slice(0, 5) == 'riot-') {
       attr_name = attr_name.slice(5)
       value ? dom.setAttribute(attr_name, value) : remAttr(dom, attr_name)
 
@@ -725,12 +852,17 @@ function arrDiff(arr1, arr2) {
   })
 }
 
+function arrFindEquals(arr, el) {
+  return arr.filter(function (_el) {
+    return _el === el
+  })
+}
+
 function inherit(parent) {
   function Child() {}
   Child.prototype = parent
   return new Child()
 }
-
 
 /*
  Virtual dom is an array of custom tags on the document.
@@ -739,6 +871,11 @@ function inherit(parent) {
 
 var virtual_dom = [],
     tag_impl = {}
+
+
+function getTag(dom) {
+  return tag_impl[dom.tagName.toLowerCase()]
+}
 
 function injectStyle(css) {
   var node = document.createElement('style')
@@ -749,13 +886,16 @@ function injectStyle(css) {
 function mountTo(root, tagName, opts) {
   var tag = tag_impl[tagName]
 
-  if (tag && root) {
-    tag = new Tag(tag, { root: root, opts: opts })
+  if (tag && root) tag = new Tag(tag, { root: root, opts: opts })
+
+  if (tag && tag.mount) {
+    tag.mount()
     virtual_dom.push(tag)
     return tag.on('unmount', function() {
       virtual_dom.splice(virtual_dom.indexOf(tag), 1)
     })
   }
+
 }
 
 riot.tag = function(name, html, css, fn) {
@@ -797,7 +937,7 @@ riot.update = function() {
   })
 }
 
-// @depreciated
+// @deprecated
 riot.mountTo = riot.mount
 
 
