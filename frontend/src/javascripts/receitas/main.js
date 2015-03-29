@@ -102,6 +102,22 @@ function ($, pubsub, UrlManager, DataTable) {
 // ****************************************************
 //            BAR CHART
 // ****************************************************
+(function (H) {
+    console.log(H)
+    H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
+
+        // Before the original function
+        console.log("We are about to draw the graph:", this, proceed, arguments);
+
+        // Now apply the original function with the original arguments,
+        // which are sliced off this function's arguments
+        proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+
+        // Add some code after the original function
+        console.log("We just finished drawing the graph:", this.graph);
+
+    });
+}(Highcharts));
 
 // Create chart
 function createBarChart() {
@@ -120,17 +136,22 @@ function createBarChart() {
         xAxis: {
             type: 'category',
             labels: {
-              enabled: false
+                formatter: function () {
+                    return this.value;
+                }
             }
         },
         yAxis: {
             // min: 0,
             title: {
-                text: 'Valores (R$)',
+                text: 'valor (R$)',
                 // align: 'high'
             },
             labels: {
-                overflow: 'justify'
+                overflow: 'justify',
+                formatter: function(){
+                    return (this.value / 10e9) + 'bi';
+                }
             }
         },
         tooltip: {
@@ -408,3 +429,48 @@ function populateBarChart(years, code) {
         });
     }
 }
+
+
+Highcharts.theme = {
+    colors: [
+        '#94B51F',
+        '#478E4E',
+        '#3AA392',
+        '#2DBED3',
+        '#713999',
+        '#B75596',
+        '#E01919',
+        '#F36136',
+        '#F0AA1C'
+    ],
+    tooltip: { enabled: false },
+    chart: {
+        style: {
+            padding: "0px",
+            margin: "0px"
+        },
+    },
+    title: {
+        style: {
+            display: "none"
+        }
+    },
+    subtitle: {
+        style: {
+            display: "none"
+        }
+    },
+
+    legend: {
+        itemStyle: {
+            font: '9pt Trebuchet MS, Verdana, sans-serif',
+            color: 'black'
+        },
+        itemHoverStyle:{
+            color: 'gray'
+        }
+    }
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
