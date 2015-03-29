@@ -102,6 +102,22 @@ function ($, pubsub, UrlManager, DataTable) {
 // ****************************************************
 //            BAR CHART
 // ****************************************************
+(function (H) {
+    console.log(H)
+    H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
+
+        // Before the original function
+        console.log("We are about to draw the graph:", this, proceed, arguments);
+
+        // Now apply the original function with the original arguments,
+        // which are sliced off this function's arguments
+        proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+
+        // Add some code after the original function
+        console.log("We just finished drawing the graph:", this.graph);
+
+    });
+}(Highcharts));
 
 // Create chart
 function createBarChart() {
@@ -120,17 +136,22 @@ function createBarChart() {
         xAxis: {
             type: 'category',
             labels: {
-              enabled: false
+                formatter: function () {
+                    return this.value;
+                }
             }
         },
         yAxis: {
             // min: 0,
             title: {
-                text: 'Valores (R$)',
+                text: 'valor (R$)',
                 // align: 'high'
             },
             labels: {
-                overflow: 'justify'
+                overflow: 'justify',
+                formatter: function(){
+                    return (this.value / 10e9) + 'bi';
+                }
             }
         },
         tooltip: {
@@ -280,14 +301,96 @@ function setSeries(level, point) {
 function populateYearSelector(years) {
     $.getJSON(api_url + '/api/v1/receita/info')
     .done(function(response_data) {
+        var yearSelector = $("#year-selector")
         for (var i = 0; i < response_data.length; ++i) {
             year = response_data[i].year
             item = '<option value="' + year + '">' + year + '</option>'
-            $("#year-selector").append(item)
+            yearSelector.append(item)
         }
         // Set current year
         // TODO: getting only first year... how to use more?
-        if (year) $("#year-selector").val(years[0])
+        if (year) yearSelector.val(years[0])
+
+
+        // -----------SUPER STYLED SELECT------------------------------------------
+        // Iterate over each select element
+        $('select').each(function () {
+
+            // Cache the number of options
+            var $this = $(this),
+                numberOfOptions = $(this).children('option').length;
+
+            // Hides the select element
+            $this.addClass('s-hidden');
+
+            // Wrap the select element in a div
+            $this.wrap('<div class="super-select"></div>');
+
+            // Insert a styled div to sit over the top of the hidden select element
+            $this.after('<div class="super-styled-select"></div>');
+
+            // Cache the styled div
+            var $styledSelect = $this.next('div.super-styled-select');
+
+            if (year) {
+                $styledSelect.text(years[0]);
+            } else {
+                // Show the first select option in the styled div
+                $styledSelect.text($this.children('option').eq(0).text());
+            }
+
+            // Insert an unordered list after the styled div and also cache the list
+            var $list = $('<ul />', {
+                'class': 'super-options'
+            }).insertAfter($styledSelect);
+
+            // Insert a list item into the unordered list for each select option
+            for (var i = 0; i < numberOfOptions; i++) {
+                $('<li />', {
+                    text: $this.children('option').eq(i).text(),
+                    rel: $this.children('option').eq(i).val()
+                }).appendTo($list);
+            }
+
+            // Cache the list items
+            var $listItems = $list.children('li');
+
+            // Show the unordered list when the styled div is clicked (also hides it if the div is clicked again)
+            $styledSelect.click(function (e) {
+                e.stopPropagation();
+                $('div.super-styled-select.active').each(function () {
+                    $(this).removeClass('active').next('ul.super-options').hide();
+                });
+                $(this).toggleClass('active').next('ul.super-options').toggle();
+            });
+
+            // Hides the unordered list when a list item is clicked and updates the styled div to show the selected list item
+            // Updates the select element to have the value of the equivalent option
+            $listItems.click(function (e) {
+                e.stopPropagation();
+                $styledSelect.text($(this).text()).removeClass('active');
+                $this.val($(this).attr('rel'));
+                $list.hide();
+
+                pubsub.publish('years.changed', {value: [$(this).text()]})
+                /* alert($this.val()); Uncomment this for demonstration! */
+            });
+
+            // Hides the unordered list when clicking outside of it
+            $(document).click(function () {
+                $styledSelect.removeClass('active');
+                $list.hide();
+            });
+
+            // Subscribe to year change
+            pubsub.subscribe("years.changed", function (event, data) {
+                $styledSelect.text(data.value);
+            })
+
+        });
+        // ------------------------------------------------------------------------
+
+
         // Subscribe to year change
         pubsub.subscribe("years.changed", function (event, data) {
             $("#year-selector").val(data.value)
@@ -326,3 +429,48 @@ function populateBarChart(years, code) {
         });
     }
 }
+
+
+Highcharts.theme = {
+    colors: [
+        '#94B51F',
+        '#478E4E',
+        '#3AA392',
+        '#2DBED3',
+        '#713999',
+        '#B75596',
+        '#E01919',
+        '#F36136',
+        '#F0AA1C'
+    ],
+    tooltip: { enabled: false },
+    chart: {
+        style: {
+            padding: "0px",
+            margin: "0px"
+        },
+    },
+    title: {
+        style: {
+            display: "none"
+        }
+    },
+    subtitle: {
+        style: {
+            display: "none"
+        }
+    },
+
+    legend: {
+        itemStyle: {
+            font: '9pt Trebuchet MS, Verdana, sans-serif',
+            color: 'black'
+        },
+        itemHoverStyle:{
+            color: 'gray'
+        }
+    }
+};
+
+// Apply the theme
+Highcharts.setOptions(Highcharts.theme);
