@@ -1,4 +1,4 @@
-$verde-claro: #73B29C;
+$light-green: #73B29C;
 
 @import "partials/base";
 
@@ -25,13 +25,107 @@ $verde-claro: #73B29C;
     }
 }
 
+
 #year-selector {
-            color: $verde-claro;
-width: 350px;
-padding: 15pt;
-            background-color: white;
-font-size: 18pt;
-border-radius: 4px;
-border: 0px;
-box-shadow: 2px 2px #2D693F;
+//    -webkit-appearance: none;
+//    -moz-appearance: none;
+//    appearance: none;
+    color: $light-green;
+    background-color: white;
+    font-size: 18pt;
+    border-radius: 4px;
+    border: 0px;
+    box-shadow: 2px 2px #2D693F;
+    width: 350px;
+    //heigth: 5em;
+    padding: 20px;
+    margin-top: 3em;
+}
+//.select-arrow {
+//    position:relative;
+//    &:after {
+//        content:'◢';
+//        color: $light-green;
+//        right: 19px;
+//        top: 21px;
+//        -webkit-transform:rotate(45deg);
+//        -moz-transform:rotate(45deg);
+//        -ms-transform:rotate(45deg);
+//        transform:rotate(45deg);
+//        position:absolute;
+//        pointer-events:none;
+//    }
+//}
+
+.intro-text {
+    font-size: 16pt;
+    color: white;
+    margin: 2em;
+}
+
+
+.s-hidden {
+    visibility:hidden;
+    //padding-right:10px;
+}
+.super-select {
+    cursor:pointer;
+    color: $light-green;
+    background-color: white;
+    font-size: 18pt;
+    border-radius: 4px;
+    border: 0px;
+    box-shadow: 2px 2px #2D693F;
+    position:relative;
+    margin-left: auto;
+    margin-right: auto;
+    width: 14em;
+    height: 3em;
+}
+.super-styled-select {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    text-align: center;
+    top:25%;
+    &:after {
+        content:"";
+        border:5px solid transparent;
+        border-color: $light-green transparent transparent transparent;
+        position:absolute;
+        top: 25%;
+        right: 0.5em;
+    }
+}
+//.styledSelect:active, .styledSelect.active {
+//    background-color: $light-green;
+//    color:white;
+//                      
+//}
+.super-options {
+    text-align: center;
+    display:none;
+    position:absolute;
+    top:100%;
+    right:0;
+    left:0;
+    background-color: white;
+    border-radius: 4px;
+    z-index:999;
+    margin: 2px;
+    padding: 10px;
+    list-style:none;
+    box-shadow: 2px 2px #2D693F;
+    li {
+        border-radius: 4px;
+    //    padding:0 6px;
+    //    margin:0 0;
+    //    padding:0 10px;
+        &:hover {
+            background-color: $light-green;
+            color:white;
+        }
+    }
 }
