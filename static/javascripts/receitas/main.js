@@ -1,7 +1,7 @@
-require(['jquery', 'pubsub', 'urlmanager', 'datatable'],
-function ($, pubsub, UrlManager, DataTable) {
+require(['jquery', 'pubsub', 'urlmanager', 'datatable', 'superselect'],
+function ($, pubsub, UrlManager, DataTable, SuperSelect) {
 
-  "use strict";
+  'use strict';
 
   // ****************************************************
   //               DATA TABLE FORMATTERS
@@ -32,6 +32,9 @@ function ($, pubsub, UrlManager, DataTable) {
     // This pubsub object should be used by all objects that will be synced.
     window.pubsub = pubsub;
 
+    // ****************************************************
+    //          URL MANAGER INITIALIZATION
+    // ****************************************************
     var urlManager = window.urlManager = new UrlManager({
       format: '#{{years}}/{{code}}?{{params}}',
       params: {
@@ -52,9 +55,9 @@ function ($, pubsub, UrlManager, DataTable) {
       pubsub: pubsub
     });
 
-    populateYearSelector(urlManager.getParam('years'))
-    createBarChart()
-    populateBarChart(urlManager.getParam('years'), urlManager.getParam('code'))
+    populateYearSelector(urlManager.getParam('years'), SuperSelect);
+    createBarChart();
+    populateBarChart(urlManager.getParam('years'), urlManager.getParam('code'));
 
     // ****************************************************
     //          DATA TABLE INITIALIZATION
@@ -298,194 +301,34 @@ function setSeries(level, point) {
 // }
 
 // Populate selector and prepare its publisher
-function populateYearSelector(years) {
+function populateYearSelector(years, SuperSelect) {
+    'use strict';
     $.getJSON(api_url + '/api/v1/receita/info')
     .done(function(response_data) {
         var yearSelector = $("#year-selector")
         for (var i = 0; i < response_data.length; ++i) {
-            year = response_data[i].year
-            item = '<option value="' + year + '">' + year + '</option>'
+            var year = response_data[i].year;
+            var item = '<option value="' + year + '">' + year + '</option>';
             yearSelector.append(item)
         }
         // Set current year
         // TODO: getting only first year... how to use more?
-        if (year) yearSelector.val(years[0])
-
+        if (years) yearSelector.val(years[0])
 
         // -----------SUPER STYLED SELECT------------------------------------------
         // Iterate over each select element
-        $('select').each(function () {
+        $('#year-selector').each(function () {
+          var yearSelector = new SuperSelect($(this));
 
-            // Cache the number of options
-            var $this = $(this),
-                numberOfOptions = $(this).children('option').length;
+          // Subscribe to year change
+          pubsub.subscribe("years.changed", function (event, data) {
+            yearSelector.setValue(data.value);
+          });
 
-            // Hides the select element
-            $this.addClass('s-hidden');
-
-            // Wrap the select element in a div
-            $this.wrap('<div class="super-select"></div>');
-
-            // Insert a styled div to sit over the top of the hidden select element
-            $this.after('<div class="super-styled-select" role="listbox" tabindex="0"></div>');
-
-            // Cache the styled div
-            var $styledSelect = $this.next('div.super-styled-select');
-
-            if (year) {
-                $styledSelect.text(years[0]);
-            } else {
-                // Show the first select option in the styled div
-                $styledSelect.text($this.children('option').eq(0).text());
-            }
-
-            // Insert an unordered list after the styled div and also cache the list
-            var $list = $('<ul />', {
-                'class': 'super-options'
-            }).insertAfter($styledSelect);
-
-            // Insert a list item into the unordered list for each select option
-            for (var i = 0; i < numberOfOptions; i++) {
-                $('<li />', {
-                    'text': $this.children('option').eq(i).text(),
-                    'rel':  $this.children('option').eq(i).val(),
-                    'role': 'option',
-                    'tabindex': '-1'
-                }).appendTo($list);
-            }
-
-            // Cache the list items
-            var $listItems = $list.children('li');
-
-            var openList = function (e) {
-                e.stopPropagation();
-                $('div.super-styled-select.active').each(function () {
-                    $(this).removeClass('active').next('ul.super-options').hide();
-                });
-                $(this).toggleClass('active').next('ul.super-options').toggle();
-                $(this).attr('aria-expanded', true);
-                $selectedListItem.focus();
-            };
-
-            var closeList = function () {
-                $styledSelect.removeClass('active');
-                $styledSelect.attr('aria-expanded', false);
-                $list.hide();
-            };
-
-            var toggleList = function() {
-              if($styledSelect.hasClass('active')) {
-                closeList.apply(this, arguments);
-              } else {
-                openList.apply(this, arguments)
-              }
-            };
-
-            var listPublishChanged = function() {
-              pubsub.publish('years.changed', {value: [$styledSelect.text()]});
-
-              /* alert($this.val()); Uncomment this for demonstration! */
-            };
-
-            var updateList = function() {
-              $listItems.removeClass('selected').removeAttr('aria-selected');
-              $selectedListItem.addClass('selected').attr('aria-selected', true);
-              $styledSelect.text($selectedListItem.text());
-              $this.val($selectedListItem.attr('rel'));
-            };
-
-            var $selectedListItem;
-            var setListValue = function(value) {
-              $selectedListItem = $listItems.filter(function() { return $(this).text() == value; });
-              updateList();
-            };
-
-            // Show the unordered list when the styled div is clicked (also hides it if the div is clicked again)
-            $styledSelect.click(openList);
-
-            // Keys values
-            var ENTER = 13;
-            var SPACE = 32;
-            var DOWN = 40;
-            var UP = 38;
-
-            // Toggle the unordered list when the styled div is focused and user presses ENTER or SPACE
-            // or change the selected item when user presses UP or DOWN
-            $styledSelect.keydown(function(e) {
-              e.stopPropagation();
-
-              switch (e.which) {
-                case ENTER:
-                case SPACE:
-                  // Toggle the items list
-                  e.preventDefault();
-                  toggleList.apply(this, arguments);
-                  break;
-                case UP:
-                case DOWN:
-                  // Navigate
-                  e.preventDefault();
-                  var index = $listItems.index($selectedListItem);
-                  if (e.which == DOWN && index < $listItems.length - 1) index++;
-                  if (e.which == UP && index > 0) index--;
-                  if (!~index) index = 0;
-
-                  $selectedListItem = $listItems.eq(index);
-                  updateList();
-
-                  listPublishChanged();
-                  break;
-              };
-            });
-
-            // Navigate through the list items
-            $listItems.keydown(function(e) {
-              e.stopPropagation();
-
-              switch (e.which) {
-                case ENTER:
-                case SPACE:
-                  e.preventDefault();
-                  closeList();
-                  $styledSelect.focus();
-                  listPublishChanged();
-                  break;
-                case UP:
-                case DOWN:
-                  e.preventDefault();
-                  var index = $listItems.index($selectedListItem);
-                  if (e.which == DOWN && index < $listItems.length - 1) index++;
-                  if (e.which == UP && index > 0) index--;
-                  if (!~index) index = 0;
-
-                  $selectedListItem = $listItems.eq(index);
-                  updateList();
-                  $selectedListItem.focus();
-
-                  break;
-              };
-            });
-
-            // Hides the unordered list when a list item is clicked and updates the styled div to show the selected list item
-            // Updates the select element to have the value of the equivalent option
-            $listItems.click(function (e) {
-                e.stopPropagation();
-                setListValue($(this).text());
-                closeList();
-
-                listPublishChanged();
-            });
-
-            // Hides the unordered list when clicking outside of it
-            $(document).click(closeList);
-
-            // Subscribe to year change
-            pubsub.subscribe("years.changed", function (event, data) {
-              setListValue(data.value);
-            });
-
-            // Set the initial value
-            setListValue($this.val());
+          yearSelector.on('change', function(e, value) {
+            pubsub.publish('years.changed', {value: [value]});
+            /* alert($this.val()); Uncomment this for demonstration! */
+          });
 
         });
         // ------------------------------------------------------------------------
