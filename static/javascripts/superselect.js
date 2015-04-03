@@ -13,6 +13,7 @@ define(["jquery"], function ($) {
   // Keys values
   var ENTER = 13;
   var SPACE = 32;
+  var ESC = 27;
   var DOWN = 40;
   var UP = 38;
 
@@ -50,7 +51,7 @@ define(["jquery"], function ($) {
       // Insert an unordered list after the styled div and also cache the list
       this.$list = $('<ul />', {
         'class': 'super-options'
-      }).insertAfter(this.$styledSelect);
+      }).insertAfter(this.$styledSelect).hide();
 
       // Insert a list item into the unordered list for each select option
       for (var i = 0; i < this.numberOfOptions; i++) {
@@ -87,7 +88,7 @@ define(["jquery"], function ($) {
       // Updates the select element to have the value of the equivalent option
       this.$listItems.click(function(e) {
         e.stopPropagation();
-        _this.setValue($(this).text());
+        _this.setValue($(this).attr('rel'));
         _this.close();
         _this.triggerChange();
       });
@@ -111,7 +112,6 @@ define(["jquery"], function ($) {
             var index = _this.$listItems.index(_this.$selectedListItem);
             if (e.which == DOWN && index < _this.$listItems.length - 1) index++;
             if (e.which == UP && index > 0) index--;
-            if (!~index) index = 0;
 
             _this.$selectedListItem = _this.$listItems.eq(index);
             _this.update();
@@ -128,10 +128,11 @@ define(["jquery"], function ($) {
         switch (e.which) {
           case ENTER:
           case SPACE:
+            _this.triggerChange();
+          case ESC:
             e.preventDefault();
             _this.close();
             _this.$styledSelect.focus();
-            _this.triggerChange();
             break;
           case UP:
           case DOWN:
@@ -139,7 +140,6 @@ define(["jquery"], function ($) {
             var index = _this.$listItems.index(_this.$selectedListItem);
             if (e.which == DOWN && index < _this.$listItems.length - 1) index++;
             if (e.which == UP && index > 0) index--;
-            if (!~index) index = 0;
 
             _this.$selectedListItem = _this.$listItems.eq(index);
             _this.update();
@@ -167,11 +167,8 @@ define(["jquery"], function ($) {
       return this;
     },
 
-    open: function(e) {
-      $('div.super-styled-select.active').each(function () {
-        this.$styledSelect.removeClass('active').next('ul.super-options').hide();
-      });
-      this.$styledSelect.toggleClass('active').next('ul.super-options').toggle();
+    open: function() {
+      this.$styledSelect.toggleClass('active').next('ul.super-options').show();
       this.$styledSelect.attr('aria-expanded', true);
       this.$selectedListItem.focus();
       return this;
@@ -202,20 +199,20 @@ define(["jquery"], function ($) {
       this.$listItems.removeClass('selected').removeAttr('aria-selected');
       this.$selectedListItem.addClass('selected').attr('aria-selected', true);
       this.$styledSelect.text(this.$selectedListItem.text());
-      this.$el.val(this.$selectedListItem.attr('rel'));
+      this.$el.val(this.getValue());
       return this;
     },
 
     setValue: function(value) {
       this.$selectedListItem = this.$listItems.filter(function() {
-        return $(this).text() == value;
+        return $(this).attr('rel') == value;
       });
       this.update();
       return this;
     },
 
     getValue: function() {
-      return this.$selectedListItem.text();
+      return this.$selectedListItem.attr('rel');
     }
   };
 
