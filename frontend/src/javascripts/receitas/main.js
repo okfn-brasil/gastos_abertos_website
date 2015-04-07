@@ -237,7 +237,7 @@ function createBreadcrumbs(current_level) {
     $("#bars-breadcrumbs-list").prepend(item)
 
     // avoids this code from exploding in a strange case
-    anti_bomb = 10
+    var anti_bomb = 10
     // creates a crumb for upper level
     do {
         upper = getUpperLevel(level)
@@ -278,6 +278,7 @@ function setSeries(level, point) {
             bar_chart.series[0].remove();
         }
             // }
+
         // Sort in decrescent order
         element.children.sort(function (a, b) {
             return b.data[0] - a.data[0]
