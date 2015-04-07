@@ -271,7 +271,7 @@ function setSeries(level, point) {
         // Add series
         // var t = 1
         for (var i = element.children.length; i >= 0; --i) {
-            bar_chart.addSeries(element.children[i])
+            bar_chart.addSeries(element.children[i], false)
             // if (point && t) {
             //     console.log(point.x)
             //     console.log(point.y)
@@ -281,6 +281,16 @@ function setSeries(level, point) {
             // }
             // t =1
         }
+        // for (var i = 0; i < bar_chart.series.length; ++i) {
+        //     bar_chart.series[i].options.pointWidth = bar_width
+        // }
+        var height = 200 + bar_chart.series.length * 65
+        // bar_chart.setSize(bar_chart_width, height, false)
+        document.getElementById("bars-container").style.height = height + "px"
+        // css("height", "100px")
+
+        bar_chart.reflow()
+        bar_chart.redraw()
         createBreadcrumbs(current_level)
         // upper_data = year_data[getUpperLevel(current_level)]
         // if (upper_data) {
