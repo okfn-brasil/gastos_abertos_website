@@ -139,6 +139,7 @@ function createBarChart() {
         xAxis: {
             type: 'category',
             labels: {
+                enabled: false,
                 formatter: function () {
                     return this.value;
                 }
@@ -153,7 +154,16 @@ function createBarChart() {
             labels: {
                 overflow: 'justify',
                 formatter: function(){
-                    return (this.value / 10e9) + 'bi';
+                    var x = this.value;
+                    if (Math.abs(x/1e9) >= 1) {
+                        return (x / 1e9) + 'Bi';
+                    } else if (Math.abs(x/1e6) >= 1) {
+                        return (x / 1e6) + 'Mi';
+                    } else if (Math.abs(x/1e3) >= 1) {
+                        return (x / 1e3) + 'mil';
+                    } else {
+                        return x;
+                    }
                 }
             }
         },
@@ -252,6 +262,10 @@ function createBreadcrumbs(current_level) {
 
 // Set displayed series in bar-chart to level
 function setSeries(level, point) {
+    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA--------")
+    bar_width = 50
+    // bar_chart_width = $(bar_chart.container).width()
+
     element = drilldown_cache[current_year][level];
     if (element.hasOwnProperty('children')) {
         current_level = level
