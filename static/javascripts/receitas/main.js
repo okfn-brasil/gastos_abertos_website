@@ -105,22 +105,22 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
 // ****************************************************
 //            BAR CHART
 // ****************************************************
-(function (H) {
-    console.log(H)
-    H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
+// (function (H) {
+//     console.log(H)
+//     H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
 
-        // Before the original function
-        console.log("We are about to draw the graph:", this, proceed, arguments);
+//         // Before the original function
+//         // console.log("We are about to draw the graph:", this, proceed, arguments);
 
-        // Now apply the original function with the original arguments,
-        // which are sliced off this function's arguments
-        proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+//         // Now apply the original function with the original arguments,
+//         // which are sliced off this function's arguments
+//         proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
-        // Add some code after the original function
-        console.log("We just finished drawing the graph:", this.graph);
+//         // Add some code after the original function
+//         // console.log("We just finished drawing the graph:", this.graph);
 
-    });
-}(Highcharts));
+//     });
+// }(Highcharts));
 
 // Create chart
 function createBarChart() {
@@ -139,6 +139,7 @@ function createBarChart() {
         xAxis: {
             type: 'category',
             labels: {
+                enabled: false,
                 formatter: function () {
                     return this.value;
                 }
@@ -153,14 +154,35 @@ function createBarChart() {
             labels: {
                 overflow: 'justify',
                 formatter: function(){
-                    return (this.value / 10e9) + 'bi';
+                    var x = this.value;
+                    if (Math.abs(x/1e9) >= 1) {
+                        return (x / 1e9) + 'Bi';
+                    } else if (Math.abs(x/1e6) >= 1) {
+                        return (x / 1e6) + 'Mi';
+                    } else if (Math.abs(x/1e3) >= 1) {
+                        return (x / 1e3) + 'mil';
+                    } else {
+                        return x;
+                    }
                 }
             }
         },
         tooltip: {
+
             formatter: function() {
-                return '<b>' + this.series.name + '</b>: R$ ' + this.y
+                var point = this, series = point.series;
+                // return '<b>' + series.name + '</b>: R$ ' + point.y
+                return [
+                    // '<span style="color:' + series.color + '; font-weight: bold;">', (point.name || series.name), '</span>: ',
+                    '<b>' + series.name + '</b>: R$ ',
+                    // (!false ? ('<b>x = ' + (point.name || point.x) + ',</b> ') : ''),
+                    // '<b>',
+                    // (!true ? 'y = ' : ''),
+                    Highcharts.numberFormat(point.y, 2, ',', '.'),
+                    // '</b>'
+                ].join('');
             }
+
                  },
         plotOptions: {
             bar: {
@@ -227,7 +249,7 @@ function createBreadcrumbs(current_level) {
     $("#bars-breadcrumbs-list").prepend(item)
 
     // avoids this code from exploding in a strange case
-    anti_bomb = 10
+    var anti_bomb = 10
     // creates a crumb for upper level
     do {
         upper = getUpperLevel(level)
@@ -252,6 +274,9 @@ function createBreadcrumbs(current_level) {
 
 // Set displayed series in bar-chart to level
 function setSeries(level, point) {
+    bar_width = 50
+    // bar_chart_width = $(bar_chart.container).width()
+
     element = drilldown_cache[current_year][level];
     if (element.hasOwnProperty('children')) {
         current_level = level
@@ -264,6 +289,7 @@ function setSeries(level, point) {
             bar_chart.series[0].remove();
         }
             // }
+
         // Sort in decrescent order
         element.children.sort(function (a, b) {
             return b.data[0] - a.data[0]
@@ -271,7 +297,7 @@ function setSeries(level, point) {
         // Add series
         // var t = 1
         for (var i = element.children.length; i >= 0; --i) {
-            bar_chart.addSeries(element.children[i])
+            bar_chart.addSeries(element.children[i], false)
             // if (point && t) {
             //     console.log(point.x)
             //     console.log(point.y)
@@ -281,6 +307,16 @@ function setSeries(level, point) {
             // }
             // t =1
         }
+        // for (var i = 0; i < bar_chart.series.length; ++i) {
+        //     bar_chart.series[i].options.pointWidth = bar_width
+        // }
+        var height = 200 + bar_chart.series.length * 65
+        // bar_chart.setSize(bar_chart_width, height, false)
+        document.getElementById("bars-container").style.height = height + "px"
+        // css("height", "100px")
+
+        bar_chart.reflow()
+        bar_chart.redraw()
         createBreadcrumbs(current_level)
         // upper_data = year_data[getUpperLevel(current_level)]
         // if (upper_data) {
@@ -386,7 +422,7 @@ Highcharts.theme = {
         '#F36136',
         '#F0AA1C'
     ],
-    tooltip: { enabled: false },
+    //tooltip: { enabled: false },
     chart: {
         style: {
             padding: "0px",

@@ -105,22 +105,22 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
 // ****************************************************
 //            BAR CHART
 // ****************************************************
-(function (H) {
-    console.log(H)
-    H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
+// (function (H) {
+//     console.log(H)
+//     H.wrap(H.Chart.prototype, 'redraw', function (proceed) {
 
-        // Before the original function
-        console.log("We are about to draw the graph:", this, proceed, arguments);
+//         // Before the original function
+//         // console.log("We are about to draw the graph:", this, proceed, arguments);
 
-        // Now apply the original function with the original arguments,
-        // which are sliced off this function's arguments
-        proceed.apply(this, Array.prototype.slice.call(arguments, 1));
+//         // Now apply the original function with the original arguments,
+//         // which are sliced off this function's arguments
+//         proceed.apply(this, Array.prototype.slice.call(arguments, 1));
 
-        // Add some code after the original function
-        console.log("We just finished drawing the graph:", this.graph);
+//         // Add some code after the original function
+//         // console.log("We just finished drawing the graph:", this.graph);
 
-    });
-}(Highcharts));
+//     });
+// }(Highcharts));
 
 // Create chart
 function createBarChart() {
@@ -168,9 +168,21 @@ function createBarChart() {
             }
         },
         tooltip: {
+
             formatter: function() {
-                return '<b>' + this.series.name + '</b>: R$ ' + this.y
+                var point = this, series = point.series;
+                // return '<b>' + series.name + '</b>: R$ ' + point.y
+                return [
+                    // '<span style="color:' + series.color + '; font-weight: bold;">', (point.name || series.name), '</span>: ',
+                    '<b>' + series.name + '</b>: R$ ',
+                    // (!false ? ('<b>x = ' + (point.name || point.x) + ',</b> ') : ''),
+                    // '<b>',
+                    // (!true ? 'y = ' : ''),
+                    Highcharts.numberFormat(point.y, 2, ',', '.'),
+                    // '</b>'
+                ].join('');
             }
+
                  },
         plotOptions: {
             bar: {
@@ -262,7 +274,6 @@ function createBreadcrumbs(current_level) {
 
 // Set displayed series in bar-chart to level
 function setSeries(level, point) {
-    console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA--------")
     bar_width = 50
     // bar_chart_width = $(bar_chart.container).width()
 
@@ -411,7 +422,7 @@ Highcharts.theme = {
         '#F36136',
         '#F0AA1C'
     ],
-    tooltip: { enabled: false },
+    //tooltip: { enabled: false },
     chart: {
         style: {
             padding: "0px",
