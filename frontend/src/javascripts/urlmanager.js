@@ -124,6 +124,8 @@ define(["jquery"], function ($) {
           extraParams = query == "" ? [] : query.split('&');
 
       var parse = function (key, value) {
+        value = decodeURIComponent(value);
+        value = value.replace(/[+]/g, ' ');
         if($.isFunction(that.parsers[key])) {
           // Parse the extracted value
           value = that.parsers[key](value);
@@ -132,14 +134,17 @@ define(["jquery"], function ($) {
       };
       // Extract main params.
       // We get the main params keys from `format` option.
-      $.each(this._getMainParamsNames(), function(i, key) {
-        var value = mainParamsValues[i];
-        if (value !== undefined) {
-          if (value == 'null' || value == 'undefined') value = null;
-          value = parse(key, value);
-          params[key] = value;
-        }
-      });
+      var mainParamsNames = this._getMainParamsNames();
+      if (mainParamsNames) {
+        $.each(mainParamsNames, function(i, key) {
+          var value = mainParamsValues[i];
+          if (value !== undefined) {
+            if (value == 'null' || value == 'undefined') value = null;
+            value = parse(key, value);
+            params[key] = value;
+          }
+        });
+      }
       // Extract extra params.
       $.each(extraParams, function(i, param) {
         // Separate the extra param key from its value.
@@ -166,13 +171,16 @@ define(["jquery"], function ($) {
           url = this.format,  // Use the `format` option as a template.
           params = $.extend({}, this.params);
       // Interpolate the main params.
-      $.each(this.mainParamsNames, function(i, name) {
-        var value = params[name];
-        if (value == null) value = '';
-        url = url.replace('{{' + name + '}}',
-              $.isArray(value) ? value.join('-') : value);
-        delete params[name];
-      });
+      var mainParamsNames = this._getMainParamsNames();
+      if (mainParamsNames) {
+        $.each(mainParamsNames, function(i, name) {
+          var value = params[name];
+          if (value == null) value = '';
+          url = url.replace('{{' + name + '}}',
+                $.isArray(value) ? value.join('-') : value);
+          delete params[name];
+        });
+      }
         // Remove the extra params with the default values.
       $.each(params, function(name, value) {
         if (value == that.defaultParams[name]) delete params[name];
@@ -212,9 +220,11 @@ define(["jquery"], function ($) {
     _getMainParamsNames: function() {
       if (this.mainParamsNames == null) {
         var match = this.format.replace(/\?.*/).match(/{{([^}]*)}}/g);
-        this.mainParamsNames = $.map(match, function(param) {
-          return param.substring(2, param.length-2);
-        });
+        if (match) {
+          this.mainParamsNames = $.map(match, function(param) {
+            return param.substring(2, param.length-2);
+          });
+        }
       }
       return this.mainParamsNames;
     }

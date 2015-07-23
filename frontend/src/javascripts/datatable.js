@@ -11,7 +11,9 @@ define(['jquery', 'datatables'], function ($, datatables) {
         // The API endpoint. Should return an array of objects.
         url: api_url + '/api/v1/receita/list',
         // Define the table columns.
-        // Format: [ {field: 'jsonObjectField', title: "Column Title"}, ... ]
+        // Format: [ {field: 'jsonObjectField', title: "Column Title", param: 'paramName'}, ... ]
+        // You can join two or more fields using '&':
+        // [ {field: 'jsonObjectField1&jsonObjectField2', title: "Column Title"}, ... ]
         columns: [
           { field: 'id',                title: 'ID'},
           { field: 'date',              title: 'Data'},
@@ -51,6 +53,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
 
   DataTable.prototype = {
     init: function(el, opts) {
+      var that = this;
       this.$el = $(el);
       if (!this.$el.is('table')) {
         this.$el = $('<table>');
@@ -59,6 +62,18 @@ define(['jquery', 'datatables'], function ($, datatables) {
       this.pubsub = opts.pubsub;
       this.url = opts.url;
       this.columns = opts.columns;
+      this.multiColumns = {};
+      $.each($.grep(opts.columns, function(col) {
+        return col.field.indexOf('&') > -1;
+      }), function(i, col) {
+        that.multiColumns[col.field] = col.field.split('&');
+      });
+      this.paramColumns = {};
+      $.each($.grep(opts.columns, function(col) {
+        return col.param !== undefined;
+      }), function(i, col) {
+        that.paramColumns[col.field] = col.param;
+      });
       this.dataTablesOpts = opts.options;
       this.params = $.extend({page: 0, per_page_num: 10}, opts.params);
       this.formatters = opts.formatters || {};
@@ -88,7 +103,8 @@ define(['jquery', 'datatables'], function ($, datatables) {
             serverSide: true,
             // Use our ajax request function.
             ajax: function() { that._ajaxRequest.apply(that, arguments); },
-            // Extrac coluns from options.
+            rowCallback: function() { that._rowDrawn.apply(that, arguments); },
+            // Extract coluns from options.
             columns: $.map(this.columns, function(col) {
               return {data: col.field, className: col.className}
             }),
@@ -148,12 +164,17 @@ define(['jquery', 'datatables'], function ($, datatables) {
         this.params[name] = value;
         this.table.ajax.reload(null);
         this._publishPageChanged();
+        this._publishParamChanged(name, value);
       }
       return this;
     },
 
     getParam: function(name) {
       return this.params[name];
+    },
+
+    _rowDrawn: function(row, data, index) {
+      this._initParamActions(row);
     },
 
     _resizeSearchBox: function() {
@@ -165,13 +186,18 @@ define(['jquery', 'datatables'], function ($, datatables) {
     _publishPageChanged: function() {
       this.params.page = this.table.page();
       if (this.pubsub)
-        this.pubsub.publish("page.changed", { value: this.table.page(), sender: this });
+        this._publishParamChanged('page', this.table.page());
     },
 
     _publishPerPageNumChanged: function() {
       this.params.per_page_num = this.table.page.len();
       if (this.pubsub)
-        this.pubsub.publish("per_page_num.changed", { value: this.table.page.len(), sender: this });
+        this._publishParamChanged('per_page_num', this.table.page.len());
+    },
+
+    _publishParamChanged: function(param, value) {
+      if (this.pubsub)
+        this.pubsub.publish(param + ".changed", { value: value, sender: this });
     },
 
     _createUrl: function(url, params) {
@@ -182,13 +208,47 @@ define(['jquery', 'datatables'], function ($, datatables) {
       return url + '?' + $.param(params, true);
     },
 
+    _joinMultiColumns: function(row) {
+      $.each(this.multiColumns, function(mCol, cols) {
+        row[mCol] = [];
+        $.each(cols, function(i, col) {
+          row[mCol].push(row[col]);
+        });
+      });
+    },
+
+    _addParamAction: function(content, row, param) {
+      var tag = $('<span>');
+      tag.html(content);
+      tag.attr('class', 'filter');
+      tag.attr('data-param', param);
+      tag.attr('data-value', row[param]);
+      return tag.wrap('<div></div>').parent().html();
+    },
+
+    _initParamActions: function(row) {
+      var that = this;
+      $(row).find('[data-param]').click(function() {
+        var $this = $(this),
+            param = $this.data('param'),
+            value = $this.data('value');
+        that.setParam(param, value);
+      });
+    },
+
     _formatData: function(data) {
+      var that = this;
       var formatters = this.formatters;
       $.each(data, function(i, row) {
+        var origRow = $.extend({}, row);
+        that._joinMultiColumns(row);
         $.each(formatters, function(column, formatter) {
           if (row[column] !== undefined && $.isFunction(formatter)) {
             row[column] = formatter(row[column]);
           }
+        });
+        $.each(that.paramColumns, function(column, param) {
+          row[column] = that._addParamAction(row[column], origRow, param);
         });
       });
       return data;
