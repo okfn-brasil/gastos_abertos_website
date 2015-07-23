@@ -31,6 +31,10 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
     return values[0] + ' (' + values[1] + ')';
   }
 
+  function formatProcesso(value) {
+    return value + '<br/><a href="http://devcolab.each.usp.br/do/?per_page=20&q=%22' + value + '%22&sort=data+asc">Diário Livre</a>';
+  }
+
 
   $(function main() {
     // This pubsub object should be used by all objects that will be synced.
@@ -80,7 +84,8 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
           data_assinatura: formatDate,
           data_publicacao: formatDate,
           valor: formatCurrency,
-          'nome_fornecedor&cnpj': formatFornecedor
+          'nome_fornecedor&cnpj': formatFornecedor,
+          processo_administrativo: formatProcesso
         },
         params: {
           page: urlManager.getParam('page'),
