@@ -62,6 +62,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
       this.pubsub = opts.pubsub;
       this.url = opts.url;
       this.columns = opts.columns;
+      this.dataContainer = opts.dataContainer;
       this.multiColumns = {};
       $.each($.grep(opts.columns, function(col) {
         return col.field.indexOf('&') > -1;
@@ -239,6 +240,9 @@ define(['jquery', 'datatables'], function ($, datatables) {
     _formatData: function(data) {
       var that = this;
       var formatters = this.formatters;
+      if (this.dataContainer && data[this.dataContainer] != undefined) {
+        data = data[this.dataContainer];
+      }
       $.each(data, function(i, row) {
         var origRow = $.extend({}, row);
         that._joinMultiColumns(row);

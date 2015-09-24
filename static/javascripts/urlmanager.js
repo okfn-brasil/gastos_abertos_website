@@ -124,8 +124,10 @@ define(["jquery"], function ($) {
           extraParams = query == "" ? [] : query.split('&');
 
       var parse = function (key, value) {
-        value = decodeURIComponent(value);
-        value = value.replace(/[+]/g, ' ');
+        if (value != null) {
+          value = decodeURIComponent(value);
+          value = value.replace(/[+]/g, ' ');
+        }
         if($.isFunction(that.parsers[key])) {
           // Parse the extracted value
           value = that.parsers[key](value);

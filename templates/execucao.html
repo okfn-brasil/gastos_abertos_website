@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block head %}
+  {{ super() }}
+  <style type="text/css">
+    a {
+        text-decoration: none;
+    }
+    table {
+      color: black;
+    }
+    td .filter {
+      color: #428bca;
+      cursor: pointer;
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">
+{% endblock %}
+
+
+{% block title %}Execução{% endblock %}
+
+{% block preintro %}
+    <h2>execução</h2>
+    <hr/>
+	<p>município de São Paulo</p>
+{% endblock %}
+
+{% block content %}
+    <select class="center-block text-center" id="year-selector">
+    </select>
+    <hr>
+    <table id="data-table" class="display" cellspacing="0" width="100%">
+    </table>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='vendor/jquery/js/jquery.js') }}"></script>
+    <script type="text/javascript">
+         api_url = '{{ config['API_URL'] }}';
+    </script>
+    <script src="{{ url_for('static', filename='javascripts/execucao/main.js') }}"></script>
+{% endblock %}
