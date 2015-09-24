@@ -1,4 +1,4 @@
-main: Execução
+template: execucao.html
 
 
 teste execucao
