@@ -106,7 +106,8 @@ def root():
     path = 'main'
     page = pages.get_or_404(add_l10n_prefix(path))
 
-    return render_template('root.html', page=page, pages=pages)
+    # TODO: use "root.html"
+    return render_template('landingpage.html', page=page, pages=pages)
 
 
 @app.route('/<path:path>/')

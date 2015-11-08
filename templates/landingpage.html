@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  <!-- ROOT :: START -->
+    <!-- LANDING PAGE TITLE -->
+    {% include 'includes/root/lander_title.html' %}
+
+    <!-- ABOUT -->
+    {% include 'includes/root/about_section.html' %}
+
+    <!-- FOLLOW -->
+    {% include 'includes/root/follow_section.html' %}
+  <!-- ROOT :: END -->
+{% endblock content %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+{% endblock script %}
