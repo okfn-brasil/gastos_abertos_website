@@ -165,11 +165,11 @@ def build_static():
         local(cmd)
 
 @task
-def build():
+def build_all():
     setup()
     install_deps()
     build_static()
-    freeze()
+    build()
 
 @task
 def deploy():

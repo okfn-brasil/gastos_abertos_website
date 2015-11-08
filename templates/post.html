@@ -30,10 +30,16 @@
 
       {% if author %}
       <div class="content blog-post-author">
-        <div class="avatar"><img src="{{ url_for('static', filename=author.avatar) }}" alt="foto do usuário"></div>
+        <div class="avatar">
+          {% if author.avatar %}
+          <img src="{{ url_for('static', filename=author.avatar) }}" alt="foto do autor">
+          {% endif %}
+        </div>
         <div class="info">
           <span class="title">Sobre o autor</span> {{ author.name }}<br>{{ author }}
+          {% if author.website %}
           <a class="website" href="{{ author.website }}">Website</a>
+          {% endif %}
         </div>
       </div>
       {% endif %}
