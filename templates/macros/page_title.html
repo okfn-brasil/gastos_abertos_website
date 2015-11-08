@@ -1,7 +1,7 @@
-{% macro title(content, type='page', bright=False, cover=None) -%}
+{% macro title(content='', type='page', bright=False, cover=None) -%}
 <div class="{{ type }}-title {% if cover %}with-cover{% endif %} {% if bright %} bright{% endif %}">
   <div class="row">
-    <h1 {% if type == 'blog-post'%}itemprop="name headline"{% endif %}>{{ content }}</h1>
+    <h1 {% if type == 'blog-post'%}itemprop="name headline"{% endif %}>{% if caller %}{{ caller() }}{% endif %}{{ content }}</h1>
   </div>
 </div>
 {%- endmacro %}

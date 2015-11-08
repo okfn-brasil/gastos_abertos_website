@@ -63,7 +63,8 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
     // ****************************************************
     try {
       var dataTable = new DataTable('#data-table', {
-        url: api_url + '/api/v1/execucao/list',
+        //url: api_url + '/api/v1/execucao/list',
+        url: api_url + '/execucao/list',
         dataContainer: 'data',
         columns: [
           { field: 'ds_despesa',              title: 'Despesa'},

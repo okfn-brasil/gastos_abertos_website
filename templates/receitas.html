@@ -12,29 +12,25 @@
 
 {% block title %}Receitas{% endblock %}
 
-{% block preintro %}
-    <h2>receitas</h2>
-    <hr/>
-	<p>município de São Paulo</p>
-{% endblock %}
-
 {% block content %}
-  {{ title('Receitas') }}
+  {% call title() %}Receitas - <small>Município de São Paulo</small>{% endcall %}
   <div class="row">
-    <select class="center-block text-center" id="year-selector">
-    </select>
-    <p class="intro-text">
-      Clique nas barras para ver os dados da categoria correspondente.
-    </p>
-    <div id="bars-breadcrumbs">
-      <ul id="bars-breadcrumbs-list">
-      </ul>
-    </div>
-    <div id="bars-container"></div>
+    <div class="content">
+      <select class="center-block text-center" id="year-selector">
+      </select>
+      <div id="bars-breadcrumbs">
+        <ul id="bars-breadcrumbs-list">
+        </ul>
+      </div>
+      <h2>
+        Clique nas barras para ver os dados da categoria correspondente.
+      </h2>
+      <div id="bars-container"></div>
 
-    <table id="data-table" class="display" cellspacing="0" width="100%">
-    </table>
-  </div>
+      <table id="data-table" class="display" cellspacing="0" width="100%">
+      </table>
+    </div>
+    </div>
 {% endblock %}
 
 {% block script %}

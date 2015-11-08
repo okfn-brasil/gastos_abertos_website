@@ -51,30 +51,26 @@ freezer = Freezer(app)
 def default_locale_urls():
     ''' Genarates the urls for default locale without prefix. '''
     for page in pages:
-        if not 'main' in page.path:
-            yield '/{}/'.format(remove_l10n_prefix(page.path))
+        yield '/{}/'.format(remove_l10n_prefix(page.path))
 
 
 @freezer.register_generator
 def page_urls():
     ''' Genarates the urls with locale prefix. '''
     for page in pages:
-        if not 'main' in page.path:
-            yield '/{}/'.format(page.path)
+        yield '/{}/'.format(page.path)
 
 
 @freezer.register_generator
 def posts_urls():
     ''' Genarates the urls with locale prefix. '''
     for post in posts:
-        if not 'main' in post.path:
-            path = remove_l10n_prefix(post.path)
-            year = path[0:4]
-            month = path[4:6]
-            day = path[6:8]
-            name = path[9:]
-            print year, month, day, name
-            yield '/blog/{}/{}/{}/{}/'.format(year, month, day, name)
+        path = remove_l10n_prefix(post.path)
+        year = path[0:4]
+        month = path[4:6]
+        day = path[6:8]
+        name = path[9:]
+        yield '/blog/{}/{}/{}/{}/'.format(year, month, day, name)
 
 # l10n helpers
 

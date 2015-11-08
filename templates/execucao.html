@@ -13,14 +13,16 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">
 {% endblock %}
 
+{% block title %}Execução{% endblock %}
+
 {% block content %}
-  {{ title('Execuçao') }}
+  {% call title() %}Execução - <small>Município de São Paulo</small>{% endcall %}
   <div class="row">
     <div class="content">
-      <p>município de São Paulo</p>
+      <!--
       <select class="center-block text-center" id="year-selector">
       </select>
-      <hr>
+      -->
       <table id="data-table" class="display" cellspacing="0" width="100%">
       </table>
     </div>

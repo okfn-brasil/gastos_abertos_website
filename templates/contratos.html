@@ -15,11 +15,13 @@
 {% block title %}Contratos{% endblock %}
 
 {% block content %}
-  {{ title('Contratos') }}
+  {% call title() %}Contratos - <small>Município de São Paulo</small>{% endcall %}
   {% include 'includes/search/contratos.html' %}
   <div class="row">
-    <table id="data-table" class="display" cellspacing="0" width="100%">
-    </table>
+    <div class="content">
+      <table id="data-table" class="display" cellspacing="0" width="100%">
+      </table>
+    </div>
   </div>
 {% endblock %}
 
