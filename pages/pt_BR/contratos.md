@@ -1,3 +1,4 @@
+id: contratos
 template: contratos.html
 
 * Texto em markdown

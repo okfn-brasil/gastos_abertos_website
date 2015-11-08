@@ -1,3 +1,4 @@
+id: receitas
 template: receitas.html
 
 * Texto em markdown

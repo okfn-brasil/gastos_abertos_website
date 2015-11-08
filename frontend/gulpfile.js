@@ -25,7 +25,13 @@ gulp.task('vendor', function() {
 });
 
 gulp.task('sass', function() {
+  var sassConfig = {
+    includePaths: ['bower_components/foundation/scss'],
+    outputStyle: 'expanded',
+    errLogToConsole: true
+  };
   return gulp.src(src + '/scss/*.scss')
+    .pipe(sass(sassConfig))
     .pipe(sourcemaps.init())
     .pipe(sass({errLogToConsole: true}))
     .pipe(autoprefixer({cascade: false, browsers: ['last 2 versions']}))

@@ -8,7 +8,9 @@
     "gastos_abertos_interface_module_example": "~0.0.5",
     "pubsub-js": "~1.5.2",
     "datatables": "~1.10.5",
-    "jquery": "~2.1.3"
+    "jquery": "~2.1.3",
+    "requirejs": "~2.1",
+    "foundation": "zurb/bower-foundation"
   },
   "ignore": [
     "**/.*",
