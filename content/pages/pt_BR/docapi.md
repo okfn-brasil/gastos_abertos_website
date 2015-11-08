@@ -1,5 +1,4 @@
-template: docapi.html
-
+id: api
 
 ## Revenue
 This is the API for the revenue.

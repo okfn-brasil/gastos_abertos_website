@@ -35,7 +35,8 @@ babel = Babel(app)
 
 # Add the FlatPages extension
 pages = FlatPages(app, 'pages')
-posts = FlatPages(app, 'posts')
+posts = FlatPages(app, 'blog')
+authors = FlatPages(app, 'authors')
 
 # Add the Frozen extension
 freezer = Freezer(app)
@@ -148,6 +149,7 @@ def blog_post(path):
 
     # Get the post
     post = posts.get_or_404(path)
+    author = authors.get(post['author'])
 
     # Get custom template
     template = post.meta.get('template', 'post.html')
@@ -160,7 +162,7 @@ def blog_post(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, post=post, page=post, today=today, posts=pages)
+    return render_template(template, post=post, author=author, page=post, today=today, posts=pages)
 
 
 if __name__ == '__main__':
