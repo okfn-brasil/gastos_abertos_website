@@ -34,8 +34,8 @@ if len(sys.argv) > 2:
 babel = Babel(app)
 
 # Add the FlatPages extension
-pages = FlatPages(app)
-
+pages = FlatPages(app, 'pages')
+posts = FlatPages(app, 'posts')
 
 # Add the Frozen extension
 freezer = Freezer(app)
@@ -78,19 +78,19 @@ def remove_l10n_prefix(path, locale=app.config.get('DEFAULT_LOCALE')):
     ''' Remove specific localization prefix. '''
     return path if not path.startswith(locale) else path[(len(locale) + 1):]
 
+
 # Make remove_l10n_prefix accessible to Jinja
 app.jinja_env.globals.update(remove_l10n_prefix=remove_l10n_prefix)
 
 
 # Structure helpers
 
-
 def render_markdown(text):
     ''' Render Markdown text to HTML. '''
     # doc = pandoc.Document()
     # doc.markdown = text.encode('utf8')
     # return unicode(doc.html, 'utf8')
-    return pypandoc.convert(text.encode('utf8'), 'html', format='md')
+    return pypandoc.convert(text, 'html', format='md')
 
 app.config['FLATPAGES_HTML_RENDERER'] = render_markdown
 
@@ -106,6 +106,7 @@ def root():
     page = pages.get_or_404(add_l10n_prefix(path))
 
     return render_template('root.html', page=page, pages=pages)
+
 
 @app.route('/<path:path>/')
 def page(path):
@@ -126,6 +127,41 @@ def page(path):
 
     # Render the page
     return render_template(template, page=page, today=today, pages=pages)
+
+
+@app.route('/blog/<int:year>/<int:month>/<int:day>/<path:path>/')
+def blog_post_with_date(year, month, day, path):
+    ''' Blog post from markdown file '''
+    return blog_post_with_category_and_date(None, year, month, day, path)
+
+
+@app.route('/blog/<string:category>/<int:year>/<int:month>/<int:day>/<path:path>/')
+def blog_post_with_category_and_date(category, year, month, day, path):
+    ''' Blog post from markdown file '''
+    path = '{:04}{:02}{:02}_{}'.format(year, month, day, path)
+    path = add_l10n_prefix(path)
+    return blog_post(path)
+
+
+def blog_post(path):
+    ''' Blog posts from markdown file '''
+
+    # Get the post
+    post = posts.get_or_404(path)
+
+    # Get custom template
+    template = post.meta.get('template', 'post.html')
+
+    # Verify if need redirect
+    redirect_ = post.meta.get('redirect', None)
+    if redirect_:
+        return redirect(url_for('post', path=redirect_))
+
+    today = datetime.datetime.now().strftime("%B %dth %Y")
+
+    # Render the page
+    return render_template(template, post=post, page=post, today=today, posts=pages)
+
 
 if __name__ == '__main__':
     if len(sys.argv) > 1 and sys.argv[1] == 'build':
