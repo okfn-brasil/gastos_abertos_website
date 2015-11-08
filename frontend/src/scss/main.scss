@@ -59,7 +59,6 @@ $light-green: #73B29C;
 
 .intro-text {
     font-size: 16pt;
-    color: white;
     margin: 2em;
 }
 
@@ -69,13 +68,12 @@ $light-green: #73B29C;
     //padding-right:10px;
 }
 .super-select {
+    background-color: #f5f5f5;
     cursor:pointer;
     color: $light-green;
-    background-color: white;
     font-size: 18pt;
     border-radius: 4px;
     border: 0px;
-    box-shadow: 2px 2px #2D693F;
     position:relative;
     margin-left: auto;
     margin-right: auto;
@@ -105,6 +103,7 @@ $light-green: #73B29C;
 //                      
 //}
 .super-options {
+    background-color: #f5f5f5;
     text-align: center;
     display:none;
     position:absolute;
@@ -117,7 +116,6 @@ $light-green: #73B29C;
     margin: 2px;
     padding: 10px;
     list-style:none;
-    box-shadow: 2px 2px #2D693F;
     li {
         border-radius: 4px;
     //    padding:0 6px;

@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 
-{% block body %}
+{% block title %}{{ page.title }}{% endblock %}
 
-<h2>Página: {page.name}</h2>
-
-{{page}}
-
+{% block content %}
+  {{ title(page.title) }}
+  <div class="row">
+    <div class="content">
+      {{ page }}
+    </div>
+  </div>
 {% endblock %}

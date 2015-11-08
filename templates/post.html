@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="blog-post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="blog-post-header">
+      {{ title(post.title, type='blog-post', cover=post.cover) }}
+      {% if post.cover %}
+      <div class="blog-post-cover">
+        <img src="{{ url_for('static', filename=post.cover) }}" alt="">
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="blog-post-info">
+          <time class="blog-post-date" datetime="2015-11-04">04/11/2015</time>
+          <div class="blog-post-tags"><span class="title">Tags</span> {{ post.tags }}</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="content blog-post-content" itemprop="articleBody">
+        {{ post }}
+      </div>
+
+      <div class="blog-post-categories">
+        <span class="title">Categorias</span> {{ post.categories }}
+      </div>
+
+      {% if author %}
+      <div class="content blog-post-author">
+        <div class="avatar">
+          {% if author.avatar %}
+          <img src="{{ url_for('static', filename=author.avatar) }}" alt="foto do autor">
+          {% endif %}
+        </div>
+        <div class="info">
+          <span class="title">Sobre o autor</span> {{ author.name }}<br>{{ author }}
+          {% if author.website %}
+          <a class="website" href="{{ author.website }}">Website</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </article>
+{% endblock %}

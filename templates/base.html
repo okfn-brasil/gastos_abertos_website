@@ -1,138 +1,50 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="utf-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Teaser do projeto Gastos Abertos">
+{% from 'macros/page_title.html' import title %}
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="google-site-verification" content="acuKRhq17S_L0nDfBk1iu3PpPAVbHFjweigkCF-tzWw" />
-    <title>Gastos Abertos</title>
-    <!-- Bootstrap minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css">
-
+    <title>Gastos Abertos - {% block title %}{% endblock %}</title>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600,400italic' rel='stylesheet'>
+    <link rel="stylesheet" href="/static/vendor/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="/static/vendor/owl-carousel/owl.theme.css">
+    <link rel="stylesheet" href="/static/css/app.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="icon" type="image/png" href="/static/img/favicon.png">
+    <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
     {% block head %}
     {% endblock %}
-
-    <!-- Custom Theme CSS -->
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
-</head>
-
-<body data-spy="scroll" data-target=".navbar-custom">
-
-    <nav class="navbar navbar-fixed-top navbar-default navbar-custom" role="navigation">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-                    <i class="fa fa-bars"></i>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a href="#page-top"></a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="{{ url_for('page', path='receitas') }}">Receitas</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="{{ url_for('page', path='contratos') }}">Contratos</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="{{ url_for('page', path='execucao') }}">Execução</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="/#about">Sobre</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="/#subscribe">Inscreva-se</a>
-                    </li>
-                    <li class="page-scroll">
-                        <a href="/#follow">Acompanhe</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        <!-- /.container -->
-    </nav>
-
-    <section id="preintro">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-11 col-lg-offset-1">
-                    {% block preintro %}{% endblock %}
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="intro">
-        <div id="header-bg">
-            <img src="{{ url_for('static', filename='img/bg-header.png') }}" border="0">
-        </div>
-        {% block intro %}
-        {% endblock %}
-    </section>
-
-    {% block hardcontent %}
+    {% block style %}
     {% endblock %}
+  </head>
+  <body>
 
-    <section class="content">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-10 col-xs-offset-1 col-sm-10 col-sm-offset-1 col-md-10 col-md-offset-1 col-lg-11 col-lg-offset-1">
-                    {% block content %}
-                    {% endblock %}
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HEADER :: START -->  
+    <div class="page-wrap">
+      {% include 'includes/header.html' %}
+      <!-- .page-wrap should be closed before .site-footer -->
+<!-- HEADER :: END -->
 
-    <!-- <section id="follow" class="content-section green-section text-center"> -->
-    <!--     <div class="container"> -->
-    <!--         <div class="row"> -->
-    <!--             <div class="col-lg-2 col-lg-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3"> -->
-    <!--                 <img class="full-width" src="{{ url_for('static', filename='img/follow-logo.svg') }}" border="0"> -->
-    <!--             </div> -->
-    <!--         </div> -->
+<!-- CONTENT :: START -->
+      {% block content %}
+      {% endblock %}
+<!-- CONTENT :: END -->
 
-    <!--         <p class="medium-text">Acompanhe o projeto <br> -->
-    <!--         <a class="irc" href="http://webchat.freenode.net/?channels=gastosabertos">#gastosabertos</a></p> -->
-    <!--     </div> -->
-    <!-- </section> -->
-
-	<footer>
-		<div class="container">
-        <p>
-            <div class="horizontaly-marged">
-                Gastos Abertos é um projeto coordenado pela:
-                <img src="{{ url_for('static', filename='img/okbr-logo.png') }}" border="0">
-            </div>
-            <div class="horizontaly-marged">
-                Apoio:
-                <img id="google-logo" src="{{ url_for('static', filename='img/google-logo.png') }}" border="0">
-            </div>
-        </p>
-        <p>
-            Um projeto da Open Knowledge Brasil 2014 - Todo conteúdo deste site é licenciado sob uma <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Licença Creative Commons Atribuição 3.0 Não Adaptada</a>.
-        </p>
-		</div>
-        <img class="full-width" src="{{ url_for('static', filename='img/footer-line.png') }}" border="0">
-	</footer>
-   <script src="{{ url_for('static', filename='vendor/requirejs/js/require.js') }}"></script>
-   <script src="{{ url_for('static', filename='javascripts/config.js') }}"></script>
-  {% block script %}
-    <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
-  {% endblock script %}
-</body>
-
+<!-- FOOTER :: START -->
+    <!-- close .page-wrap -->
+    </div>
+    {% include 'includes/footer.html' %}
+<!-- FOOTER :: END -->
+    <script src="{{ url_for('static', filename='vendor/requirejs/js/require.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/config.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery/js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/modernizr/js/modernizr.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/foundation/js/foundation.js') }}"></script>
+    <script src="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/app.js') }}"></script>
+    {% block script %}
+    {% endblock %}
+  </body>
 </html>
+

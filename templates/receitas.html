@@ -3,12 +3,8 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    a {
-        text-decoration: none;
-    }
-    table {
-      color: black;
-    }
+    a { text-decoration: none; }
+    table { color: black; }
   </style>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">
 {% endblock %}
@@ -16,26 +12,25 @@
 
 {% block title %}Receitas{% endblock %}
 
-{% block preintro %}
-    <h2>receitas</h2>
-    <hr/>
-	<p>município de São Paulo</p>
-{% endblock %}
-
 {% block content %}
-    <select class="center-block text-center" id="year-selector">
-    </select>
-    <p class="intro-text">
-		Clique nas barras para ver os dados da categoria correspondente.
-    </p>
-	  <div id="bars-breadcrumbs">
+  {% call title() %}Receitas - <small>Município de São Paulo</small>{% endcall %}
+  <div class="row">
+    <div class="content">
+      <select class="center-block text-center" id="year-selector">
+      </select>
+      <div id="bars-breadcrumbs">
         <ul id="bars-breadcrumbs-list">
         </ul>
-	  </div>
-    <div id="bars-container"></div>
+      </div>
+      <h2>
+        Clique nas barras para ver os dados da categoria correspondente.
+      </h2>
+      <div id="bars-container"></div>
 
-    <table id="data-table" class="display" cellspacing="0" width="100%">
-    </table>
+      <table id="data-table" class="display" cellspacing="0" width="100%">
+      </table>
+    </div>
+    </div>
 {% endblock %}
 
 {% block script %}
@@ -44,7 +39,7 @@
     <script src="http://code.highcharts.com/modules/drilldown.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script type="text/javascript">
-         api_url = '{{ config['API_URL'] }}';
+      api_url = '{{ config['API_URL'] }}';
     </script>
     <script src="{{ url_for('static', filename='javascripts/receitas/main.js') }}"></script>
 {% endblock %}

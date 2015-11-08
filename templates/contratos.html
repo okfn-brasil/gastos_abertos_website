@@ -3,12 +3,7 @@
 {% block head %}
   {{ super() }}
   <style type="text/css">
-    a {
-        text-decoration: none;
-    }
-    table {
-      color: black;
-    }
+    table { color: black; }
     td .filter {
       color: #428bca;
       cursor: pointer;
@@ -17,24 +12,23 @@
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">
 {% endblock %}
 
-
 {% block title %}Contratos{% endblock %}
 
-{% block preintro %}
-    <h2>contratos</h2>
-    <hr/>
-	<p>município de São Paulo</p>
-{% endblock %}
-
 {% block content %}
-    <table id="data-table" class="display" cellspacing="0" width="100%">
-    </table>
+  {% call title() %}Contratos - <small>Município de São Paulo</small>{% endcall %}
+  {% include 'includes/search/contratos.html' %}
+  <div class="row">
+    <div class="content">
+      <table id="data-table" class="display" cellspacing="0" width="100%">
+      </table>
+    </div>
+  </div>
 {% endblock %}
 
 {% block script %}
-    <script src="{{ url_for('static', filename='vendor/jquery/js/jquery.js') }}"></script>
-    <script type="text/javascript">
-         api_url = '{{ config['API_URL'] }}';
-    </script>
-    <script src="{{ url_for('static', filename='javascripts/contratos/main.js') }}"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery/js/jquery.js') }}"></script>
+  <script type="text/javascript">
+    api_url = '{{ config['API_URL'] }}';
+  </script>
+  <script src="{{ url_for('static', filename='javascripts/contratos/main.js') }}"></script>
 {% endblock %}

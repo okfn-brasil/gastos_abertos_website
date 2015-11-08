@@ -18,7 +18,8 @@
     "run-sequence": "^1.0.2",
     "gulp-riot": "~0.2.3",
     "gulp-bower-normalize": "^1.0.3",
-    "mocha": "~2.1.0"
+    "mocha": "~2.1.0",
+    "requirejs": "~2.1"
   },
   "devDependencies": {
     "karma-mocha-reporter": "~1.0.0",

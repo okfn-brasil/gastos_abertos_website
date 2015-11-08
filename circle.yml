@@ -6,7 +6,7 @@ deployment:
     production:
         branch: master
         commands:
-            - fab build_static && fab build && fab deploy
+            - fab build_all && fab deploy
 test:
   override:
     - fab install_frontend_deps && fab test

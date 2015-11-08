@@ -1,98 +1,124 @@
 {% extends "base.html" %}
 
+{% block title %}Home{% endblock %}
 
-{% block intro %}
-		<div id="header-container" class="container">
-			<div class="logo-header">
-                <div class="row">
-                    <div class="col-sm-4 col-sm-offset-4 col-xs-8 col-xs-offset-2">
-                        <img class="full-width" src="{{ url_for('static', filename='img/header-logo.svg') }}" border="0">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-2 col-sm-offset-5 col-xs-8 col-xs-offset-2">
-                        <img class="hr" src="{{ url_for('static', filename='img/hr-white.png') }}" height="1" border="0">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-                        <h2>Quer acompanhar e influenciar as diretrizes dos gastos públicos da sua cidade?</h2>
-                    </div>
-                </div>
-			</div>
-		</div>
-{% endblock intro %}
+{% block content %}
+  <!-- ROOT :: START -->
+    <!-- SLIDER -->
+    {% include 'includes/root/slider.html' %}
 
-{% block hardcontent %}
+    <!-- FEATURES -->
+    {% include 'includes/root/features_section.html' %}
 
-    <section id="about" class="container content-section text-center">
-        <div class="container">
-            <div class="row">
-                <img src="{{ url_for('static', filename='img/about-icon.png') }}" border="0">
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-sm-offset-3 col-xs-10 col-xs-offset-1">
-                    <img class="hr2" src="{{ url_for('static', filename='img/hr-gray.png') }}" height="2" border="0">
+    <!-- CONTENT HIGHLIGHTS -->
+    <div class="content section">
+      <div class="content-highlights posts subsection">
+        <div class="row" data-equalizer="posts">
+          <span class="title">Posts:</span>
+          <div data-equalizer-watch="posts">
+            <a class="content-preview post">
+              <div class="content-preview-header">
+                <div class="title">
+                  Título do Post, prever linhas
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-                    <p class="green-text medium-text">Com a plataforma <b>Gastos Abertos</b>, acompanhe de forma simples e direta a <b>gestão financeira da sua cidade</b>.</p>
-                    <p>Gastos Abertos tem por objetivo facilitar a compreensão das pessoas a respeito dos gastos públicos.<br>
-                    Queremos fornecer ferramentas para que a sociedade civil organizada e os veículos de comunicação possam estimular os cidadãos a acompanhar e influenciar as tomadas de decisão sobre os gastos públicos.</p>
+                <div class"content-preview-info">
+                  <div class="tags">Orçamento | Planejamento | Cases</div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
-                    <img class="hr2" src="{{ url_for('static', filename='img/hr-gray.png') }}" height="2" border="0">
+              </div>
+            </a>
+          </div>
+
+          <div data-equalizer-watch="posts">
+            <a class="content-preview post">
+              <div class="content-preview-header">
+                <div class="title">
+                  Hotspot Wi-Fi em Sampa
                 </div>
-            </div>
+                <div class"content-preview-info">
+                  <div class="tags">WiFi | Cases</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div data-equalizer-watch="posts">
+            <a class="content-preview post">
+              <div class="content-preview-header">
+                <div class="title">
+                  Título do Post
+                </div>
+                <div class"content-preview-info">
+                  <div class="tags">Orçamento | Planejamento | Cases</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
+          <div data-equalizer-watch="posts">
+            <a class="content-preview post">
+              <div class="content-preview-header">
+                <div class="title">
+                  Hotspot Wi-Fi em Sampa
+                </div>
+                <div class"content-preview-info">
+                  <div class="tags">WiFi | Cases</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
         </div>
-    </section>
+      </div>
 
-    <section id="subscribe" class="content-section green-section text-center">
-        <div class="container">
-            <p class="green-text"><b>Inscreva-se na nossa lista de emails</b></p>
-            <div class="row">
-                <div class="col-md-8 col-md-offset-2 col-xs-10 col-xs-offset-1">
-                    <img class="hr2" src="{{ url_for('static', filename='img/hr.png') }}" height="1" border="0">
+      <div class="content-highlights news subsection">
+        <div class="row" data-equalizer="news">
+          <span class="title">Notícias:</span>
+          <div data-equalizer-watch="posts">
+            <a class="content-preview news">
+              <div class="content-preview-header">
+                <div class="title">
+                  Projeto Gastos Abertos é Notícia No Estado de São Paulo, Zero Hora e Correio Brasiliense
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-2 col-md-offset-5 col-sm-4 col-sm-offset-4 col-xs-10 col-xs-offset-1">
-                    <a href="https://lists.okfn.org/mailman/listinfo/gastosabertos" class="btn btn-default full-width">Inscrever-se</a>
+                <div class"content-preview-info">
+                  <div class="author">por Natalia Mazotte</div>
                 </div>
-            </div>
-            <!--form action="http://groups.google.com/group/gastosabertos/boxsubscribe">
-                <div class="row">
-                    <div class="form-group col-md-3 col-md-offset-2 col-sm-4 col-sm-offset-1 col-xs-10 col-xs-offset-1">
-                        <label class="sr-only" for="inputName">Nome</label>
-                        <input type="text" class="form-control" placeholder="Nome" name="name">
-                    </div>
-                    <div class="form-group col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-                        <label class="sr-only" for="inputEmail">E-mail</label>
-                        <input type="text" class="form-control" placeholder="E-mail" name="email">
-                    </div>
-                    <div class="col-md-2 col-md-offset-0 col-sm-2 col-sm-offset-0 col-xs-10 col-xs-offset-1">
-                        <button type="submit" name="sub" value="Subscribe" class="btn btn-default full-width">Inscrever</button>
-                    </div>
+              </div>
+            </a>
+          </div>
+
+          <div data-equalizer-watch="posts">
+            <a class="content-preview news">
+              <div class="content-preview-header">
+                <div class="title">
+                  Encontro Sobre a Participação Social no Planejamento Urbano
                 </div>
-            </form-->
+                <div class"content-preview-info">
+                  <div class="author">por Sergio Spagnuelo</div>
+                </div>
+              </div>
+            </a>
+          </div>
+
         </div>
-    </section>
+      </div>
 
-    <section id="follow" class="content-section green-section text-center">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-2 col-lg-offset-5 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
-                    <img class="full-width" src="{{ url_for('static', filename='img/follow-logo.svg') }}" border="0">
-                </div>
-            </div>
-
-            <p class="medium-text">Acompanhe o projeto <br>
-            <a class="irc" href="http://webchat.freenode.net/?channels=gastosabertos">#gastosabertos</a></p>
+      <div class="content-highlights events subsection">
+        <div class="row" data-equalizer="events">
+          <span class="title">Eventos:</span>
+          <div data-equalizer-watch="events">A</div>
+          <div data-equalizer-watch="events">B</div>
         </div>
-    </section>
+      </div>
+    </div>
 
+    <!-- ABOUT -->
+    {% include 'includes/root/about_section.html' %}
 
-{% endblock hardcontent %}
+    <!-- FOLLOW -->
+    {% include 'includes/root/follow_section.html' %}
+  <!-- ROOT :: END -->
+{% endblock content %}
+
+{% block script %}
+  <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+{% endblock script %}

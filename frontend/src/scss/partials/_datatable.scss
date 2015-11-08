@@ -52,6 +52,7 @@
 
     .dataTables_filter {
       input[type=search] {
+        display: none;
         width: 19em;
         height: 2.25em;
         margin: 0.5em;

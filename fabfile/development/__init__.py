@@ -160,11 +160,16 @@ def install_deps():
 
 @task
 def build_static():
-    setup()
-    install_deps()
     with lcd(FRONTENDDIR):
         cmd = '%(gulp)s build' % {'gulp': get_gulp()}
         local(cmd)
+
+@task
+def build_all():
+    setup()
+    install_deps()
+    build_static()
+    build()
 
 @task
 def deploy():
