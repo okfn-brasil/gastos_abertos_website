@@ -29,7 +29,7 @@ function(chai, sinon, SuperSelect) {
         var $items = parent.find('li');
         var $options = el.find('option');
 
-        expect($div.length).to.be.equal(1);
+        //expect($div.length).to.be.equal(1);
         expect($items.length).to.be.equal($options.length);
         for (var i = 0, len = $options.length; i < len; i++) {
           expect($items.eq(i)).to.have.text($options.eq(i).text());
