@@ -14,7 +14,7 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
     return date.getUTCDate() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
   }
 
-  function formatCurrency(value, symbol) {
+  function formatCurrency(value, row, symbol) {
     if (symbol == null) {
       symbol = "";
     } else {
