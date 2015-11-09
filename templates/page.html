@@ -3,9 +3,18 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
+  {% if page.title %}
   {{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head">
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
   <div class="row">
-    <div class="content">
+    <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
       {{ page }}
     </div>
   </div>

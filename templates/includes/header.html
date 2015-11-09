@@ -5,19 +5,19 @@
       <ul class="title-area">
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
         <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
-        <a href="/"><li class="name">Gastos Abertos</li></a>
+        <a href="{{ url_for('root') }}"><li class="name">Gastos Abertos</li></a>
       </ul>
 
       <section class="top-bar-section">
         <!-- Left Nav Section -->
         <ul class="left">
-          <li {% if page.id == 'root' %}class="active"{% endif %}><a class="page-link" href="/">Home</a></li>
-          <li><a class="page-link" href="#" title="Em breve" data-tooltip>Participe</a></li>
+          <li {% if page.id == 'root' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('root') }}">Home</a></li>
+          <li {% if page.id == 'participe' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='participe') }}">Participe</a></li>
           <li><a class="page-link" href="#" title="Em breve" data-tooltip>Blog</a></li>
           <li><a class="page-link" href="#" title="Em breve" data-tooltip>Cursos</a></li>
           <li><a class="page-link" href="#" title="Em breve" data-tooltip>News</a></li>
-          <li {% if page.id == 'receitas' %}class="active"{% endif %}><a class="page-link" href="/receitas">Receitas</a></li>
-          <li {% if page.id == 'contratos' %}class="active"{% endif %}><a class="page-link" href="/contratos">Contratos</a></li>
+          <li {% if page.id == 'receitas' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='receitas') }}">Receitas</a></li>
+          <li {% if page.id == 'contratos' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='contratos' ) }}">Contratos</a></li>
           <!--
           <li class="has-dropdown"><a class="page-link" href="#">Orçamento</a>
             <ul class="dropdown">
@@ -28,6 +28,7 @@
           </li>
           -->
           <li><a class="page-link" href="#" title="Em breve" data-tooltip>API</a></li>
+          <li {% if page.id == 'sobre' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='sobre') }}">Sobre</a></li>
         </ul>
         <!-- Right Nav Section -->
         <ul class="right">
