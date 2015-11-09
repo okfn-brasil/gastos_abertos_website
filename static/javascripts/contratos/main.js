@@ -7,6 +7,11 @@ function ($, pubsub, UrlManager, DataTable) {
   //               DATA TABLE FORMATTERS
   // ****************************************************
 
+  function formatObjeto(value) {
+    // FIXME: Incluir a url para página de detalhe do contrato
+    return '<a href="#">' + value + '</a>';
+  }
+
   function formatDate(value) {
     // Format Dates as "dd/mm/yy".
     var date = new Date(value);
@@ -66,9 +71,11 @@ function ($, pubsub, UrlManager, DataTable) {
     try {
       var dataTable = new DataTable('#data-table', {
         url: api_url + '/api/v1/contrato/list',
+        rows: [
+          { field: 'objeto',                  title: 'Objeto'},
+        ],
         columns: [
           { field: 'id',                      title: 'ID'},
-          //{ field: 'objeto',                  title: 'Objeto'},
           { field: 'valor',                   title: 'Valor (R$)'},
           { field: 'nome_fornecedor&cnpj',    title: 'Fornecedor', param: 'cnpj'},
           { field: 'orgao',                   title: 'Orgão',      param: 'orgao'},
@@ -81,6 +88,7 @@ function ($, pubsub, UrlManager, DataTable) {
           { field: 'data_publicacao',         title: 'Publicação'},
         ],
         formatters: {
+          objeto: formatObjeto,
           data_assinatura: formatDate,
           data_publicacao: formatDate,
           valor: formatCurrency,
