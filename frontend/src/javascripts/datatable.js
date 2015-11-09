@@ -279,7 +279,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
         that._joinMultiColumns(row);
         $.each(formatters, function(column, formatter) {
           if (row[column] !== undefined && $.isFunction(formatter)) {
-            row[column] = formatter(row[column]);
+            row[column] = formatter(row[column], row);
           }
         });
         $.each(that.paramColumns, function(column, param) {

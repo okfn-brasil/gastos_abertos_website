@@ -7,7 +7,7 @@ function ($, pubsub, UrlManager, DataTable) {
   //               DATA TABLE FORMATTERS
   // ****************************************************
 
-  function formatObjeto(value) {
+  function formatObjeto(value, row) {
     // FIXME: Incluir a url para página de detalhe do contrato
     return '<a href="#">' + value + '</a>';
   }
