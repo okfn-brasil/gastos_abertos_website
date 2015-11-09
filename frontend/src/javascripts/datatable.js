@@ -61,6 +61,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
       }
       this.pubsub = opts.pubsub;
       this.url = opts.url;
+      this.rows = opts.rows;
       this.columns = opts.columns;
       this.dataContainer = opts.dataContainer;
       this.multiColumns = {};
@@ -105,6 +106,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
             // Use our ajax request function.
             ajax: function() { that._ajaxRequest.apply(that, arguments); },
             rowCallback: function() { that._rowDrawn.apply(that, arguments); },
+            drawCallback: function() { that._drawn.apply(that, arguments); },
             // Extract coluns from options.
             columns: $.map(this.columns, function(col) {
               return {data: col.field, className: col.className}
@@ -176,6 +178,35 @@ define(['jquery', 'datatables'], function ($, datatables) {
 
     _rowDrawn: function(row, data, index) {
       this._initParamActions(row);
+      // Save info to create extra rows later
+      var rowsData = {};
+      if (this.rows && this.rows.length) {
+        $.each(this.rows, function(index, row) {
+          var field = row['field'],
+              content = data[field];
+          rowsData[field] = content;
+        });
+      }
+      $(row).data('extraRows', rowsData);
+    },
+
+    _drawn: function(settings) {
+      var that = this,
+          api = new $.fn.dataTable.Api(settings);
+      // Add extra rows
+      $.each(api.rows().nodes(), function(index, row) {
+        var $row = $(row),
+            rowsData = $row.data('extraRows');
+        $.each(rowsData, function(field, content) {
+          var $tr = $('<tr>'),
+              $td = $('<td>');
+          $tr.append($td);
+          $td.append(content);
+          $td.attr('colspan', that.columns.length);
+          $tr.attr('class', $row.attr('class') + ' ' + field);
+          $row.before($tr);
+        });
+      });
     },
 
     _resizeSearchBox: function() {
@@ -248,7 +279,7 @@ define(['jquery', 'datatables'], function ($, datatables) {
         that._joinMultiColumns(row);
         $.each(formatters, function(column, formatter) {
           if (row[column] !== undefined && $.isFunction(formatter)) {
-            row[column] = formatter(row[column]);
+            row[column] = formatter(row[column], row);
           }
         });
         $.each(that.paramColumns, function(column, param) {
