@@ -40,6 +40,10 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
     return value + '<br/><a href="http://devcolab.each.usp.br/do/?per_page=20&q=%22' + value + '%22&sort=data+asc">Diário Livre</a>';
   }
 
+  function formatId(value, row) {
+    return value + '<br/><a href="' + row['txt_file_url'] + '" target="_blank">Conteúdo</a>';
+  }
+
 
   $(function main() {
     // This pubsub object should be used by all objects that will be synced.
@@ -122,7 +126,8 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
           data_publicacao: formatDate,
           valor: formatCurrency,
           'nome_fornecedor&cnpj': formatFornecedor,
-          processo_administrativo: formatProcesso
+          processo_administrativo: formatProcesso,
+          id: formatId
         },
         params: {
           query: urlManager.getParam('query'),
