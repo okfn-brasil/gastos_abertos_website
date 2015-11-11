@@ -9,6 +9,7 @@
     "pubsub-js": "~1.5.2",
     "datatables": "~1.10.5",
     "jquery": "~2.1.3",
+    "jquery-mask-plugin": "~1.13",
     "requirejs": "~2.1",
     "foundation": "zurb/bower-foundation",
     "modernizr": "~2.8"

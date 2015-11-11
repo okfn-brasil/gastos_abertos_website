@@ -14,7 +14,7 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
     return date.getUTCDate() + '/' + (date.getUTCMonth() + 1) + '/' + date.getUTCFullYear();
   }
 
-  function formatCurrency(value, symbol) {
+  function formatCurrency(value, row, symbol) {
     if (symbol == null) {
       symbol = "";
     } else {
@@ -63,8 +63,7 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect) {
     // ****************************************************
     try {
       var dataTable = new DataTable('#data-table', {
-        //url: api_url + '/api/v1/execucao/list',
-        url: api_url + '/execucao/list',
+        url: api_url + '/api/v1/execucao/list',
         dataContainer: 'data',
         columns: [
           { field: 'ds_despesa',              title: 'Despesa'},

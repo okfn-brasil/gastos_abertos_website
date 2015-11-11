@@ -6,6 +6,7 @@ requirejs.config({
     baseUrl: '/static/javascripts',
     paths : {
         jquery: '../vendor/jquery/js/jquery',
+        jqueryMask: '../vendor/jquery-mask-plugin/js/jquery.mask',
         riot : '../vendor/riotjs/js/riot',
         pubsub : '../vendor/pubsub-js/js/pubsub',
         datatables: '../vendor/datatables/js/jquery.dataTables'
