@@ -1,65 +1,67 @@
-<!-- SEARCH BOX -->
-<div class="search-box contratos">
-  <div class="row">
-    <form>
-      <fieldset>
-        <label for="search-query">Busque por palavras</label>
-        <input name="query" id="search-query" type="text" placeholder="digite 3 ou mais caracteres para sugestão de busca" />
-      </fieldset>
-      <fieldset>
-        <label for="search-cnpj">ou CNPJ</label>
-        <!-- TODO: máscara para formatar o cnpj -->
-        <input name="cnpj" id="search-cnpj" type="text" placeholder="" />
-      </fieldset>
-    </form>
-  </div>
-</div>
-
-<!-- ADVANCED SEARCH BOX -->
-<ul class="advanced-search-box contratos accordion" data-accordion>
-  <li class="accordion-navigation">
-    <a href="#advanced-search" class="title">
-      <div class="row">Busca Avançada</div>
-    </a>
-    <div class="row content" id="advanced-search">
-      <form>
-        <fieldset class="search-step-1">
-          <div class="step"><span>1</span></div> <p class="description">Componha sua busca adicionando filtros. Os que não deseja utilizar, deixe em branco:</p>
-          <input name="query" id="advanced-search-query" type="text" placeholder="digite palavra-chave" />
+<div id="search-box-container">
+  <!-- SEARCH BOX -->
+  <div class="search-box contratos" id="search-box">
+    <div class="row">
+      <form id="search">
+        <fieldset>
+          <label for="search-query">Busque por palavras</label>
+          <input name="query" id="search-query" type="text" placeholder="digite 3 ou mais caracteres para sugestão de busca">
+        </fieldset>
+        <fieldset>
+          <label for="search-cnpj">ou CNPJ</label>
           <!-- TODO: máscara para formatar o cnpj -->
-          <input name="cnpj" id="advanced-search-cnpj" type="text" placeholder="digite CNPJ" />
-          <div class="row">
-            <div class="min-value-field">
-              <label for="advanced-search-min-value">Valor de:</label>
-              <!-- TODO: máscara para formatar o valor monetário -->
-              <input name="min_value" id="advanced-search-min-value" type="text" placeholder="0.000,00" />
-            </div>
-            <div class="max-value-field">
-              <label for="advanced-search-max-value">até:</label>
-              <!-- TODO: máscara para formatar o valor monetário -->
-              <input name="max_value" id="advanced-search-max-value" type="text" placeholder="0.000,00" />
-            </div>
-          </div>
-        </fieldset>
-        <fieldset class="search-step-2">
-          <div class="step"><span>2</span></div> <p class="description">Continue compondo sua busca selecionando abaixo. Os campos são auto-completáveis, e você pode selecionar mais de uma opção para cada filtro:</p>
-          <input name="orgao" id="advanced-search-orgao" type="text" placeholder="digite Órgão" />
-          <div class="row">
-            <div class="modalidade-field">
-              <label for="advanced-search-modalidade">Modalidade:</label>
-              <input name="modalidade" id="advanced-search-modalidade" type="text" placeholder="digite 3 ou mais caracteres" />
-            </div>
-            <div class="evento-field">
-              <label for="advanced-search-evento">Evento:</label>
-              <input name="eventp" id="advanced-search-evento" type="text" placeholder="digite 3 ou mais caracteres" />
-            </div>
-          </div>
-        </fieldset>
-        <div class="clearfix">
-        <fieldset class="buttons">
-          <button>Pesquisar</button>
+          <input name="cnpj" id="search-cnpj" type="text" placeholder="">
         </fieldset>
       </form>
     </div>
-  </li>
-</ul>
+  </div>
+  
+  <!-- ADVANCED SEARCH BOX -->
+  <ul class="advanced-search-box contratos accordion" data-accordion>
+    <li class="accordion-navigation">
+      <a href="#advanced-search-box" class="title">
+        <div class="row">Busca Avançada</div>
+      </a>
+      <div class="row content" id="advanced-search-box">
+        <form id="advanced-search">
+          <fieldset class="search-step-1">
+            <div class="step"><span>1</span></div> <p class="description">Componha sua busca adicionando filtros. Os que não deseja utilizar, deixe em branco:</p>
+            <input name="query" id="advanced-search-query" type="text" placeholder="digite palavra-chave">
+            <!-- TODO: máscara para formatar o cnpj -->
+            <input name="cnpj" id="advanced-search-cnpj" type="text" placeholder="digite CNPJ">
+            <div class="row">
+              <div class="min-value-field">
+                <label for="advanced-search-min-value">Valor de:</label>
+                <!-- TODO: máscara para formatar o valor monetário -->
+                <input name="min_value" id="advanced-search-min-value" type="text" placeholder="0.000,00" disabled="disabled">
+              </div>
+              <div class="max-value-field">
+                <label for="advanced-search-max-value">até:</label>
+                <!-- TODO: máscara para formatar o valor monetário -->
+                <input name="max_value" id="advanced-search-max-value" type="text" placeholder="0.000,00" disabled="disabled">
+              </div>
+            </div>
+          </fieldset>
+          <fieldset class="search-step-2">
+            <div class="step"><span>2</span></div> <p class="description">Continue compondo sua busca selecionando abaixo. Os campos são auto-completáveis, e você pode selecionar mais de uma opção para cada filtro:</p>
+            <input name="orgao" id="advanced-search-orgao" type="text" placeholder="digite Órgão">
+            <div class="row">
+              <div class="modalidade-field">
+                <label for="advanced-search-modalidade">Modalidade:</label>
+                <input name="modalidade" id="advanced-search-modalidade" type="text" placeholder="digite 3 ou mais caracteres">
+              </div>
+              <div class="evento-field">
+                <label for="advanced-search-evento">Evento:</label>
+                <input name="evento" id="advanced-search-evento" type="text" placeholder="digite 3 ou mais caracteres">
+              </div>
+            </div>
+          </fieldset>
+          <div class="clearfix">
+          <fieldset class="buttons">
+            <input class="button" type="submit" value="Pesquisar">
+          </fieldset>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>

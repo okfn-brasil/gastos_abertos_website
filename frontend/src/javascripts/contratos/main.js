@@ -1,5 +1,5 @@
-require(['jquery', 'pubsub', 'urlmanager', 'datatable'],
-function ($, pubsub, UrlManager, DataTable) {
+require(['jquery', 'pubsub', 'urlmanager', 'datatable', 'dataform'],
+function ($, pubsub, UrlManager, DataTable, DataForm) {
 
   'use strict';
 
@@ -51,6 +51,7 @@ function ($, pubsub, UrlManager, DataTable) {
     var urlManager = window.urlManager = new UrlManager({
       format: '#?{{params}}',
       params: {
+        query: null,
         page: 0,
         per_page_num: 10,
         cnpj: null,
@@ -66,11 +67,39 @@ function ($, pubsub, UrlManager, DataTable) {
     });
 
     // ****************************************************
+    //          DATA FORM INITIALIZATION
+    // ****************************************************
+    var dataFormSearch = window.dataFormSearch = new DataForm('#search-box', {
+      params: {
+        query: urlManager.getParam('query'),
+        cnpj: urlManager.getParam('cnpj'),
+      },
+      masks : {
+        cnpj: { format: '00.000.000/0000-00', placeholder: '__.___.___/____-__' }
+      },
+      pubsub: pubsub
+    });
+
+    var dataFormAdvancedSearch = window.dataFormAdvancedSearch = new DataForm('#advanced-search-box', {
+      params: {
+        query: urlManager.getParam('query'),
+        cnpj: urlManager.getParam('cnpj'),
+        orgao: urlManager.getParam('orgao'),
+        evento: urlManager.getParam('evento'),
+        modalidade: urlManager.getParam('modalidade')
+      },
+      masks : {
+        cnpj: '00.000.000/0000-00'
+      },
+      pubsub: pubsub
+    });
+
+    // ****************************************************
     //          DATA TABLE INITIALIZATION
     // ****************************************************
     try {
       var dataTable = new DataTable('#data-table', {
-        url: api_url + '/api/v1/contrato/list',
+        url: api_url + '/api/v1/contrato/search',
         rows: [
           { field: 'objeto',                  title: 'Objeto'},
         ],
@@ -96,6 +125,7 @@ function ($, pubsub, UrlManager, DataTable) {
           processo_administrativo: formatProcesso
         },
         params: {
+          query: urlManager.getParam('query'),
           page: urlManager.getParam('page'),
           per_page_num: urlManager.getParam('per_page_num'),
           cnpj: urlManager.getParam('cnpj'),
