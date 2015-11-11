@@ -4,9 +4,14 @@
   {{ super() }}
   <style type="text/css">
     table { color: black; }
+    tr:hover { background: initial !important; }
+    tr.odd:hover { background: #f6f6f6 !important; }
     td .filter {
-      color: #428bca;
+      color: #6eaa5c;
       cursor: pointer;
+    }
+    tr.objeto td {
+      border-top: 1px solid gray !important;
     }
   </style>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='vendor/datatables/css/jquery.dataTables.css') }}">

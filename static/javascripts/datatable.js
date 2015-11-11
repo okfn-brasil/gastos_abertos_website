@@ -183,8 +183,9 @@ define(['jquery', 'datatables'], function ($, datatables) {
       if (this.rows && this.rows.length) {
         $.each(this.rows, function(index, row) {
           var field = row['field'],
+              position = row['position'] || 0,
               content = data[field];
-          rowsData[field] = content;
+          rowsData[field] = { content: content, position: position };
         });
       }
       $(row).data('extraRows', rowsData);
@@ -197,14 +198,21 @@ define(['jquery', 'datatables'], function ($, datatables) {
       $.each(api.rows().nodes(), function(index, row) {
         var $row = $(row),
             rowsData = $row.data('extraRows');
-        $.each(rowsData, function(field, content) {
+        $.each(rowsData, function(field, data) {
           var $tr = $('<tr>'),
               $td = $('<td>');
+          var content = data['content'],
+              psition = data['position'];
+          if (!content) return;
           $tr.append($td);
-          $td.append(content);
+          $td.append(data['content']);
           $td.attr('colspan', that.columns.length);
           $tr.attr('class', $row.attr('class') + ' ' + field);
-          $row.before($tr);
+          // TODO: sort the wxtra rows
+          if (data['position'] < 0)
+              $row.before($tr);
+          else
+              $row.after($tr);
         });
       });
     },
