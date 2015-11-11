@@ -9,7 +9,10 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
 
   function formatObjeto(value, row) {
     // FIXME: Incluir a url para página de detalhe do contrato
-    return '<a href="#">' + value + '</a>';
+    var url = row['txt_file_url'];
+    if (url.length > 3)
+      return '<a href="' + url + '" target="_blank">' + value + '</a>';
+    return value;
   }
 
   function formatDate(value) {
@@ -37,13 +40,16 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
   }
 
   function formatProcesso(value) {
-    return value + '<br/><a href="http://devcolab.each.usp.br/do/?per_page=20&q=%22' + value + '%22&sort=data+asc">Diário Livre</a>';
+    return value + '<br/><a href="http://devcolab.each.usp.br/do/?per_page=20&q=%22' + value + '%22&sort=data+asc" target="_blank">Diário Livre</a>';
   }
 
   function formatId(value, row) {
-    return value + '<br/><a href="' + row['txt_file_url'] + '" target="_blank">Conteúdo</a>';
+    var downloadLink = '';
+    var url = row['file_url'];
+    if (url && url.length > 3)
+      downloadLink = '<br/><a href="' + url + '" target="_blank">Download</a>';
+    return value + downloadLink
   }
-
 
   $(function main() {
     // This pubsub object should be used by all objects that will be synced.
@@ -105,7 +111,8 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
       var dataTable = new DataTable('#data-table', {
         url: api_url + '/api/v1/contrato/search',
         rows: [
-          { field: 'objeto',                  title: 'Objeto'},
+          { field: 'objeto',                  title: 'Objeto',  position: -1},
+          { field: 'content_highlight',       title: 'Excerto', position: 1},
         ],
         columns: [
           { field: 'id',                      title: 'ID'},
@@ -136,7 +143,8 @@ function ($, pubsub, UrlManager, DataTable, DataForm) {
           cnpj: urlManager.getParam('cnpj'),
           orgao: urlManager.getParam('orgao'),
           evento: urlManager.getParam('evento'),
-          modalidade: urlManager.getParam('modalidade')
+          modalidade: urlManager.getParam('modalidade'),
+          highlight: true
         },
         // DataTables options.
         // Disable searching and ordering.
