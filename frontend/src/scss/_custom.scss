@@ -1,5 +1,6 @@
 $site-header-height: rem-calc(80);
-$site-footer-height: rem-calc(215);
+//$site-footer-height: rem-calc(215);
+$site-footer-height: rem-calc(250);
 $slider-height: rem-calc(324);
 $custom-main-padding: rem-calc(20);
 $avatar-size: rem-calc(64);
@@ -331,10 +332,11 @@ $blog-post-title-with-cover-height: rem-calc(300);
     background-size: 100%;
   }
 
-  @media #{$large-up} {
+  @media #{$medium-up} {
     height: $site-footer-height; 
     > .row > div { 
       @include grid-column(3); 
+      &.twitter-widget { @include grid-column(6); }
       &:first-of-type {
         @include grid-column(6); 
         padding: 0 rem-calc(55) 0 0;
@@ -373,9 +375,15 @@ $blog-post-title-with-cover-height: rem-calc(300);
 
     p { margin: rem-calc(5) rem-calc(25) rem-calc(5) rem-calc(35); }
   }
+
+  .twitter-widget {
+    margin: -10px 0;
+    .twitter-timeline { height: 200px !important; }
+  }
+
 }
 
-@media #{$large-up} {
+@media #{$medium-up} {
   .page-wrap:after { height: $site-footer-height; }
 
   .page-wrap {
@@ -664,3 +672,4 @@ $blog-post-title-with-cover-height: rem-calc(300);
     margin: rem-calc(30px) auto rem-calc(15);
   }
 }
+
