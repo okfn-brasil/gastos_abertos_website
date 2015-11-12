@@ -14,8 +14,8 @@
           <li {% if page.id == 'root' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('root') }}">Home</a></li>
           <li {% if page.id == 'participe' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='participe') }}">Participe</a></li>
           <li><a class="page-link" href="#" title="Em breve" data-tooltip>Blog</a></li>
-          <li><a class="page-link" href="#" title="Em breve" data-tooltip>Cursos</a></li>
-          <li><a class="page-link" href="#" title="Em breve" data-tooltip>News</a></li>
+          <!--<li><a class="page-link" href="#" title="Em breve" data-tooltip>Cursos</a></li>-->
+          <!--<li><a class="page-link" href="#" title="Em breve" data-tooltip>News</a></li>-->
           <li {% if page.id == 'receitas' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='receitas') }}">Receitas</a></li>
           <li {% if page.id == 'contratos' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='contratos' ) }}">Contratos</a></li>
           <!--
