@@ -10,7 +10,7 @@ Getúlio Vargas (FGV-DAPP) em parceria com a Open Knowledge Brasil e o jornal O
 Globo.
 
 Foi lançado ontem, 30 de novembro, o [Mosaico Orçamentário](http://dapp.fgv.br/mosaico/mosaic_f/2014), uma ferramenta de visualização de dados do Orçamento Federal
-desenvolvida a partir do <a href="http://openspending.org">Open Spending</a>,
+desenvolvida a partir do [Open Spending](http://openspending.org)
 da Open Knowledge Internacional (OKI). A iniciativa é da <a
 href="http://dapp.fgv.br/" target="_blank">Diretoria de Análises de Políticas
 Públicas da Fundação Getúlio Vargas (FGV-DAPP)</a> em parceria com a Open
@@ -25,15 +25,14 @@ sociedade civil nas instituições, como para a melhoria das políticas pública
 <a
 href="http://br.okblogfarm.org/files/2014/12/Captura-de-tela-2014-12-01-às-14.29.31.png"><img
 class="wp-image-1966"
-src="http://br.okblogfarm.org/files/2014/12/Captura-de-tela-2014-12-01-às-14.29.31.png"
+src="http://br.okfn.org/files/2014/12/Captura-de-tela-2014-12-01-a%CC%80s-14.29.31.png"
 alt="Captura de tela 2014-12-01 às 14.29.31" width="699" height="479" /></a> 
 
 **Mosaico Orçamentário disponibiliza dados do orçamento federal de 2001 a 2014
 com possibilidade de filtragem por temas, órgãos e partidos políticos**
 
-O Mosaico utiliza informações públicas obtidas no portal <a
-href="http://www12.senado.gov.br/orcamento/sigabrasil" target="_blank">SIGA
-Brasil</a>, do Senado Federal. Segundo Ruediger, a obtenção dos dados foi um
+O Mosaico utiliza informações públicas obtidas no portal [SIGA
+Brasil](http://www12.senado.gov.br/orcamento/sigabrasil), do Senado Federal. Segundo Ruediger, a obtenção dos dados foi um
 desafio para o projeto. "O banco de dados do orçamento do senado foi central, é
 um trabalho que tem um viés republicano importante. Nos estados não existe nada
 tão acessível assim", conta. Apesar de já estarem disponíveis, os dados são
@@ -51,7 +50,7 @@ questões conceituais sobre o orçamento.
 
 ## Open spending 
 
-O <a href="http://openspending.org" target="_blank">Open Spending</a>, da rede da
+O [Open Spending](http://openspending.org), da rede da
 Open Knowledge, é um banco de dados de informações financeiras públicas que
 permite rastrear e analisar o dinheiro ao redor do mundo. Ele inclui
 orçamentos, dados sobre gastos, planilhas de balanço, etc., e é contruído por
@@ -67,15 +66,13 @@ livre e aberto para que a comunidade possa se apropriar e continuar
 desenvolvendo. O Open Spending já foi adaptado em países com Bósnia,
 Eslováquia, Inglaterra, Camarões, Uganda, entre outros e também foi usado pelos
 governos de Bolonha e Berlim para criar visualizações de orçamento. Veja mais
-projetos baseados no Open Spending <a
-href="http://community.openspending.org/about/exemplars/"
-target="_blank">aqui</a>. <strong>Orçamento</strong> O Mosaico Orçamentário é o
-quinto projeto envolvendo dados de orçamento promovido ou apoiado pela OKBr.
+projetos baseados no Open Spending [aqui](http://community.openspending.org/about/exemplars/). 
+
+## Orçamento
+
+O Mosaico Orçamentário é o quinto projeto envolvendo dados de orçamento promovido ou apoiado pela OKBr.
 Além dele, a rede promoveu as ferramentas Orçamento ao Seu Alcance, Cuidando do
-Meu Bairro e o Gastos Abertos. Além disso participou da <a
-href="http://www.inesc.org.br/biblioteca/publicacoes/textos/pesquisa-transparencia-orcamentaria-nos-websites-nacionais-e-sub-nacionais"
-target="_blank">pesquisa sobre dados de portais de transparência</a> em
-parceria com o Intituto de Estudos Socioeconômicos. 
+Meu Bairro e o Gastos Abertos. Além disso participou da [pesquisa sobre dados de portais de transparência](http://www.inesc.org.br/biblioteca/publicacoes/textos/pesquisa-transparencia-orcamentaria-nos-websites-nacionais-e-sub-nacionais) em parceria com o Intituto de Estudos Socioeconômicos. 
 
 **Saiba mais:**
 	
