@@ -3,8 +3,9 @@
 
 $(document).ready(function(){
   $('.owl-carousel').owlCarousel({
-    slideSpeed: 300,
-    paginationSpeed: 400,
+    slideSpeed: 15000,
+    paginationSpeed: 600,
+    rewindSpeed: 600,
     singleItem: true,
     autoPlay: true
   });
