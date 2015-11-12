@@ -201,8 +201,13 @@ blockquote {
     }
   }
 
-  background: url('../img/title_bg.png') no-repeat 0px -30px;
-  background-size: 100% 390px;
+  /*background: url('../img/title_bg.png') no-repeat 0px -30px;
+  background-size: 100% 390px;*/
+  background-image: linear-gradient(to  right,#509f83,#7dc368);
+		opacity: .6; 
+	
+background-size: 100% 120px;
+background-repeat: no-repeat;
   min-height: 90px;
   text-transform: uppercase;
   letter-spacing: 1px;
