@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  {% if page.title %}
+  {{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head">
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
+  <div class="row">
+    <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
+      {{ page }}      
+    </div>
+  </div>
+  <div class="content section">
+    <div class="content-highlights posts subsection">
+      <div class="row" data-equalizer="posts">
+        <span class="title">Posts:</span>
+
+        {% for post in posts %}
+        <div data-equalizer-watch="posts">
+          <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
+            <div class="content-preview-header">
+              <div class="title">
+                {{ post.title | truncate(50) }}
+              </div>
+              <div class"content-preview-info">
+                <div class="tags">{{ post.categories }}</div>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+{% endblock %}
+

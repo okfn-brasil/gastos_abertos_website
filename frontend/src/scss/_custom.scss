@@ -201,7 +201,7 @@ blockquote {
     }
   }
 
-  background: url('../img/title_bg.png') no-repeat 0px -30px;
+  background: url('../img/title_bg.png') no-repeat 0px 0px;
   background-size: 100% 390px;
   min-height: 90px;
   text-transform: uppercase;
@@ -271,7 +271,7 @@ $blog-post-title-with-cover-height: rem-calc(300);
   }
 }
 
-.blog-post-date, .blog-post-tags { display: inline-block; }
+.blog-post-date, .blog-post-tags { display: inline; }
 
 .blog-post-info { 
   padding: rem-calc(11) rem-calc(5) rem-calc(9); 
@@ -550,7 +550,7 @@ $blog-post-title-with-cover-height: rem-calc(300);
     > div { @media #{$medium-up} { @include grid-column(3); } }
   }
 
-  &.posts > .row > div { display: table; }
+  &.posts > .row > .post { display: table; }
 
   .content-preview {
     display: table-cell;
@@ -566,10 +566,11 @@ $blog-post-title-with-cover-height: rem-calc(300);
       color: $white;
       max-height: rem-calc(255);
       overflow: hidden;
+      padding: 0 0 rem-calc(10) 0;
 
       .content-preview-header {
         padding: rem-calc(15);
-        background: url('../img/title_bg.png') no-repeat;
+        background: url('../img/title_bg.png') no-repeat left bottom;
         background-size: 100% 390px;
       }
       .title { font-size: rem-calc(22); }

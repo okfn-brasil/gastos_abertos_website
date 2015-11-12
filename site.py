@@ -65,12 +65,7 @@ def page_urls():
 def posts_urls():
     ''' Genarates the urls with locale prefix. '''
     for post in posts:
-        path = remove_l10n_prefix(post.path)
-        year = path[0:4]
-        month = path[4:6]
-        day = path[6:8]
-        name = path[9:]
-        yield '/blog/{}/{}/{}/{}/'.format(year, month, day, name)
+        yield get_post_url(post)
 
 # l10n helpers
 
@@ -88,6 +83,32 @@ def add_l10n_prefix(path, locale=app.config.get('DEFAULT_LOCALE')):
 def remove_l10n_prefix(path, locale=app.config.get('DEFAULT_LOCALE')):
     ''' Remove specific localization prefix. '''
     return path if not path.startswith(locale) else path[(len(locale) + 1):]
+
+
+def get_post_url(post):
+    path = remove_l10n_prefix(post.path)
+    date = post.meta['date']
+    name = path[9:]
+    return '/blog/{}/{}/{}/{}/'.format(date.year, date.month, date.day, name)
+
+
+def get_post_date(post):
+    path = remove_l10n_prefix(post.path)
+    year = int(path[0:4])
+    month = int(path[4:6])
+    day = int(path[6:8])
+    return datetime.date(year, month, day)
+
+
+def process_post(post):
+    post.meta['id'] = 'post'
+    post.meta['date'] = get_post_date(post)
+    post.permalink = get_post_url(post)
+    post.author = authors.get(post.meta['author'])
+
+
+for post in posts:
+    process_post(post)
 
 
 # Make remove_l10n_prefix accessible to Jinja
@@ -116,8 +137,8 @@ def root():
     path = 'main'
     page = pages.get_or_404(add_l10n_prefix(path))
 
-    # TODO: use "root.html"
-    return render_template('landingpage.html', page=page, pages=pages)
+    #return render_template('landingpage.html', page=page, pages=pages)
+    return render_template('root.html', page=page, pages=pages, posts=posts)
 
 
 @app.route('/<path:path>/')
@@ -138,7 +159,7 @@ def page(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, page=page, today=today, pages=pages)
+    return render_template(template, page=page, today=today, pages=pages, posts=posts)
 
 
 @app.route('/blog/<int:year>/<int:month>/<int:day>/<path:path>/')
@@ -160,7 +181,6 @@ def blog_post(path):
 
     # Get the post
     post = posts.get_or_404(path)
-    author = authors.get(post['author'])
 
     # Get custom template
     template = post.meta.get('template', 'post.html')
@@ -168,12 +188,12 @@ def blog_post(path):
     # Verify if need redirect
     redirect_ = post.meta.get('redirect', None)
     if redirect_:
-        return redirect(url_for('post', path=redirect_))
+        return redirect(url_for('blog_post', path=redirect_))
 
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, post=post, author=author, page=post, today=today, posts=pages)
+    return render_template(template, post=post, page=post, today=today, posts=pages)
 
 
 if __name__ == '__main__':

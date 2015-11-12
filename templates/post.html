@@ -13,7 +13,7 @@
       {% endif %}
       <div class="row">
         <div class="blog-post-info">
-          <time class="blog-post-date" datetime="2015-11-04">04/11/2015</time>
+          <time class="blog-post-date" datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%d/%m/%Y') }}</time>
           <div class="blog-post-tags"><span class="title">Tags</span> {{ post.tags }}</div>
         </div>
       </div>
@@ -28,17 +28,17 @@
         <span class="title">Categorias</span> {{ post.categories }}
       </div>
 
-      {% if author %}
+      {% if post.author %}
       <div class="content blog-post-author">
         <div class="avatar">
-          {% if author.avatar %}
-          <img src="{{ url_for('static', filename=author.avatar) }}" alt="foto do autor">
+          {% if post.author.avatar %}
+          <img src="{{ url_for('static', filename=post.author.avatar) }}" alt="foto do autor">
           {% endif %}
         </div>
         <div class="info">
-          <span class="title">Sobre o autor</span> {{ author.name }}<br>{{ author }}
-          {% if author.website %}
-          <a class="website" href="{{ author.website }}">Website</a>
+          <span class="title">Sobre o autor</span> {{ post.author.name }}<br>{{ post.author }}
+          {% if post.author.website %}
+          <a class="website" href="{{ post.author.website }}">Website</a>
           {% endif %}
         </div>
       </div>

@@ -15,57 +15,21 @@
       <div class="content-highlights posts subsection">
         <div class="row" data-equalizer="posts">
           <span class="title">Posts:</span>
-          <div data-equalizer-watch="posts">
-            <a class="content-preview post">
-              <div class="content-preview-header">
-                <div class="title">
-                  Título do Post, prever linhas
-                </div>
-                <div class"content-preview-info">
-                  <div class="tags">Orçamento | Planejamento | Cases</div>
-                </div>
-              </div>
-            </a>
-          </div>
 
+          {% for post in posts %}
           <div data-equalizer-watch="posts">
-            <a class="content-preview post">
+            <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
               <div class="content-preview-header">
                 <div class="title">
-                  Hotspot Wi-Fi em Sampa
+                  {{ post.title | truncate(50) }}
                 </div>
                 <div class"content-preview-info">
-                  <div class="tags">WiFi | Cases</div>
+                  <div class="tags">{{ post.categories }}</div>
                 </div>
               </div>
             </a>
           </div>
-
-          <div data-equalizer-watch="posts">
-            <a class="content-preview post">
-              <div class="content-preview-header">
-                <div class="title">
-                  Título do Post
-                </div>
-                <div class"content-preview-info">
-                  <div class="tags">Orçamento | Planejamento | Cases</div>
-                </div>
-              </div>
-            </a>
-          </div>
-
-          <div data-equalizer-watch="posts">
-            <a class="content-preview post">
-              <div class="content-preview-header">
-                <div class="title">
-                  Hotspot Wi-Fi em Sampa
-                </div>
-                <div class"content-preview-info">
-                  <div class="tags">WiFi | Cases</div>
-                </div>
-              </div>
-            </a>
-          </div>
+          {% endfor %}
 
         </div>
       </div>
