@@ -17,6 +17,7 @@
           <span class="title">Posts:</span>
 
           {% for post in posts %}
+          {% if post.published %}
           <div data-equalizer-watch="posts">
             <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
               <div class="content-preview-header">
@@ -29,6 +30,7 @@
               </div>
             </a>
           </div>
+          {% endif %}
           {% endfor %}
 
         </div>
