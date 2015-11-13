@@ -725,7 +725,7 @@ $blog-post-title-with-cover-height: rem-calc(300);
       margin: rem-calc(20) auto;
     }
 
-    .name, .title { font-weight: bold; font-size: 110%; margin-bottom: rem-calc(10); }
+    .name, .title { font-weight: bold; font-size: 110%; margin-top: rem-calc(10); }
     .title { color: $green-typo; }
   }
 
