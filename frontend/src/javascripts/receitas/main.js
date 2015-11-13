@@ -1,5 +1,5 @@
 require(['jquery', 'pubsub', 'urlmanager', 'datatable', 'superselect', 'highcharts', 'drilldown', 'exporting'],
-function ($, pubsub, UrlManager, DataTable, SuperSelect, Highcharts) {
+function ($, pubsub, UrlManager, DataTable, SuperSelect) {
 
   'use strict';
 
@@ -31,6 +31,50 @@ function ($, pubsub, UrlManager, DataTable, SuperSelect, Highcharts) {
   $(function main() {
     // This pubsub object should be used by all objects that will be synced.
     window.pubsub = pubsub;
+
+    Highcharts.theme = {
+        colors: [
+            '#94B51F',
+            '#478E4E',
+            '#3AA392',
+            '#2DBED3',
+            '#713999',
+            '#B75596',
+            '#E01919',
+            '#F36136',
+            '#F0AA1C'
+        ],
+        //tooltip: { enabled: false },
+        chart: {
+            style: {
+                padding: "0px",
+                margin: "0px"
+            },
+        },
+        title: {
+            style: {
+                display: "none"
+            }
+        },
+        subtitle: {
+            style: {
+                display: "none"
+            }
+        },
+    
+        legend: {
+            itemStyle: {
+                font: '9pt Trebuchet MS, Verdana, sans-serif',
+                color: 'black'
+            },
+            itemHoverStyle:{
+                color: 'gray'
+            }
+        }
+    };
+    
+    // Apply the theme
+    Highcharts.setOptions(Highcharts.theme);
 
     // ****************************************************
     //          URL MANAGER INITIALIZATION
@@ -410,46 +454,4 @@ function populateBarChart(years, code) {
 }
 
 
-Highcharts.theme = {
-    colors: [
-        '#94B51F',
-        '#478E4E',
-        '#3AA392',
-        '#2DBED3',
-        '#713999',
-        '#B75596',
-        '#E01919',
-        '#F36136',
-        '#F0AA1C'
-    ],
-    //tooltip: { enabled: false },
-    chart: {
-        style: {
-            padding: "0px",
-            margin: "0px"
-        },
-    },
-    title: {
-        style: {
-            display: "none"
-        }
-    },
-    subtitle: {
-        style: {
-            display: "none"
-        }
-    },
 
-    legend: {
-        itemStyle: {
-            font: '9pt Trebuchet MS, Verdana, sans-serif',
-            color: 'black'
-        },
-        itemHoverStyle:{
-            color: 'gray'
-        }
-    }
-};
-
-// Apply the theme
-Highcharts.setOptions(Highcharts.theme);
