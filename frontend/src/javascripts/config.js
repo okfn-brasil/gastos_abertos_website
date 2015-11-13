@@ -9,7 +9,10 @@ requirejs.config({
         jqueryMask: '../vendor/jquery-mask-plugin/js/jquery.mask',
         riot : '../vendor/riotjs/js/riot',
         pubsub : '../vendor/pubsub-js/js/pubsub',
-        datatables: '../vendor/datatables/js/jquery.dataTables'
+        datatables: '../vendor/datatables/js/jquery.dataTables',
+        highcharts: 'highcharts/highcharts',
+        drilldown: 'highcharts/modules/drilldown',
+        exporting: 'highcharts/modules/exporting'
         // tags : 'tag',
         // ga_interface_example: 'vendor/gastos_abertos_interface_module_example/js'
     },

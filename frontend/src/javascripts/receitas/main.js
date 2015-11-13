@@ -1,5 +1,5 @@
-require(['jquery', 'pubsub', 'urlmanager', 'datatable', 'superselect'],
-function ($, pubsub, UrlManager, DataTable, SuperSelect) {
+require(['jquery', 'pubsub', 'urlmanager', 'datatable', 'superselect', 'highcharts', 'drilldown', 'exporting'],
+function ($, pubsub, UrlManager, DataTable, SuperSelect, Highcharts) {
 
   'use strict';
 
