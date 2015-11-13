@@ -5,7 +5,7 @@ tags: audiência pública, cidadania, gastos públicos, orçamento, participaç�
 author: gastos_abertos
 cover: img/blog/photo.jpg
 
-## Acreditamos ser importante a nossa participação dessas audiências públicas para começarmos a entender melhor o orçamento pública da cidade de São Paulo.
+## Acreditamos ser importante a nossa participação dessas audiências públicas para começarmos a entender melhor o orçamento público da cidade de São Paulo.
 Nos dias 30 de agosto e 6 de setembro serão realizadas, nas 32 subprefeituras da cidade de São Paulo, audiências públicas nas quais a elaboração do Projeto da Lei Orçamentária Anual para 2015 (Ploa 2015) estará em pauta.
 
 Os encontros estão sendo coordenados pela Secretaria Municipal do Planejamento, Orçamento e Gestão (Sempla,) em parceria com as demais secretarias da Prefeitura de São Paulo, os conselhos participativos municipais debateram a priorização de projetos para que fosse avaliada a viabilidade de sua inclusão no orçamento do próximo ano.
