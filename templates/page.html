@@ -13,9 +13,16 @@
     </div>
   </div>
   {% endif %}
+
+  {% if page.expand %}
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
+    {{ page }}
+  </div>
+  {% else %}
   <div class="row">
     <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
       {{ page }}
     </div>
   </div>
+  {% endif %}
 {% endblock %}
