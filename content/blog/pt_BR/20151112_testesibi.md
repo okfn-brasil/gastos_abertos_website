@@ -1,5 +1,5 @@
 title: Brasil ganha ferramenta de visualização de orçamento construída em parceria com a Open Knowledge
-published: True
+published: False
 categories: Orçamento Federal
 tags: colaboração, dados abertos, DAPP, dinheiro público, fgv, formato aberto, mosaico, okbr, OKI, Open Spending, orçamento, orçamento federal, políticas públicas, senado, SIGA, SIGA Brasil, software livre
 author: gastos_abertos
