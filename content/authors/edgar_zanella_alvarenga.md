@@ -1,6 +1,6 @@
 name: Edgar Zanella Alvarenga
 team: gastos_abertos
-title: Lider Técnico
+title: Líder Técnico
 pos: 2
 email: 
 avatar: img/authors/edgar_zanella_alvarenga.jpg
