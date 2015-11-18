@@ -133,7 +133,8 @@ def install_backend_deps():
     local("sudo apt-get install pandoc")
     # Install Pyandoc
     with lcd(HOMEDIR):
-        local("git clone git@github.com:kennethreitz/pyandoc.git")
+        if not os.path.isdir(os.path.join(HOMEDIR, 'pyandoc')):
+            local("git clone git@github.com:kennethreitz/pyandoc.git")
         with lcd("pyandoc"):
             if not env.local:
 	        with prefix('. /home/ubuntu/virtualenvs/venv-system/bin/activate'):

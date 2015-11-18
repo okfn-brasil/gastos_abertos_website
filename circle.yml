@@ -6,6 +6,7 @@ dependencies:
     cache_directories:
       - "frontend/node_modules"
       - "frontend/bower_components"
+      - "../pyandoc"
     override:
       - fab install_deps
 
