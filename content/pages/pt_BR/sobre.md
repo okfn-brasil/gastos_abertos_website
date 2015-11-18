@@ -2,12 +2,12 @@ id: sobre
 template: sobre.html
 title: Sobre
 expand: true
-head: O projeto Gastos Abertos tem como objetivo promover o <strong>engajamento cidadão</strong> por meio da análise e visualização das informações dos <strong>orçamentos</strong> - Inicialmente da cidade de São Paulo, do estado de São Paulo e do Governo Federal.<br>O trabalho começa por aqui.
+head: O projeto Gastos Abertos tem como objetivo promover o <strong>engajamento cidadão</strong> por meio da análise e visualização das informações dos <strong>orçamentosdo Brasil</strong> - Inicialmente da cidade de São Paulo, do estado de São Paulo e do Governo Federal.<br>O trabalho começa por aqui.
 
 
 <div class="page-subhead">
   <div class="row">
-    <h2>Buscamos envolver a comunidade fornecendo informações e meios de acesso através da participação entre nossos principais eixos:</h2>
+    <h2>Buscamos construir uma comunidade fornecendo informações e meios de acesso através da participação entre nossos principais eixos:</h2>
     <div>
       <strong class="title">Ferramentas</strong>
       <p>Plataforma tecnológica, tutoriais de introdução, uso e customização de nossas ferramentas e artigos técnicos sobre o tema.</p>
