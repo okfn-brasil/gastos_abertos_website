@@ -180,8 +180,10 @@ def deploy():
 
     project_dir = '/home/gastosabertos/gastos_abertos_website'
     with cd(project_dir):
-        run("cp -r build build-old")
-        put('build', '.')
+        local('tar -cvzf build.tar.gz build')
+        run('cp -r build build-old')
+        put('build.tar.gz', '.')
+        run('tar -xvf build.tar.gz')
 
 @task
 def test():
