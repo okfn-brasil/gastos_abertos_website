@@ -17,4 +17,4 @@ deployment:
             - fab build_all && fab deploy
 test:
   override:
-    - fab test
+    - fab build_all && fab test
