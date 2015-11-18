@@ -1,6 +1,6 @@
 name: Everton Zanella Alvarenga
 team: gastos_abertos
-title: 
+title: Articulador
 pos: 9
 email: tom@ok.org.br
 avatar: img/authors/everton_zanella_alvarenga.jpg

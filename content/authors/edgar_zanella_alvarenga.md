@@ -2,7 +2,7 @@ name: Edgar Zanella Alvarenga
 team: gastos_abertos
 title: Líder Técnico
 pos: 2
-email: 
+email: edgar@ok.org.br
 avatar: img/authors/edgar_zanella_alvarenga.jpg
 website: 
 minibio:

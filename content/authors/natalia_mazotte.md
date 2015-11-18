@@ -1,6 +1,6 @@
 name: Natália Mazotte
 team: gastos_abertos
-title: Comunicação
+title: Escola de Dados
 pos: 3
 email: natalia@escoladedados.org
 avatar: img/authors/natalia_mazotte.jpg
