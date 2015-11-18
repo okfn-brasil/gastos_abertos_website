@@ -6,6 +6,8 @@ dependencies:
     cache_directories:
       - "frontend/node_modules"
       - "frontend/bower_components"
+    override:
+      - fab install_deps
 
 deployment:
     production:
@@ -14,4 +16,4 @@ deployment:
             - fab build_all && fab deploy
 test:
   override:
-    - fab install_frontend_deps && fab test
+    - fab test
