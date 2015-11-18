@@ -2,6 +2,11 @@ machine:
     timezone:
         America/Los_Angeles
 
+dependencies:
+    cache_directories:
+      - "frontend/node_modules"
+      - "frontend/bower_components"
+
 deployment:
     production:
         branch: master
