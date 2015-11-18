@@ -14,7 +14,7 @@ deployment:
     production:
         branch: master
         commands:
-            - fab build_all && fab deploy
+            - fab build_static && fab build && fab deploy
 test:
   override:
-    - fab test
+    - fab build_static && fab build && fab test
