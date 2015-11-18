@@ -9,12 +9,14 @@ dependencies:
       - "../pyandoc"
     override:
       - fab install_deps
+      - fab build_static
+      - fab build
 
 deployment:
     production:
         branch: master
         commands:
-            - fab build_static && fab build && fab deploy
+            - fab deploy
 test:
   override:
-    - fab build_static && fab build && fab test
+    - fab test
