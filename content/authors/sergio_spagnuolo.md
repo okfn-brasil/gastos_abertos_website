@@ -1,6 +1,6 @@
 name: Sérgio Spagnuolo
 team: gastos_abertos
-title: Contador de histórias
+title: Contador de Histórias
 pos: 5
 email: sergio@ok.org.br
 avatar: img/authors/sergio_spagnuolo.jpg

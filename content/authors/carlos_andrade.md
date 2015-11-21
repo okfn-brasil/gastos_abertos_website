@@ -1,6 +1,6 @@
 name: Carlos Andrade
 team: gastos_abertos
-title: 
+title: Analista de Dados
 pos: 10
 email:
 avatar: img/authors/carlos_andrade.jpg
