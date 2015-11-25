@@ -8,6 +8,7 @@ dependencies:
       - "frontend/bower_components"
       - "../pyandoc"
     override:
+      - pip install -r requirements.txt
       - fab install_deps
       - fab build_static
       - fab build
