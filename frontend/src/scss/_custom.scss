@@ -285,6 +285,11 @@ $blog-post-title-with-cover-height: rem-calc(300);
   }
 }
 
+.blog-post-content {
+    margin-left: 10rem;
+    margin-right: 10rem;
+}
+
 .blog-post-date, .blog-post-tags { display: inline; }
 
 .blog-post-info { 
