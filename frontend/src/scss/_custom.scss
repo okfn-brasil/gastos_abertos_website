@@ -319,7 +319,8 @@ $blog-post-title-with-cover-height: rem-calc(300);
   background: $secondary-color;
   margin: rem-calc(10) 0;
   border-top: 1px solid darken($secondary-color, 30%);
-
+  
+  .info { max-width: 85%; }
   .title, .website { display: block; }
   .avatar, .info { display: inline-block; vertical-align: top; }
   @media #{$medium-up} { .info { margin-left: rem-calc(15); } }
