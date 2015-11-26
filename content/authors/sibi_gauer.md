@@ -2,7 +2,7 @@ name: Sibi Gauer
 team: gastos_abertos
 title: Webdesigner
 pos: 6
-email: sibigauer@seebizconsulting.com
+email: sibi@ok.org.br
 avatar: img/authors/sibi_gauer.jpg
 website: http://www.sibigauer.com/
 minibio:

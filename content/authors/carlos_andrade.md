@@ -2,7 +2,7 @@ name: Carlos Andrade
 team: gastos_abertos
 title: Analista de Dados
 pos: 10
-email:
+email: carlos@ok.org.br
 avatar: img/authors/carlos_andrade.jpg
 website: http://carlosandrade.co/
 minibio:
