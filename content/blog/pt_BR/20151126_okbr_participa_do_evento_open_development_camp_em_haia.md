@@ -1,5 +1,5 @@
 title: OKBr participa do evento Open Development Camp em Haia
-published: False
+published: True
 categories: Gastos Abertos
 tags: gastos públicos, orçamento, participação, são paulo, haia, evento
 author: isis_reis
