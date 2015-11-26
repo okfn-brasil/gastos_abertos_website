@@ -43,6 +43,12 @@
     <script src="{{ url_for('static', filename='vendor/foundation/js/foundation.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/app.js') }}"></script>
+    
+    <script>
+      if (window.location.host == 'p.gastosabertos.org') {
+        $('.page-wrap').addClass('site-preview');
+      }
+    </script>
     {% block script %}
     {% endblock %}
   </body>
