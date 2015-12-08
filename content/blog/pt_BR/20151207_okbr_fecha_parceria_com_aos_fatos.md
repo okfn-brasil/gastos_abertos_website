@@ -3,7 +3,7 @@ published: True
 categories: Gastos Abertos
 tags: gastos abertos, aos fatos, open knowledge brasil, orçamento público, jornalismo de dados
 author: gastos_abertos
-cover: img/blog/photo.jpg
+cover: img/blog/aosfatosgastosabertos.jpg
 
 ## A Open Knowledge Brasil fechou, no final do mês de novembro, uma parceria com a plataforma <a href="http://aosfatos.org/" target="_blank">Aos Fatos</a> para a produção de uma série de matérias para o projeto Gastos Abertos, que tem seu lançamento previsto para o final deste ano.
 
