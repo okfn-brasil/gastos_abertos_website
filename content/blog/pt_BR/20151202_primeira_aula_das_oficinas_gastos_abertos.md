@@ -1,7 +1,7 @@
 title: Primeira aula das oficinas Gastos Abertos aborda os fundamentos do orçamento público
 published: False
 categories: Gastos Abertos
-tags: gastos abertos, aos fatos, open knowledge brasil, orçamento público, jornalismo de dados
+tags: cursos, oficinas, gastos abertos, orçamento público, são paulo
 author: gastos_abertos
 cover: img/blog/aosfatos.png
 
