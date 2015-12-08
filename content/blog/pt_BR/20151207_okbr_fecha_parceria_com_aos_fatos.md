@@ -1,5 +1,5 @@
 title: Open Knowledge Brasil fecha parceria com Aos Fatos; iniciativa vai produzir histórias para o projeto Gastos Abertos
-published: False
+published: True
 categories: Gastos Abertos
 tags: gastos abertos, aos fatos, open knowledge brasil, orçamento público, jornalismo de dados
 author: gastos_abertos
