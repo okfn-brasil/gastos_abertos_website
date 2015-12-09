@@ -11,7 +11,7 @@ Aos Fatos é uma plataforma de jornalismo para verificação de discurso que fun
 
 A equipe da iniciativa realizou uma exitosa campanha de crowdfunding, ultrapassando a meta de R$30.000 que estabeleceu como primeiro passo para tornar a plataforma mais perene. "O financiamento coletivo é uma solução que encontramos para manter a independência e aproximar o leitor da nossa técnica", afirma Tai Nailon, uma das criadoras do projeto, na página de arrecadação no site Benfeitoria.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/7xFLV9t_p9g" frameborder="0" allowfullscreen></iframe>
+<center><iframe width="640" height="480" src="https://www.youtube.com/embed/7xFLV9t_p9g" frameborder="0" allowfullscreen></iframe></center><br>
 
 A parceria fechada com a Open Knowledge Brasil, de R$8.000, diz respeito à elaboração de doze matérias investigativas utilizando dados orçamentários, ferramentas e conhecimentos disponibilizados pelo projeto Gastos Abertos e também pela <a href="http://www.escoladedados.org" target="_blank">Escola de Dados</a>. 
 
