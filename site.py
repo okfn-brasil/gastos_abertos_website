@@ -112,6 +112,7 @@ for post in posts:
     process_post(post)
 
 sorted_authors = sorted(authors, key=lambda a: a.meta.get('pos', 100))
+sorted_posts = sorted(posts, key=lambda p: p.meta.get('date'), reverse=True)
 
 # Make remove_l10n_prefix accessible to Jinja
 app.jinja_env.globals.update(remove_l10n_prefix=remove_l10n_prefix)
@@ -140,7 +141,7 @@ def root():
     page = pages.get_or_404(add_l10n_prefix(path))
 
     #return render_template('landingpage.html', page=page, pages=pages)
-    return render_template('root.html', page=page, pages=pages, posts=posts, authors=authors)
+    return render_template('root.html', page=page, pages=pages, posts=sorted_posts, authors=authors)
 
 
 @app.route('/<path:path>/')
@@ -161,7 +162,7 @@ def page(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, page=page, today=today, pages=pages, posts=posts, authors=sorted_authors)
+    return render_template(template, page=page, today=today, pages=pages, posts=sorted_posts, authors=sorted_authors)
 
 
 @app.route('/blog/<int:year>/<int:month>/<int:day>/<path:path>/')
@@ -195,7 +196,7 @@ def blog_post(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, post=post, page=post, today=today, posts=pages, authors=authors)
+    return render_template(template, post=post, page=post, today=today, pages=pages, posts=posts, authors=authors)
 
 
 if __name__ == '__main__':
