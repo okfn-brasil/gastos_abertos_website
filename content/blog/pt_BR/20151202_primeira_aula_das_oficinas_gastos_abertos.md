@@ -1,5 +1,5 @@
 title: Primeira aula das oficinas Gastos Abertos aborda os fundamentos do orçamento público
-published: False
+published: True
 categories: Gastos Abertos
 tags: cursos, oficinas, gastos abertos, orçamento público, são paulo
 author: gastos_abertos
