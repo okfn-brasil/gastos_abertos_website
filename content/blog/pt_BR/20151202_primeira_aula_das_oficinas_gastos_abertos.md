@@ -3,7 +3,7 @@ published: False
 categories: Gastos Abertos
 tags: cursos, oficinas, gastos abertos, orçamento público, são paulo
 author: gastos_abertos
-cover: img/blog/aosfatos.png
+cover: img/blog/gastos-abertos.jpg
 
 ## Vinte jornalistas toparam o desafio: entender de orçamento e finanças públicas para fazer as perguntas que interessam às bases de dados disponíveis sobre o tema. Todos estiveram nesta quarta-feira (02) na primeira aula das oficinas Gastos Abertos, realizada na FIAP em São Paulo.
 
