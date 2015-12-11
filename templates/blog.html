@@ -15,7 +15,7 @@
   {% endif %}
   <div class="row">
     <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
-      {{ page }}      
+      {{ page }}
     </div>
   </div>
   <div class="content section">
@@ -32,7 +32,7 @@
                 {{ post.title | truncate(50) }}
               </div>
               <div class"content-preview-info">
-                <div class="tags">{{ post.categories }}</div>
+                <div class="tags">{% for category in post.categories %} {{ category.0 }} {% endfor %}</div>
               </div>
             </div>
           </a>
@@ -44,4 +44,3 @@
     </div>
   </div>
 {% endblock %}
-
