@@ -9,7 +9,7 @@ from flask_flatpages import FlatPages
 
 from .app import app
 from .util import add_l10n_prefix, remove_l10n_prefix
-from .blog import authors, sorted_authors, posts, sorted_posts, get_post_url, posts_by_tag
+from .blog import authors, sorted_authors, posts, sorted_posts, get_post_url, posts_by_tag, tags, categories
 
 
 # Add the FlatPages extension
@@ -34,4 +34,4 @@ def page(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, page=page, today=today, pages=pages, posts=sorted_posts, authors=sorted_authors)
+    return render_template(template, page=page, today=today, pages=pages, posts=sorted_posts, authors=sorted_authors, tags=tags, categories=categories)

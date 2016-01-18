@@ -13,33 +13,74 @@
     </div>
   </div>
   {% endif %}
-  <div class="row">
+    <header class="blog-post-header">
+      <div class="blog-post-title {% if posts.0.cover %}with-cover{% endif %}">
+        <div class="row">
+          <a href="{{ posts.0.permalink }}">
+            <h1>{{ posts.0.title }}</h1>
+            <p>{{ posts.0.html | striptags | truncate(200) }}
+          </a>
+        </div>
+      </div>
+      {% if posts.0.cover %}
+      <div class="blog-post-cover">
+        <img src="{{ url_for('static', filename=posts.0.cover) }}" alt="">
+      </div>
+      {% endif %}
+    </header>
+  <!-- div class="row">
     <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
       {{ page }}
     </div>
-  </div>
+  </div -->
   <div class="content section">
-    <div class="content-highlights posts subsection">
-      <div class="row" data-equalizer="posts">
-        <span class="title">Posts Recentes:</span>
-
-        {% for post in posts %}
-        {% if post.published %}
-        <div data-equalizer-watch="posts">
-          <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
-            <div class="content-preview-header">
-              <div class="title">
-                {{ post.title | truncate(50) }}
-              </div>
-              <div class"content-preview-info">
-                <div class="tags">{% for category in post.categories %} {{ category.0 }} {% endfor %}</div>
+    <div class="content-highlights posts">
+      <div class="row">
+        <div class="posts-container">
+          <div class="row" data-equalizer="posts">
+            {% for post in posts %}
+            {% if post.published %}
+            <div data-equalizer-watch="posts" class="content-preview-container">
+              <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
+                <div class="content-preview-cover" style="{% if post.cover %}background-image: url({{ url_for('static', filename=post.cover) }}){% endif %}">
+                </div>
+                <div class="content-preview-header">
+                  <div class="title">
+                    {{ post.title | truncate(50) }}
+                  </div>
+                  <div class"content-preview-info">
+                    {{ post.date.strftime('%d/%m/%Y') }} | {{ post.author.name }}
+                  </div>
+                </div>
+              </a>
+              <div>
+                <div class="content-preview-excerpt">
+                  {{ post.html | striptags | truncate(200) }}
+                  <div class="content-preview-readmore"><a href="{{ post.permalink }}">Saiba mais</a></div>
+                </div>
               </div>
             </div>
-          </a>
-        </div>
-        {% endif %}
-        {% endfor %}
+            {% endif %}
+            {% endfor %}
 
+          </div>
+        </div>
+        <div class="blog-navigation">
+          <!--
+          <h3>Categorias:</h3>
+          <ul class="blog-categories">
+            {% for category in categories %}
+            <li>{{ category }}</li>
+            {% endfor %}
+          </ul>
+          -->
+          <h3>Tags:</h3>
+          <ul class="blog-tags">
+            {% for tag in tags %}
+            <li><a href="{{ url_for('blog_posts_by_tag', tag=tag.1) }}">{{ tag.0 }}</a></li>
+            {% endfor %}
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -32,27 +32,32 @@ def get_post_date(post):
 
 
 posts_by_tag = defaultdict(list)
-
+tags = set()
 
 def process_post_tags(post):
-    tags = [(tag.strip(), unicodedata.normalize(
+    global tags
+    tags_ = [(tag.strip(), unicodedata.normalize(
         'NFKD', tag.lower().strip().replace(' ', '_')).encode('ascii', 'ignore')) for
         tag in post.meta.get('tags', '').split(',')]
-    for _, tag in tags:
+    for _, tag in tags_:
         posts_by_tag[tag].append(post)
-    post.meta['tags'] = tags
+        tags.add((_, tag))
+    post.meta['tags'] = tags_
 
 
 posts_by_category = defaultdict(list)
+categories = set()
 
 
 def process_post_categories(post):
-    categories = [(category.strip(), unicodedata.normalize(
+    global categories
+    categories_ = [(category.strip(), unicodedata.normalize(
         'NFKD', category.lower().strip().replace(' ', '_')).encode('ascii', 'ignore')) for
         category in post.meta.get('categories', '').split(',')]
-    for _, category in categories:
+    for _, category in categories_:
         posts_by_category[category].append(post)
-    post.meta['categories'] = categories
+        categories.add((_, category))
+    post.meta['categories'] = categories_
 
 
 def sort_posts(posts):
@@ -98,7 +103,7 @@ def blog_posts_by_tag(tag):
     page = pages.get_or_404(add_l10n_prefix('blog'))
     template = page.meta.get('template', 'page.html')
     today = datetime.datetime.now().strftime("%B %dth %Y")
-    return render_template(template, page=page, today=today, pages=pages, posts=get_posts_by_tag(tag), authors=sorted_authors)
+    return render_template(template, page=page, today=today, pages=pages, posts=get_posts_by_tag(tag), authors=sorted_authors, tags=tags, categories=categories)
 
 
 @app.route('/blog/<string:category>/<int:year>/<int:month>/<int:day>/<path:path>/')
@@ -116,7 +121,7 @@ def blog_posts_by_category(category):
     page = pages.get_or_404(add_l10n_prefix('blog'))
     template = page.meta.get('template', 'page.html')
     today = datetime.datetime.now().strftime("%B %dth %Y")
-    return render_template(template, page=page, today=today, pages=pages, posts=get_posts_by_category(category), authors=sorted_authors)
+    return render_template(template, page=page, today=today, pages=pages, posts=get_posts_by_category(category), authors=sorted_authors, tags=tags, categories=categories)
 
 
 def blog_post(path):
@@ -136,4 +141,4 @@ def blog_post(path):
     today = datetime.datetime.now().strftime("%B %dth %Y")
 
     # Render the page
-    return render_template(template, post=post, page=post, today=today, pages=pages, posts=posts, authors=authors)
+    return render_template(template, post=post, page=post, today=today, pages=pages, posts=posts, authors=authors, tags=tags, categories=categories)
