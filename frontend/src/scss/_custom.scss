@@ -283,36 +283,36 @@ blockquote {
 
 .page-subhead {
   background: lighten($green-light, 5%);
-   
-  &.landingpage {    
-    background: $gray-mid-dark;    
-    text-align: inherit;   
-    font-size: 1.15em;   
-  }    
-}    
-   
-.page-block {    
-  h1, h2, h3, h4, h5 { text-transform: uppercase; }    
-  h3 { margin-bottom: rem-calc(15); }    
-}    
-   
-.page-block-title {    
-  background: $gray-light;   
-  padding: rem-calc(25) 0;   
-  text-transform: uppercase;   
-   
-  h2 {   
-    letter-spacing: 1px;   
-    font-weight: lighter;    
-    color: $gray-dark;   
-    width: $row-width;   
-    margin: 0 auto;    
-    padding: 0 $column-gutter / 2;   
-  }    
-}    
-   
-.page-block-content {    
-  padding: rem-calc(30) 0;   
+
+  &.landingpage {
+    background: $gray-mid-dark;
+    text-align: inherit;
+    font-size: 1.15em;
+  }
+}
+
+.page-block {
+  h1, h2, h3, h4, h5 { text-transform: uppercase; }
+  h3 { margin-bottom: rem-calc(15); }
+}
+
+.page-block-title {
+  background: $gray-light;
+  padding: rem-calc(25) 0;
+  text-transform: uppercase;
+
+  h2 {
+    letter-spacing: 1px;
+    font-weight: lighter;
+    color: $gray-dark;
+    width: $row-width;
+    margin: 0 auto;
+    padding: 0 $column-gutter / 2;
+  }
+}
+
+.page-block-content {
+  padding: rem-calc(30) 0;
   @include grid-row();
 }
 
@@ -816,35 +816,35 @@ $blog-post-title-with-cover-height: rem-calc(300);
   }
 }
 
-#orcamento {   
-  .page-subhead {    
-    .row {   
-      > div {    
-        @include grid-column(3);   
-        p { margin-right: rem-calc(40); }    
-      }    
-      > div:first-of-type {    
-        @include grid-column(6);   
-      }    
-    }    
-  }    
-   
-  .page-block-content > div {    
-    @include grid-column(6);   
-  }    
-   
-  .page-block.fonte-de-dados {   
-    background: $green-light;    
-    font-size: 1.2em;    
-   
-    h3 { padding: 0 10%; }   
-   
-    p, a, h3 {   
-      text-align: center;    
-      color: white;    
-    }    
-  }    
-}    
+#orcamento {
+  .page-subhead {
+    .row {
+      > div {
+        @include grid-column(3);
+        p { margin-right: rem-calc(40); }
+      }
+      > div:first-of-type {
+        @include grid-column(6);
+      }
+    }
+  }
+
+  .page-block-content > div {
+    @include grid-column(6);
+  }
+
+  .page-block.fonte-de-dados {
+    background: $green-light;
+    font-size: 1.2em;
+
+    h3 { padding: 0 10%; }
+
+    p, a, h3 {
+      text-align: center;
+      color: white;
+    }
+  }
+}
 
 #sobre {
 
