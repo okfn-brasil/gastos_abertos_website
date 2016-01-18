@@ -816,7 +816,20 @@ $blog-post-title-with-cover-height: rem-calc(300);
   }
 }
 
-#orcamento {
+.page-block.fonte-de-dados {
+  background: $green-light;
+  font-size: 1.2em;
+
+  h3 { padding: 0 10%; }
+
+  p, a, h3 {
+    text-align: center;
+    color: white;
+  }
+}
+
+#orcamento,
+#contratos {
   .page-subhead {
     .row {
       > div {
@@ -833,17 +846,6 @@ $blog-post-title-with-cover-height: rem-calc(300);
     @include grid-column(6);
   }
 
-  .page-block.fonte-de-dados {
-    background: $green-light;
-    font-size: 1.2em;
-
-    h3 { padding: 0 10%; }
-
-    p, a, h3 {
-      text-align: center;
-      color: white;
-    }
-  }
 }
 
 #sobre {
