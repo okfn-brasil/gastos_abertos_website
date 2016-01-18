@@ -26,7 +26,7 @@
             </ul>
           </li>
           -->
-          <li><a class="page-link" href="#" title="Em breve" data-tooltip>API</a></li>
+          <li {% if page.id == 'api' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='api') }}">API</a></li>
           <li {% if page.id == 'sobre' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='sobre') }}">Sobre</a></li>
         </ul>
         <!-- Right Nav Section -->
