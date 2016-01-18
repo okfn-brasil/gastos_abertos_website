@@ -261,17 +261,59 @@ blockquote {
   background: $green-3;
   font-size: $h1-font-size * 0.8;
 
-  &.orcamento {
+  &.landingpage {
     background: $gray-dark;
+    text-align: inherit;
+    padding: rem-calc(30) 0 rem-calc(20) 0;
 
-    .feature.icon { float: left; }
+    .feature {
+      display: inline-block;
+      vertical-align: middle;
 
-    .content, h2 { width: 100%; }
+      &.icon { width: 20%; }
+      &.text { width: 79%; }
+    }
+
+    .content, h2 {
+      margin-left: 0;
+      width: 85%;
+    }
   }
 }
 
 .page-subhead {
   background: lighten($green-light, 5%);
+   
+  &.landingpage {    
+    background: $gray-mid-dark;    
+    text-align: inherit;   
+    font-size: 1.15em;   
+  }    
+}    
+   
+.page-block {    
+  h1, h2, h3, h4, h5 { text-transform: uppercase; }    
+  h3 { margin-bottom: rem-calc(15); }    
+}    
+   
+.page-block-title {    
+  background: $gray-light;   
+  padding: rem-calc(25) 0;   
+  text-transform: uppercase;   
+   
+  h2 {   
+    letter-spacing: 1px;   
+    font-weight: lighter;    
+    color: $gray-dark;   
+    width: $row-width;   
+    margin: 0 auto;    
+    padding: 0 $column-gutter / 2;   
+  }    
+}    
+   
+.page-block-content {    
+  padding: rem-calc(30) 0;   
+  @include grid-row();
 }
 
 .blog-post {
@@ -773,6 +815,36 @@ $blog-post-title-with-cover-height: rem-calc(300);
     margin: rem-calc(30px) auto rem-calc(15);
   }
 }
+
+#orcamento {   
+  .page-subhead {    
+    .row {   
+      > div {    
+        @include grid-column(3);   
+        p { margin-right: rem-calc(40); }    
+      }    
+      > div:first-of-type {    
+        @include grid-column(6);   
+      }    
+    }    
+  }    
+   
+  .page-block-content > div {    
+    @include grid-column(6);   
+  }    
+   
+  .page-block.fonte-de-dados {   
+    background: $green-light;    
+    font-size: 1.2em;    
+   
+    h3 { padding: 0 10%; }   
+   
+    p, a, h3 {   
+      text-align: center;    
+      color: white;    
+    }    
+  }    
+}    
 
 #sobre {
 
