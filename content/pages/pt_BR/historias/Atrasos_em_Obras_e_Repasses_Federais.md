@@ -36,7 +36,7 @@ orçamento atualizado.
 ***Código para gráfico:***
 
 <iframe class="highcharts-iframe"
-src="//cloud.highcharts.com/embed/eqatyn" style="border: 0; width: 100%;
+src="http://cloud.highcharts.com/embed/eqatyn" style="border: 0; width: 100%;
 height: 500px"></iframe>
 
 [*Todos os dados podem ser obtidos tabelados
