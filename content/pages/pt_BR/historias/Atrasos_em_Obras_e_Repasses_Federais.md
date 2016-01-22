@@ -21,7 +21,7 @@ da Prefeitura*](http://orcamento.prefeitura.sp.gov.br/orcamento/).
 Os dados de janeiro a outubro assemelham-se ao fechado de 2014, quando,
 dos mais de R$ 3 bilhões de reais previstos de recursos da União para
 as secretarias, apenas 28,7% foram liquidados em todo o ano. Mas a
-proporção fica aquém de 2013, onde quase metade da verba federal (R\$
+proporção fica aquém de 2013, onde quase metade da verba federal (R$
 1,2 bilhão no total) para secretarias de São Paulo foi liquidada em 12
 meses.
 
@@ -50,7 +50,7 @@ Tanto a [*Secretaria Municipal de Infra-Estrutura Urbana e Obras
 (SIURB)*](http://www.prefeitura.sp.gov.br/cidade/secretarias/infraestrutura/)
 quanto a [*Secretaria Municipal de Habitação
 (SEHAB)*](http://www.prefeitura.sp.gov.br/cidade/secretarias/habitacao/),
-que têm um orçamento somado superior a R\$ 2 bilhões, executaram, cada
+que têm um orçamento somado superior a R$ 2 bilhões, executaram, cada
 uma, menos de 30% do orçamento atualizado previsto para todo o ano. Esse
 número não leva em conta fundos e outros recursos que possam ser
 disponibilizados pelas secretarias, apenas o orçamento declarado de cada
@@ -58,15 +58,15 @@ pasta.
 
 A SIURB informou ao Gastos Abertos, por meio do [*Portal da
 Transparência da Prefeitura (ESIC)*](http://esic.prefeitura.sp.gov.br/),
-que a pasta executou também recursos de fundos como o "FUNDURB (mais R\$
-90,4 mi), FMDT (mais R\$ 40 mi), FMSAI (mais R\$ 144,5 mi) e Operações
-Urbanas (R\$ 825,2 mi), sem contar todos os recursos direcionados aos
+que a pasta executou também recursos de fundos como o "FUNDURB (mais R$
+90,4 mi), FMDT (mais R$ 40 mi), FMSAI (mais R$ 144,5 mi) e Operações
+Urbanas (R$ 825,2 mi), sem contar todos os recursos direcionados aos
 equipamentos sociais os quais são executados por SIURB, porém com
 recursos orçamentários das Pastas específicas".
 
 Nesse caso, o orçamento disponível seria de quase R\$ 2,2 bilhões - com
 apenas metade desse montante liquidado. A SIURB disse ainda que esperava
-uma receita de R\$ 1,5 bilhão da União, mas foram recebidos apenas R\$
+uma receita de R$ 1,5 bilhão da União, mas foram recebidos apenas R$
 172 milhões. "Não há que se falar em baixa execução dos recursos, de
 forma que não houve atraso em projetos ou processos licitatórios. Fato
 comprovador é que neste ano licitamos cerca de 20 obras de grande porte,
@@ -135,16 +135,16 @@ A SEHAB disse que os recursos não foram aplicados porque "o [*PAC
 mananciais*](http://www.prefeitura.sp.gov.br/cidade/secretarias/comunicacao/noticias/?p=153443)
 ainda não obteve autorização para início das obras".
 
-Assim, Habitação executou apenas 3,5% dos cerca de R\$ 340 milhões
-previstos de recursos federais em seu orçamento de quase R\$ 830
+Assim, Habitação executou apenas 3,5% dos cerca de R$ 340 milhões
+previstos de recursos federais em seu orçamento de quase R$ 830
 milhões. Ou seja, mais de 40% dos recursos previstos dependia da União.
 
-A SEHAB informou ter recebido apenas R\$ 30 milhões de recursos federais
-previstos (de R\$ 738 milhões) e apenas R\$ 15 milhões de dinheiro
-estadual (de R\$ 226 milhões).
+A SEHAB informou ter recebido apenas R$ 30 milhões de recursos federais
+previstos (de R$ 738 milhões) e apenas R$ 15 milhões de dinheiro
+estadual (de R$ 226 milhões).
 
-A Secretaria de Educação, com um orçamento de R\$ 10 bilhões para o ano,
-o maior entre as secretarias, recebeu apenas metade dos R\$ 780 milhões
+A Secretaria de Educação, com um orçamento de R$ 10 bilhões para o ano,
+o maior entre as secretarias, recebeu apenas metade dos R$ 780 milhões
 que constavam no orçamento, mas no geral conseguiu manter uma execução
 orçamentária geral de 73% do seu orçamento até o fim de outubro, e deve
 chegar ao fim do ano com uma execução quase integral de seu orçamento.
