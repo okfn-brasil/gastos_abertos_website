@@ -1,9 +1,8 @@
+template: historias.html
 
+# Obras de mobilidade urbana e projeto de mananciais em São Paulo são as mais afetadas por atrasos em repasses federais em 2015
 
-**Obras de mobilidade urbana e projeto de mananciais em São Paulo são as
-mais afetadas por atrasos em repasses federais em 2015**
-
-*Equipe Gastos Abertos *
+***Equipe Gastos Abertos***
 
 *São Paulo - Dezembro/2015*
 
@@ -14,14 +13,14 @@ baixa aplicação de recursos em obras importantes de mobilidade urbana e
 manutenção de mananciais.
 
 No geral, a execução de recursos federais também foi baixa em outras
-pastas. Até o final do ano, dos mais R\$ 2,2 bilhões em recursos
+pastas. Até o final do ano, dos mais R$ 2,2 bilhões em recursos
 federais programados neste ano para chegar às contas de 12 secretarias
 paulistanas, apenas 33% haviam sido liquidados, de acordo com
 levantamento realizado pelo **Gastos Abertos** com [*dados do orçamento
 da Prefeitura*](http://orcamento.prefeitura.sp.gov.br/orcamento/).
 
 Os dados de janeiro a outubro assemelham-se ao fechado de 2014, quando,
-dos mais de R\$ 3 bilhões de reais previstos de recursos da União para
+dos mais de R$ 3 bilhões de reais previstos de recursos da União para
 as secretarias, apenas 28,7% foram liquidados em todo o ano. Mas a
 proporção fica aquém de 2013, onde quase metade da verba federal (R\$
 1,2 bilhão no total) para secretarias de São Paulo foi liquidada em 12
@@ -31,13 +30,10 @@ O Gastos Abertos considerou como ritmo de execução o montante já
 liquidado (despesas reconhecidas) dos recursos no ano, dividido pelo
 orçamento atualizado.
 
-![](media/image04.png)
-
-***Código para gráfico:***
-
 <iframe class="highcharts-iframe"
 src="http://cloud.highcharts.com/embed/eqatyn" style="border: 0; width: 100%;
 height: 500px"></iframe>
+
 
 [*Todos os dados podem ser obtidos tabelados
 aqui.*](https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit?usp=sharing)
@@ -90,13 +86,11 @@ a recursos não liberados.
 As respostas foram enviadas para o Gastos Abertos em dezembro de 2015,
 antes dos dados fechados do ano.
 
-![](media/image01.png)
-
 ***Código para gráfico: ***
 
-***\<iframe class="highcharts-iframe"
+<iframe class="highcharts-iframe"
 src="//cloud.highcharts.com/embed/omuheh" style="border: 0; width: 100%;
-height: 500px"\>\</iframe\>***
+height: 500px"></iframe>
 
 Desconsiderados fundos e recursos sob outras pastas, SEHAB e SIURB
 tiveram uma execução total levemente superior a R\$ 550 milhões no ano,
@@ -110,7 +104,7 @@ diminuiria a distância entre liquidação de recursos e o esperado no
 orçamento, já que as secretarias teriam menos recursos para gastar no
 ano.
 
-**PROJETOS**
+## PROJETOS
 
 A SIURB enfrentou um lento ritmo de execução em diversos projetos. Por
 exemplo, a implantação e requalificação de terminais de ônibus, um
@@ -156,17 +150,12 @@ que constavam no orçamento, mas no geral conseguiu manter uma execução
 orçamentária geral de 73% do seu orçamento até o fim de outubro, e deve
 chegar ao fim do ano com uma execução quase integral de seu orçamento.
 
-![](media/image05.png)
 
-Código para Iframe
-
-\<iframe class="highcharts-iframe"
+<iframe class="highcharts-iframe"
 src="//cloud.highcharts.com/embed/ylizyt" style="border: 0; width: 100%;
-height: 500px"\>\</iframe\>
+height: 500px"></iframe>
 
-\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
-
-BOX - A Execução Orçamentária
+## A Execução Orçamentária
 
 A execução do orçamento público possui diversas etapas. Para esta
 reportagem, o ritmo executado foi considerado a partir da **Liquidação**
@@ -181,42 +170,42 @@ iniciar as etapas de execução dos recursos na seguinte ordem:
 1.  ***Fixação: A despesa é fixada pela Lei Orçamentária Anual***
 
 2.  ***Reserva:*** A reserva é feita através do sistema por documento
-    > “NR”, indicando na licitação de onde virão os recursos para
-    > pagamento da despesa. A reserva não configura nenhum direito ao
-    > fornecedor, apenas indica que há recursos orçamentários para que a
-    > despesa seja efetuada.
+     “NR”, indicando na licitação de onde virão os recursos para
+     pagamento da despesa. A reserva não configura nenhum direito ao
+     fornecedor, apenas indica que há recursos orçamentários para que a
+     despesa seja efetuada.
 
 3.  ***Licitação:*** Todas as compras e contratos efetuados com a
-    > Administração são, via de regra, precedidos de processo
-    > licitatórios nas respectivas modalidades
+     Administração são, via de regra, precedidos de processo
+     licitatórios nas respectivas modalidades
 
 4.  ***Empenho:*** Empenho da despesa, pela Lei Federal 4.320/64, é a
-    > primeira fase de execução. Ocorre via de regra na assinatura do
-    > contrato. O valor do empenho corresponde à parcela do contrato que
-    > será cumprida no exercício, o empenho configura um compromisso por
-    > parte da Administração de que o valor empenhado será pago desde de
-    > que o contrato seja cumprido e atestado pela Administração é a
-    > chamada “NE”. Não é permitida a realização de despesa sem prévio
-    > empenho, existe a figura da limitação de empenho, quando a
-    > arrecadação não acompanha a realização da despesa. Deve-se ter
-    > cuidado com a emissão dos empenhos nos dois últimos quadrimestres
-    > do mandato, observando o que reza a Lei de Responsabilidade
-    > Fiscal.
+     primeira fase de execução. Ocorre via de regra na assinatura do
+     contrato. O valor do empenho corresponde à parcela do contrato que
+     será cumprida no exercício, o empenho configura um compromisso por
+     parte da Administração de que o valor empenhado será pago desde de
+     que o contrato seja cumprido e atestado pela Administração é a
+     chamada “NE”. Não é permitida a realização de despesa sem prévio
+     empenho, existe a figura da limitação de empenho, quando a
+     arrecadação não acompanha a realização da despesa. Deve-se ter
+     cuidado com a emissão dos empenhos nos dois últimos quadrimestres
+     do mandato, observando o que reza a Lei de Responsabilidade
+     Fiscal.
 
 5.  ***Liquidação:*** A liquidação é a segunda fase da execução. Ocorre
-    > quando o contrato ou parte dele é efetivamente cumprido. A
-    > liquidação configura um direito do fornecedor a receber o
-    > pagamento correspondente ao seu valor, uma vez que ela indica que
-    > o valor empenhado foi executado no total ou em parte. È a chamada
-    > “NL”. Para efeitos contábeis a despesa é contabilizada pela sua
-    > liquidação.
+     quando o contrato ou parte dele é efetivamente cumprido. A
+     liquidação configura um direito do fornecedor a receber o
+     pagamento correspondente ao seu valor, uma vez que ela indica que
+     o valor empenhado foi executado no total ou em parte. È a chamada
+     “NL”. Para efeitos contábeis a despesa é contabilizada pela sua
+     liquidação.
 
 6.  ***Programação:*** É a chamada Programação de Desembolso – PD, que
-    > cria o critério de pagamentos conforme o cronograma de entrega do
-    > serviço ou material contratado.
+     cria o critério de pagamentos conforme o cronograma de entrega do
+     serviço ou material contratado.
 
 7.  ***Pagamento:*** O pagamento é a última fase da despesa pública e é
-    > efetuado quando ordenado após a sua devida liquidação.
+     efetuado quando ordenado após a sua devida liquidação.
 
 A Lei Orçamentária anual prevê a RECEITA e fixa a DESPESA. A FIXAÇÃO é,
 portanto, o primeiro estágio da despesa. A despesa também é fixada por
