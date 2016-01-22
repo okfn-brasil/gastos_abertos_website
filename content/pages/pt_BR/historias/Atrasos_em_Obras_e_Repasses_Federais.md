@@ -1,4 +1,3 @@
-template: historias.html
 
 # Obras de mobilidade urbana e projeto de mananciais em São Paulo são as mais afetadas por atrasos em repasses federais em 2015
 
