@@ -3,7 +3,7 @@ published: True
 categories: Gastos Abertos
 tags: gastos abertos, escola de dados, open knowledge brasil, orçamento público, jornalismo de dados, visualização de dados, lei de acesso à informação
 author: gastos_abertos
-cover: img/blog/gastos-abertos.jpg
+cover: img/blog/segundo_modulo.jpg
 
 ## O segundo módulo das oficinas Gastos Abertos, realizado na Faculdade de Direito da FGV em São Paulo nesta segunda-feira (07), deu início à análise e visualização de dados. A coordenadora da Escola de Dados, Natália Mazotte, apresentou um panorama do jornalismo de dados, falou de busca avançada, Lei de Acesso à Informação e limpeza de bases de dados com o Open Refine.
 
