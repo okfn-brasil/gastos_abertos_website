@@ -3,7 +3,7 @@ published: True
 categories: Gastos Abertos
 tags: gastos abertos, escola de dados, open knowledge brasil, orçamento público, jornalismo de dados, execução orçamentária
 author: gastos_abertos
-cover: img/blog/gastos-abertos.jpg
+cover: img/blog/execucacao_do_orcamento_e_tema.jpg
 
 ## O segundo dia de aula das oficinas Gastos Abertos, realizada na FIAP em São Paulo nesta quinta-feira (3), deu continuidade ao entendimento do orçamento e das finanças públicas, com foco no tema da execução orçamentária.
 
