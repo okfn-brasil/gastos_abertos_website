@@ -3,7 +3,7 @@ published: True
 categories: Gastos Abertos
 tags: gastos abertos, escola de dados, open knowledge brasil, orçamento público, jornalismo de dados, visualização de dados, cruzamento de dados
 author: gastos_abertos
-cover: img/blog/gastos-abertos.jpg
+cover: img/blog/alunos_aprendem.jpg
 
 ## Na aula do segundo módulo das Oficinas de Gastos Abertos desta terça-feira (08), Rodrigo Burgarelli, repórter do Estadão Dados, apresentou conceitos básicos do Excel e do Google Planilhas e propôs atividades práticas para lidar com as bases de dados utilizando essas ferramentas.
 
