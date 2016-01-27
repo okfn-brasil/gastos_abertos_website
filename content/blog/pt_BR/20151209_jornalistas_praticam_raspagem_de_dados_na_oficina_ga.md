@@ -3,7 +3,7 @@ published: True
 categories: Gastos Abertos
 tags: gastos abertos, escola de dados, open knowledge brasil, orçamento público, jornalismo de dados, raspagem de dados
 author: gastos_abertos
-cover: img/blog/gastos-abertos.jpg
+cover: img/blog/jornalistas_raspagem.jpg
 
 ## A aula desta quarta-feira (09) das oficinas Gastos Abertos, realizada pela Escola de Dados na Faculdade de Direito da FGV em São Paulo, foi de descontração e muita prática. Marco Túlio Pires, gerente de programa da School of Data, falou sobre classificação dos dados, o que caracteriza uma base estruturada e ensinou técnicas de raspagem de dados.
 
