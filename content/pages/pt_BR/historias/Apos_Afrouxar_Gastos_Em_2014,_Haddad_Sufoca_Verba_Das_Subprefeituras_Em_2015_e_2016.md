@@ -1,3 +1,4 @@
+
 #Após afrouxar gastos em 2014, Haddad "sufoca" verba das subprefeituras em 2015 e 2016
 
 ***Guilherme Felitti, Claudia Muller e Mariana Ghirello***
