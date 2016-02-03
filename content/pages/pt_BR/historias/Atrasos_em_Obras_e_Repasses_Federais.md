@@ -85,8 +85,6 @@ a recursos não liberados.
 As respostas foram enviadas para o Gastos Abertos em dezembro de 2015,
 antes dos dados fechados do ano.
 
-***Código para gráfico: ***
-
 <iframe class="highcharts-iframe"
 src="//cloud.highcharts.com/embed/omuheh" style="border: 0; width: 100%;
 height: 500px"></iframe>
