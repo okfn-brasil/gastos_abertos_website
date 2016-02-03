@@ -1,5 +1,5 @@
 
-#Falta de repasses federais paralisam metas da Prefeitura de São Paulo
+# Falta de repasses federais paralisam metas da Prefeitura de São Paulo
 
 ***Raphael Martins, Leticia Marçal, Tainara Machado***
 
