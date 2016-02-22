@@ -21,3 +21,4 @@ deployment:
 test:
   override:
     - fab test
+    
