@@ -1,5 +1,8 @@
-
-# Falta de repasses federais paralisam metas da Prefeitura de São Paulo
+title: Falta de repasses federais paralisam metas da Prefeitura de São Paulo
+published: True
+categories: Gastos Abertos
+tags: historia
+cover: img/blog/photo.jpg
 
 ***Raphael Martins, Leticia Marçal, Tainara Machado***
 

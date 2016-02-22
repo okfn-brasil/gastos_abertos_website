@@ -3,8 +3,11 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-   {% if page.head %}
-  <div class="page-head head-sobre" style="background: url(../static/img/hearder-sobre_2.jpg)">
+  {% if page.title %}
+  {{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head" style="background: url(../static/img/hearder-sobre_2.jpg)">
     <div class="row">
       <div class="content">{{ page.head | safe }}</div>
     </div>

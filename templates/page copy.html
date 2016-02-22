@@ -5,7 +5,7 @@
 {% block content %}
   
   {% if page.head %}
-  <div class="page-head test-page" style="background: url(../static/img/header-participe.jpg)">
+  <div class="page-head test-page" {% if page.id == 'sobre' %} style="background: url( {{ url_for('static', filename='/img/hearder-sobre_2.jpg') }} )" {% elif page.id == 'participe' %} style="background: url( {{ url_for('static', filename='/img/header-participe.jpg') }} )"{% endif %}>
     <div class="row">
       <div class="content">{{ page.head | safe }}</div>
     </div>
@@ -13,7 +13,7 @@
   {% endif %}
 
   {% if page.expand %}
-  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %} >
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
     {{ page }}
   </div>
   {% else %}

@@ -1,5 +1,8 @@
-
-#Créditos de poder
+title: Créditos de poder
+published: True
+categories: Gastos Abertos
+tags: historia
+cover: img/blog/photo.jpg
 
 ***Cristina Agostine, Estêvão Bertoni e Gabriel Baldocchi***
 
