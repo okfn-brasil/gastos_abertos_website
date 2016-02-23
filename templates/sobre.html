@@ -19,13 +19,24 @@
         <div class="row" data-equalizer>
           <span class="title">Nosso Time:</span>
           
+          <div class="team-photos">
           {% for author in authors %}
           {% if author.team == 'gastos_abertos' %}
-            <div data-equalizer-watch class="team-member">
+            <div  class="team-member-icon">
               <div class="content-preview-header">
                 <div class="avatar">
                   <img src="{{ url_for('static', filename=author.avatar) }}">
                 </div>
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+          </div> <!--  End of .team-photos -->
+		  <div class="team-info">
+			  {% for author in authors %}
+          {% if author.team == 'gastos_abertos' %}
+            <div data-equalizer-watch class="team-member">
+              <div class="content-preview-header">
                 <div class="name">
                   {{ author.name }}
                 </div>
@@ -41,7 +52,8 @@
             </div>
           {% endif %}
           {% endfor %}
-    
+			  
+		  </div> <!-- End of .team-info -->	  
             <div data-equalizer-watch class="team-member">
               <div class="content-preview-header">
                 <div class="avatar">

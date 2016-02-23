@@ -3022,29 +3022,48 @@ blockquote:after {
 #sobre .page-subhead .title {
   display: inline-block;
   font-size: 110%;
-  margin: 0.9375rem; }
+  margin: 0.9375rem; 
+  color: #335b4a;}
 
 #sobre .page-subhead p {
-  color: #407f69; }
+  color: #ffffff; }
+.subhead-icon-wrap{
+	width: 100%;
+}
 
 #sobre .team-member {
-  text-align: center; }
+  text-align: left; }
 
 @media only screen and (min-width: 41.9375em) {
   #sobre .team-member {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
+    width: 100%;
+    float: left; } 
+    
+  #sobre .team-member-icon{
+	padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
     width: 33.33333%;
-    float: left; } }
+    float: left;	    
+  }
+  .team-photos{ width: 55%; float: left}
+  .team-info{width: 45%; float: left}
+    
+    }
+    
 
 #sobre .team-member > div {
   padding: 0 1.25rem; }
 
-#sobre .team-member .avatar {
+#sobre .team-member-icon .avatar {
   width: 12.5rem;
   height: 12.5rem;
   border-radius: 6.25rem;
   margin: 1.25rem auto; }
+#sobre .team-member-icon .avatar.selected{
+	border: 10px solid #97c772;
+}
 
 #sobre .team-member .name, #sobre .team-member .title {
   font-weight: bold;
