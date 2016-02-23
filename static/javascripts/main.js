@@ -59,4 +59,41 @@ $(document).ready(function(){
         offset: 80
     });
     
+    /* Pagina Sobre
+    --------------------------------------------------------------------------*/
+    if(($('.head-sobre').length) > 0 ){
+	    var authorsCount = $('.team-member-icon').length;
+	    var i = 0;
+	     $('.team-photos > div').each(function(){
+		     i++;
+		     var authorsID = 'author-'+ i;
+		     $(this).attr('id', authorsID);
+	     });
+	     var j = 0;
+	     $('.team-info .team-member').each(function(){
+		     j++;
+		     var authorsID = 'author-'+ j;
+		     $(this).attr('id', authorsID);
+	     });
+	     
+	     $('.team-photos div:first-child .team-member-icon').addClass('selected');
+	     $('.team-info .team-member:not(:first-child)').hide();
+	     
+	     $('.team-photos div .team-member-icon').click(function() {
+		     var id = $(this).parent().attr("id");
+		     var author = $('.team-photos div .team-member-icon');
+		     author.each(function(){
+			     $(this).removeClass('selected');
+		     });
+		     $('.team-info .team-member').each(function(){
+			     $(this).hide();
+			 });
+			 $(this).addClass('selected');
+			 $('.team-info #' + id).show();
+			 console.log(id);
+		 });
+	     
+    }
+    
+    
 });
