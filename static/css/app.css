@@ -3060,7 +3060,7 @@ blockquote:after {
   width: 100%;
   height: auto;
   border-radius: 50%;
-  margin: 1.25rem auto; }
+  margin: 0.9375rem auto; }
 #sobre .team-member-icon .avatar.selected{
 	border: 10px solid #97c772;
 }
