@@ -9,18 +9,30 @@ head: O projeto Gastos Abertos tem como objetivo promover o <strong>engajamento 
   <div class="row">
     <h2>Buscamos construir uma comunidade fornecendo informações e meios de acesso através da participação entre nossos principais eixos:</h2>
     <div>
+    	<div class="subhead-icon-wrap">
+    		<img src="../static/img/icon-ferramentas.png">
+    	</div>
       <strong class="title">Ferramentas</strong>
       <p>Plataforma tecnológica, tutoriais de introdução, uso e customização de nossas ferramentas e artigos técnicos sobre o tema.</p>
     </div>
     <div>
+    	<div class="subhead-icon-wrap">
+    		<img src="../static/img/icon-historias-sobre.png">
+    	</div>
       <strong class="title">Histórias e cursos</strong>
       <p>Histórias de orçamento, estudos de caso, cursos direcionados ao processo de transparência pública, acesso à informação e análise de dados.</p>
     </div>
     <div>
+    	<div class="subhead-icon-wrap">
+    		<img src="../static/img/icon-comunicacao.png">
+    	</div>
       <strong class="title">Comunicação institucional</strong>
       <p>Divulgação das atividades relevantes em pauta, participação na imprensa, comunicação de atividades.</p>
     </div>
     <div>
+    	<div class="subhead-icon-wrap">
+    		<img src="../static/img/icon-engajamento.png">
+    	</div>
       <strong class="title">Engajamento Responsável</strong>
       <p>Participação e envolvimento em encontros, iniciativas e eventos relacionados ao orçamento aberto.</p>
     </div>

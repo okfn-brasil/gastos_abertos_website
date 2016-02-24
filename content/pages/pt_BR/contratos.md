@@ -1,5 +1,5 @@
 id: contratos
-template: contratos.html
+template: contratos_landingpage.html
 
 * Texto em markdown
 

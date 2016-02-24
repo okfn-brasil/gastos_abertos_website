@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  {% if page.title %}
+  {{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head">
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
+    <header class="blog-post-header">
+      <div class="blog-post-title {% if historias_posts.0.cover %}with-cover{% endif %}">
+        <div class="row">
+          <a href="{{ historias_posts.0.permalink }}">
+            <h1>{{ historias_posts.0.title }}</h1>
+            <p>{{ historias_posts.0.html | striptags | truncate(200) }}
+          </a>
+        </div>
+      </div>
+      {% if historias_posts.0.cover %}
+      <div class="blog-post-cover">
+        <img src="{{ url_for('static', filename=historias_posts.0.cover) }}" alt="">
+      </div>
+      {% endif %}
+    </header>
+  <!-- div class="row">
+    <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
+      {{ page }}
+    </div>
+  </div -->
+  <div class="content section">
+    <div class="content-highlights posts">
+      <div class="row">
+        <div class="posts-containerx">
+          <div class="row" data-equalizer="posts">
+            {% for post in historias_posts %}
+            {% if post.published %}
+            <div data-equalizer-watch="posts" class="content-preview-container">
+              <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
+                <div class="content-preview-cover" style="{% if post.cover %}background-image: url({{ url_for('static', filename=post.cover) }}){% endif %}">
+                </div>
+                <div class="content-preview-header">
+                  <div class="title">
+                    {{ post.title | truncate(50) }}
+                  </div>
+                  <div class"content-preview-info">
+                    {{ post.date.strftime('%d/%m/%Y') }} 
+                  </div>
+                </div>
+              </a>
+              <div>
+                <div class="content-preview-excerpt">
+                  {{ post.html | striptags | truncate(200) }}
+                  <div class="content-preview-readmore"><a href="{{ post.permalink }}">Saiba mais</a></div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

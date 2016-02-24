@@ -5,6 +5,16 @@ tags: colaboração, dados abertos, DAPP, dinheiro público, fgv, formato aberto
 author: gastos_abertos
 cover: img/blog/photo.jpg
 
+
+## CCCCCCCCCCCCCCCCCCCCCCCCCCC
+
+asdasdasd
+asdas
+das
+dsa
+das
+
+
 ## A iniciativa é da Diretoria de Análises de Políticas Públicas da Fundação Getúlio Vargas (FGV-DAPP) em parceria com a Open Knowledge Brasil e o jornal O Globo.
 Foi lançado ontem, 30 de novembro, o <a href="http://dapp.fgv.br/mosaico/mosaic_f/2014" target="_blank">Mosaico Orçamentário</a>, uma ferramenta de visualização de dados do Orçamento Federal desenvolvida a partir do <a href="http://openspending.org">Open Spending</a>, da Open Knowledge Internacional (OKI). A iniciativa é da <a href="http://dapp.fgv.br/" target="_blank">Diretoria de Análises de Políticas Públicas da Fundação Getúlio Vargas (FGV-DAPP)</a> em parceria com a Open Knowledge Brasil e o jornal O Globo e disponibiliza aos cidadãos dados do orçamento federal de 2001 a 2014, oferecendo a possibilidade de filtragem por temas, por órgãos e também pela distribuição de partidos políticos. Além disso, todas bases de dados estão disponíveis para download num formato aberto (CSV). Segundo Marco Aurélio Ruediger, diretor da FGV-DAPP, a ferramenta busca promover a transparência, “um vetor central não só para aumentar a confiança da sociedade civil nas instituições, como para a melhoria das políticas públicas”.
 

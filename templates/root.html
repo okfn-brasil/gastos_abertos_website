@@ -4,37 +4,49 @@
 
 {% block content %}
   <!-- ROOT :: START -->
+  <section class="top-features">
     <!-- SLIDER -->
     {% include 'includes/root/slider.html' %}
 
     <!-- FEATURES -->
     {% include 'includes/root/features_section.html' %}
+  </section>  
 
     <!-- CONTENT HIGHLIGHTS -->
     <div class="content section">
       <div class="content-highlights posts subsection">
         <div class="row" data-equalizer="posts">
-          <span class="title">Posts:</span>
+          <span class="title">Posts Recentes:</span>
 
-          {% for post in posts %}
-          {% if post.published %}
-          <div data-equalizer-watch="posts">
-            <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
-              <div class="content-preview-header">
-                <div class="title">
-                  {{ post.title | truncate(50) }}
-                </div>
-                <div class"content-preview-info">
-                  <div class="tags">{{ post.categories }}</div>
-                </div>
+        {% for post in posts[0:4] %}
+        {% if post.published %}
+        <div data-equalizer-watch="posts" class="content-preview-container">
+          <a href="{{ post.permalink }}" class="content-preview post" title="{{ post.title }}">
+            <div class="content-preview-cover" style="{% if post.cover %}background-image: url({{ url_for('static', filename=post.cover) }}){% endif %}">
+            </div>
+            <div class="content-preview-header">
+              <div class="title">
+                {{ post.title | truncate(35) }}
               </div>
-            </a>
+              <div class"content-preview-info">
+                {{ post.date.strftime('%d/%m/%Y') }} | {{ post.author.name }}
+              </div>
+            </div>
+          </a>
+          <div>
+            <div class="content-preview-excerpt">
+              {{ post.html | striptags | truncate(200) }}
+              <div class="content-preview-readmore"><a href="{{ post.permalink }}">Saiba mais</a></div>
+            </div>
           </div>
-          {% endif %}
-          {% endfor %}
+        </div>
+        {% endif %}
+        {% endfor %}
 
         </div>
       </div>
+
+      <hr>
 
 <!--
       <div class="content-highlights news subsection">
@@ -88,5 +100,5 @@
 {% endblock content %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+  <!--<script src="{{ url_for('static', filename='javascripts/main.js') }}"></script> -->
 {% endblock script %}

@@ -3,11 +3,8 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-  {% if page.title %}
-  {{ title(page.title) }}
-  {% endif %}
-  {% if page.head %}
-  <div class="page-head">
+   {% if page.head %}
+  <div class="page-head head-sobre" style="background: url(../static/img/hearder-sobre_2.jpg)">
     <div class="row">
       <div class="content">{{ page.head | safe }}</div>
     </div>
@@ -22,13 +19,24 @@
         <div class="row" data-equalizer>
           <span class="title">Nosso Time:</span>
           
+          <div class="team-photos">
           {% for author in authors %}
           {% if author.team == 'gastos_abertos' %}
-            <div data-equalizer-watch class="team-member">
-              <div class="content-preview-header">
+          <div>
+            <div  class="team-member-icon">
                 <div class="avatar">
                   <img src="{{ url_for('static', filename=author.avatar) }}">
                 </div>
+            </div>
+          </div><!--end od div with authors id-->
+          {% endif %}
+          {% endfor %}
+          </div> <!--  End of .team-photos -->
+		  <div class="team-info">
+			  {% for author in authors %}
+          {% if author.team == 'gastos_abertos' %}
+            <div data-equalizer-watch  class="team-member">
+              <div class="content-preview-header">
                 <div class="name">
                   {{ author.name }}
                 </div>
@@ -44,11 +52,10 @@
             </div>
           {% endif %}
           {% endfor %}
-    
+			  
+		  </div> <!-- End of .team-info -->	  
             <div data-equalizer-watch class="team-member">
               <div class="content-preview-header">
-                <div class="avatar">
-                </div>
                 <div class="title">
                   Agradecimentos
                 </div>
