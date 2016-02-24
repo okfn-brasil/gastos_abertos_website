@@ -1,5 +1,5 @@
 /*
-* 	Owl Carousel Owl Demo Theme 
+* 	Owl Carousel Owl Demo Theme
 *	v1.3.3
 */
 
@@ -18,10 +18,6 @@
 	margin: 5px;
 	padding: 3px 10px;
 	font-size: 12px;
-	-webkit-border-radius: 30px;
-	-moz-border-radius: 30px;
-	border-radius: 30px;
-	background: #869791;
 	filter: Alpha(Opacity=50);/*IE7 fix*/
 	opacity: 0.5;
 }
@@ -32,6 +28,13 @@
 	opacity: 1;
 	text-decoration: none;
 }
+
+.owl-next{
+	position: absolute;
+	right: 0;}
+.owl-prev{
+	position: absolute;
+	left: 0;}
 
 /* Styling Pagination*/
 

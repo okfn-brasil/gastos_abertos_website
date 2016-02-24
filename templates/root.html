@@ -4,11 +4,13 @@
 
 {% block content %}
   <!-- ROOT :: START -->
+  <section class="top-features">
     <!-- SLIDER -->
     {% include 'includes/root/slider.html' %}
 
     <!-- FEATURES -->
     {% include 'includes/root/features_section.html' %}
+  </section>  
 
     <!-- CONTENT HIGHLIGHTS -->
     <div class="content section">
@@ -98,5 +100,5 @@
 {% endblock content %}
 
 {% block script %}
-  <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+  <!--<script src="{{ url_for('static', filename='javascripts/main.js') }}"></script> -->
 {% endblock script %}

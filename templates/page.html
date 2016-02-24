@@ -3,11 +3,9 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-  {% if page.title %}
-  {{ title(page.title) }}
-  {% endif %}
+  
   {% if page.head %}
-  <div class="page-head">
+  <div class="page-head test-page" style="background: url(../static/img/header-participe.jpg)">
     <div class="row">
       <div class="content">{{ page.head | safe }}</div>
     </div>
@@ -15,7 +13,7 @@
   {% endif %}
 
   {% if page.expand %}
-  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %} >
     {{ page }}
   </div>
   {% else %}
