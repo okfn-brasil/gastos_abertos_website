@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="blog-post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="blog-post-header">
+      {{ title(post.title, type='blog-post', cover=post.cover) }}
+      {% if post.cover %}
+      <div class="blog-post-cover">
+        <img src="{{ url_for('static', filename=post.cover) }}" alt="">
+      </div>
+      {% endif %}
+      <div class="row">
+        <div class="blog-post-info">
+          <time class="blog-post-date" datetime="{{ post.date.strftime('%Y-%m-%d') }}">{{ post.date.strftime('%d/%m/%Y') }}</time>
+          <div class="blog-post-tags"><span class="title">Tags</span>  {% for tag in post.tags %}  <a href="{{ url_for('historias_posts_by_tag', tag=tag.1) }}">{{ tag.0 }}</a>{% if not loop.last %},{% endif %} {% endfor %}</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="row">
+      <div class="content blog-post-content" itemprop="articleBody">
+        {{ post }}
+      </div>
+
+      <div class="blog-post-categories">
+        <span class="title">Categorias</span> {% for category in post.categories %}  <a href="{{ url_for('historias_posts_by_category', category=category.1) }}">{{ category.0 }}</a>{% if not loop.last %},{% endif %} {% endfor %}
+      </div>
+
+      {% if post.author %}
+      <div class="content blog-post-author">
+        <div class="avatar">
+          {% if post.author.avatar %}
+          <img src="{{ url_for('static', filename=post.author.avatar) }}" alt="foto do autor">
+          {% endif %}
+        </div>
+        <div class="info">
+          <span class="title">Sobre o autor</span> {{ post.author.name }}<br>{{ post.author }}
+          {% if post.author.website %}
+          <a class="website" href="{{ post.author.website }}">Website</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </article>
+{% endblock %}

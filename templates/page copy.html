@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  
+  {% if page.head %}
+  <div class="page-head test-page" {% if page.id == 'sobre' %} style="background: url( {{ url_for('static', filename='/img/hearder-sobre_2.jpg') }} )" {% elif page.id == 'participe' %} style="background: url( {{ url_for('static', filename='/img/header-participe.jpg') }} )"{% endif %}>
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if page.expand %}
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
+    {{ page }}
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
+      {{ page }}
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}

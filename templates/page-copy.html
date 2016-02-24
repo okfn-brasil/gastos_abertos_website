@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  {% if page.title %}
+  	{{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head test-page">
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if page.expand %}
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
+    {{ page }}
+  </div>
+  {% else %}
+  <div class="row">
+    <div class="content {% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
+      {{ page }}
+    </div>
+  </div>
+  {% endif %}
+{% endblock %}
