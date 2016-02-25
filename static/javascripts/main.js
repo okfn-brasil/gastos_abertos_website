@@ -42,6 +42,7 @@ $(document).ready(function(){
         } else {
             $('.site-header').removeClass('colored-nav');
         }
+        console.log('navHeight='+navHeight+' and scrolltop='+ $(window).scrollTop());
     });
     
     //fix for the slider overlapin the menu when in small scree size
@@ -54,10 +55,10 @@ $(document).ready(function(){
 	    }
     );*/
     
-    $('body').scrollspy({ 
+   /* $('body').scrollspy({ 
         target: '.site-header',
         offset: 80
-    });
+    });*/
     
     /* Pagina Sobre
     --------------------------------------------------------------------------*/
@@ -93,5 +94,7 @@ $(document).ready(function(){
 			 console.log(id);
 		 });
 	     
-    } 
+    }
+    
+    
 });

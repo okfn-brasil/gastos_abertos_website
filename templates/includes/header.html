@@ -13,6 +13,7 @@
           <li {% if page.id == 'root' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('root') }}">Home</a></li>
           <li {% if page.id == 'participe' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='participe') }}">Participe</a></li>
           <li {% if page.id in ('blog', 'post') %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='blog') }}">Blog</a></li>
+          <li {% if page.id in ('historias', 'post') %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='historias') }}">Histórias</a></li>
           <li {% if page.id == 'cursos' %}class="active"{% endif %}><a class="page-link" href="/blog/tags/escola_de_dados/" title="Em breve" data-tooltip>Cursos</a></li>
           <!--<li {% if page.id == 'news' %}class="active"{% endif %}><a class="page-link" href="#" title="Em breve" data-tooltip>News</a></li>-->
           <li {% if page.id == 'contratos' %}class="active"{% endif %}><a class="page-link" href="{{ url_for('page', path='contratos' ) }}">Contratos</a></li>
