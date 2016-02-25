@@ -46,6 +46,8 @@ def page_urls():
 def blog_posts_urls():
     for post in posts:
         yield get_post_url(post)
+    for post in historias_posts:
+        yield historia_get_post_url(post)
 
 #
 # Routes
