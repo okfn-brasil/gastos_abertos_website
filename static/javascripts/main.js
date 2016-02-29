@@ -30,21 +30,20 @@ $(document).ready(function(){
 		  $('.owl-controls').css('margin-top', '-' + owlControlsmarginTop + 'px');
 	}
 	setCarrouselDims();
-	
+
 	$( window ).resize(function() {
 		setCarrouselDims();
 	});
-	
+
 	$(window).bind('scroll', function() {
-        var navHeight = $(window).height() - 100;
-        if ($(window).scrollTop() > navHeight) {
+        var navHeight = $(window).height() - 500;
+        if ($(window).scrollTop() > 80) {
             $('.site-header').addClass('colored-nav');
         } else {
             $('.site-header').removeClass('colored-nav');
         }
-        console.log('navHeight='+navHeight+' and scrolltop='+ $(window).scrollTop());
     });
-    
+
     //fix for the slider overlapin the menu when in small scree size
     /*$('.toggle-topbar ').toggle(
 	    function(){
@@ -54,12 +53,12 @@ $(document).ready(function(){
 		    $('.top-features').css('margin-top', '');
 	    }
     );*/
-    
-   /* $('body').scrollspy({ 
+
+   /* $('body').scrollspy({
         target: '.site-header',
         offset: 80
     });*/
-    
+
     /* Pagina Sobre
     --------------------------------------------------------------------------*/
     if(($('.head-sobre').length) > 0 ){
@@ -76,10 +75,10 @@ $(document).ready(function(){
 		     var authorsID = 'author-'+ j;
 		     $(this).attr('id', authorsID);
 	     });
-	     
+
 	     $('.team-photos div:first-child .team-member-icon').addClass('selected');
 	     $('.team-info .team-member:not(:first-child)').hide();
-	     
+
 	     $('.team-photos div .team-member-icon').click(function() {
 		     var id = $(this).parent().attr("id");
 		     var author = $('.team-photos div .team-member-icon');
@@ -91,10 +90,9 @@ $(document).ready(function(){
 			 });
 			 $(this).addClass('selected');
 			 $('.team-info #' + id).show();
-			 console.log(id);
 		 });
-	     
+
     }
-    
-    
+
+
 });
