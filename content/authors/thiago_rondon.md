@@ -2,7 +2,7 @@ name: Thiago Rondon
 team: gastos_abertos
 title: Coordenador do projeto
 pos: 1
-email: hiago@ok.org.br
+email: thiago@ok.org.br
 avatar: img/authors/thiago-rondon.jpg
 website:
 minibio:

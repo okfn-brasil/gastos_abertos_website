@@ -11,12 +11,12 @@ meta.foundation-mq-small-only {
   width: 0; }
 
 meta.foundation-mq-medium {
-  font-family: "/only screen and (min-width:41.9375em)/";
-  width: 41.9375em; }
+  font-family: "/only screen and (min-width:58.9375em)/";
+  width: 58.9375em; }
 
 meta.foundation-mq-medium-only {
-  font-family: "/only screen and (min-width:41.9375em) and (max-width:64em)/";
-  width: 41.9375em; }
+  font-family: "/only screen and (min-width:58.9375em) and (max-width:64em)/";
+  width: 58.9375em; }
 
 meta.foundation-mq-large {
   font-family: "/only screen and (min-width:64.0625em)/";
@@ -371,7 +371,7 @@ button::-moz-focus-inner {
   border: 0;
   padding: 0; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   button, .button {
     display: inline-block; } }
 
@@ -471,7 +471,7 @@ button::-moz-focus-inner {
 .clearing-feature li.clearing-featured-img {
   display: block; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .clearing-main-prev, .clearing-main-next {
     height: 100%;
     position: absolute;
@@ -1024,8 +1024,8 @@ label.error {
     top: 50%; } }
 
 meta.foundation-mq-topbar {
-  font-family: "/only screen and (min-width:41.9375em)/";
-  width: 41.9375em; }
+  font-family: "/only screen and (min-width:58.9375em)/";
+  width: 58.9375em; }
 
 /* Wrapped around .top-bar to contain to grid width */
 .contain-to-grid {
@@ -1086,7 +1086,7 @@ meta.foundation-mq-topbar {
   padding-bottom: .4125rem;
   padding-top: .4125rem; }
 
-@media only screen and (max-width: 41.875em) {
+@media only screen and (max-width: 58.9375em) {
   .top-bar .button, .top-bar button {
     position: relative;
     top: -1px; }
@@ -1447,7 +1447,7 @@ meta.foundation-mq-topbar {
 .js-generated {
   display: block; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .top-bar {
     overflow: visible; }
   .top-bar:before, .top-bar:after {
@@ -1649,7 +1649,7 @@ meta.foundation-mq-topbar {
   .small-text-justify {
     text-align: justify !important; } }
 
-@media only screen and (min-width: 41.9375em) and (max-width: 64em) {
+@media only screen and (min-width: 58.9375em) and (max-width: 64em) {
   .medium-only-text-left {
     text-align: left !important; }
   .medium-only-text-right {
@@ -1659,7 +1659,7 @@ meta.foundation-mq-topbar {
   .medium-only-text-justify {
     text-align: justify !important; } }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .medium-text-left {
     text-align: left !important; }
   .medium-text-right {
@@ -1950,7 +1950,7 @@ blockquote, blockquote p {
   border: none;
   padding: 0 0.0625rem; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   h1, h2, h3, h4, h5, h6 {
     line-height: 1.4; }
   h1 {
@@ -2114,7 +2114,7 @@ blockquote:after {
   margin-left: auto;
   margin-right: auto; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .content#participe {
     text-align: center;
     width: 100%;
@@ -2144,14 +2144,14 @@ blockquote:after {
  transition: all 0.8s ease 0s;
  /*Juan*/
   z-index: 110; }
- 
+
  .colored-nav {
 	background: #509f83;
-  box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.3); 
+  box-shadow: 0px 1px 10px 5px rgba(0, 0, 0, 0.3);
  }
  /*Juan*/
- 
- 
+
+
 .site-header .top-bar {
   height: 5rem; }
 
@@ -2166,7 +2166,7 @@ blockquote:after {
   text-indent: -9999px; }
  .features.section{margin: 40px 0 0!important;}
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .top-bar-section .page-link {
     height: 5rem;
     display: table-cell;
@@ -2274,7 +2274,7 @@ blockquote:after {
 .page-head p, .page-subhead p {
   text-transform: none; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .page-head .content, .page-head h2, .page-subhead .content, .page-subhead h2 {
     width: 100%; } }
 
@@ -2283,7 +2283,7 @@ blockquote:after {
  /* background: url(../img/header-participe.jpg);*/
   font-size: 1.3rem;
   margin-top: -5rem; }
- 
+
 .page-head .content{
 	margin-top: 5rem;
 }
@@ -2391,7 +2391,7 @@ blockquote:after {
   -ms-filter: blur(3px);
   filter: blur(3px); }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .blog-post-content {
     margin-right: 20rem; } }
 
@@ -2432,7 +2432,7 @@ blockquote:after {
   display: inline-block;
   vertical-align: top; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .blog-post-author .info {
     margin-left: 0.9375rem; } }
 
@@ -2465,7 +2465,7 @@ blockquote:after {
   background: url('../img/footer_line.png') no-repeat center bottom;
   background-size: 100%; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .site-footer {
     height: 15.625rem; }
   .site-footer > .row > div {
@@ -2497,7 +2497,7 @@ blockquote:after {
   .site-footer > .row > div:first-of-type p {
     margin: 0.9375rem 0 0.625rem; } }
 
-@media only screen and (min-width: 41.9375em) and (max-width: 64em) {
+@media only screen and (min-width: 58.9375em) and (max-width: 64em) {
   .site-footer .row > div {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2531,7 +2531,7 @@ blockquote:after {
 .site-footer .twitter-widget .twitter-timeline {
   height: 200px !important; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .page-wrap:after {
     height: 15.625rem; }
   .page-wrap {
@@ -2553,7 +2553,7 @@ blockquote:after {
   font-weight: bold;
   margin: 0 0.9375rem 0.9375rem; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .search-box.contratos fieldset {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2652,7 +2652,7 @@ blockquote:after {
   margin-top: 60px; }
  .owl-prev img, .owl-next img { display: block;}
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .slider {
     background-size: 115% auto; } }
 
@@ -2673,7 +2673,7 @@ blockquote:after {
   background: #FFFFFF; }
 .h-slider-img-wrap{width: 60%; margin: 0 20%;}
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .features.section .feature-group, {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2698,9 +2698,9 @@ blockquote:after {
   .features.section .feature-group .feature span {
   color: #ffffff;}
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
 	.part-img{float: left; }
-	
+
 	.hist-como-colaborar-txt-p{
 		width: calc(100% - 147px);
 		float: left;
@@ -2709,9 +2709,9 @@ blockquote:after {
 
 @media only screen and (max-width: 41.936em){
 	.part-img{float: none; margin: 0 auto;}
-	
+
 	.hist-como-colaborar-txt-p{
-		width: 100%; 
+		width: 100%;
 		float: none;
 		clear: both;
 	}
@@ -2739,12 +2739,12 @@ blockquote:after {
 	text-align: center;
 	margin: 60px 0 0;
 }
-.participe-callback-wrap a{ 
-	display: inline-block; 
+.participe-callback-wrap a{
+	display: inline-block;
 	font-weight: bold;}
 
 .feature-sec-okbr-img{
-	text-align: center; 
+	text-align: center;
 	margin: 40px 0;
 	padding: 0 0 40px;}
 
@@ -2757,7 +2757,7 @@ blockquote:after {
 .content.section {
   margin: 2.5rem 0; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .blog-navigation {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2774,14 +2774,14 @@ blockquote:after {
   width: 100%;
   float: left; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .content-highlights > .row .content-preview-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
     width: 25%;
     float: left; } }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .content-highlights.posts .posts-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2791,14 +2791,14 @@ blockquote:after {
 .content-highlights.posts > .row > .post {
   display: table; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .content-highlights.posts > .row .content-preview-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
     width: 50%;
     float: left; } }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .content-highlights.posts.subsection > .row .content-preview-container {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2858,10 +2858,10 @@ blockquote:after {
 
 .content-highlights .content-preview.post .content-preview-info {
   font-size: 0.8em; }
-  
+
 .about.section .about{
 	border-right: 2px solid #7dc368;
-	
+
 }
 
 .about.section .row > div {
@@ -2871,14 +2871,14 @@ blockquote:after {
   font-size: 1rem;
   display: inline-block; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .about.section .row .about {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
     width: 66.66667%;
     float: left; } }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .about.section .row .about .title {
     vertical-align: middle;
     width: 25rem;
@@ -2890,7 +2890,7 @@ blockquote:after {
 .about.section .row .subscribe {
   text-align: center; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .about.section .row .subscribe {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -2955,7 +2955,7 @@ blockquote:after {
   width: 80%;
   height: auto; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   .landing-page-title .logo {
     width: 30%;
     min-width: 26.25rem;
@@ -3012,7 +3012,7 @@ blockquote:after {
 #sobre .page-subhead .row > div {
   margin-top: 1.25rem; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   #sobre .page-subhead .row > div {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
@@ -3022,7 +3022,7 @@ blockquote:after {
 #sobre .page-subhead .title {
   display: inline-block;
   font-size: 110%;
-  margin: 0.9375rem; 
+  margin: 0.9375rem;
   color: #335b4a;}
 
 #sobre .page-subhead p {
@@ -3034,24 +3034,32 @@ blockquote:after {
 #sobre .team-member {
   text-align: left; }
 
-@media only screen and (min-width: 41.9375em) {
+#sobre .team-member-icon{
+  width:250px; height: auto;
+  display: inline-block;
+}
+#sobre .team-member-wrap{
+  text-align: center;
+}
+
+@media only screen and (min-width: 58.9375em) {
   #sobre .team-member {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
     width: 100%;
-    float: left; } 
-    
+    float: left; }
+
   #sobre .team-member-icon{
 	padding-left: 0.9375rem;
     padding-right: 0.9375rem;
-    width: 33.33333%;
-    float: left;	    
+    width:24.33333%;
+    float: left;
   }
   .team-photos{ width: 55%; float: left}
   .team-info{width: 45%; float: left}
-    
+
     }
-    
+
 
 #sobre .team-member > div {
   padding: 0 1.25rem; }
@@ -3076,7 +3084,7 @@ blockquote:after {
 #sobre .initiative {
   padding-bottom: 1.875rem; }
 
-@media only screen and (min-width: 41.9375em) {
+@media only screen and (min-width: 58.9375em) {
   #sobre .initiative {
     padding-left: 0.9375rem;
     padding-right: 0.9375rem;
