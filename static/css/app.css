@@ -2121,6 +2121,16 @@ blockquote:after {
     text-align: left;
     padding: 3.125rem 0; } }
 
+@media only screen and (max-width: 58.9374em){
+  .feature-group{width: 100%}
+  .features.section .feature-group .feature {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
+    width: 25%;
+    float: left;
+    padding-top: 1.875rem;
+    text-align: center; }
+}
 /*
  * Header
  */
@@ -2679,15 +2689,17 @@ blockquote:after {
     padding-right: 0.9375rem;
     width: 50%;
     float: left; }
+
+    .features.section .feature-group .feature {
+      padding-left: 0.9375rem;
+      padding-right: 0.9375rem;
+      width: 12.5%;
+      float: left;
+      padding-top: 1.875rem;
+      text-align: center; }
+
 }
 
-.features.section .feature-group .feature {
-  padding-left: 0.9375rem;
-  padding-right: 0.9375rem;
-  width: 12.5%;
-  float: left;
-  padding-top: 1.875rem;
-  text-align: center; }
 
 .features.section .feature-group .feature .title {
   display: block;
