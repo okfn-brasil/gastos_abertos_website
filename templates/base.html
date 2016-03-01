@@ -20,7 +20,7 @@
   </head>
   <body>
 
-<!-- HEADER :: START -->  
+<!-- HEADER :: START -->
     <div class="page-wrap">
       {% include 'includes/header.html' %}
       <!-- .page-wrap should be closed before .site-footer -->
@@ -45,7 +45,7 @@
 	<script src="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.min.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/app.js') }}"></script>
     <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
-    
+
     <script>
       if (window.location.host == 'p.gastosabertos.org') {
         $('.page-wrap').addClass('site-preview');
@@ -55,4 +55,3 @@
     {% endblock %}
   </body>
 </html>
-

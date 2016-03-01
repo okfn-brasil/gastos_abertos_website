@@ -2304,7 +2304,7 @@ blockquote:after {
 
 .page-head.landingpage {
   background: #848484;
-  text-align: inherit;
+  text-align: center;
   padding: 1.875rem 0 1.25rem 0; }
 
 .page-head.landingpage .feature {
@@ -2319,7 +2319,7 @@ blockquote:after {
 
 .page-head.landingpage .content, .page-head.landingpage h2 {
   margin-left: 0;
-  width: 85%; }
+  width: 100%; }
 
 .page-subhead {
   background: #77AA52;
@@ -2989,6 +2989,8 @@ blockquote:after {
 .page-block.fonte-de-dados p, .page-block.fonte-de-dados a, .page-block.fonte-de-dados h3 {
   text-align: center;
   color: white; }
+/* estilos para página 'Contratos', 'Orçamentos'
+------------------------------------------------------------------------------------------------*/
 
 #api .page-subhead .row > div, #orcamento .page-subhead .row > div, #contratos .page-subhead .row > div {
   padding-left: 0.9375rem;
@@ -3010,6 +3012,17 @@ blockquote:after {
   padding-right: 0.9375rem;
   width: 50%;
   float: left; }
+
+.contratos-page-heading{
+  background: url(../img/header-contratos.jpg)!important;
+}
+.orcamento-page-heading{
+  background: url(../img/header-orcamentos.jpg)!important;
+}
+.api-page-heading{
+  background: url(../img/header-api.jpg)!important;
+}
+
 
 #sobre .content-preview-buttons {
   text-align: center;
