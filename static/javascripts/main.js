@@ -32,11 +32,6 @@ $(document).ready(function(){
     function() { owl.play(); }
   )
 
-//for the page startup to work correctly
-//window.setTimeout(setCarrouselDims, 6000);
-  /*if (($('.slider:visible').length) > 0){
-	       setCarrouselDims();
-   }*/
 	$( window ).resize(function() {
 		setCarrouselDims();
 	});
@@ -118,9 +113,6 @@ $(document).ready(function(){
       			 $('.team-info #' + id).addClass('shown').show();
   		   });
        }
-
-
-
     }
 });
 
