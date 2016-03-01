@@ -3037,6 +3037,7 @@ blockquote:after {
 #sobre .team-member-icon{
   width:250px; height: auto;
   display: inline-block;
+  cursor: pointer;
 }
 #sobre .team-member-wrap{
   text-align: center;
@@ -3053,6 +3054,7 @@ blockquote:after {
 	padding-left: 0.9375rem;
     padding-right: 0.9375rem;
     width:24.33333%;
+    min-height: 123px;
     float: left;
   }
   .team-photos{ width: 55%; float: left}

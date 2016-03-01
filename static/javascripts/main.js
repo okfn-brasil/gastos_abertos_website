@@ -1,6 +1,16 @@
 // Start loading the main app file. Put all of
 // your application logic in there.
 
+// fix carrousel clickable buttons position
+
+function setCarrouselDims(){
+    var carouselImgHeight = $('.h-slider-img-wrap:first-child img').height();
+    $('.slider').css('height', carouselImgHeight + 'px');
+    var owlCliblesHeight = $('.owl-next').height();
+    var owlControlsmarginTop = (carouselImgHeight + owlCliblesHeight) / 2;
+    $('.owl-controls').css('margin-top', '-' + owlControlsmarginTop + 'px');
+}
+
 $(document).ready(function(){
   $('.owl-carousel').owlCarousel({
     slideSpeed: 300,
@@ -21,17 +31,9 @@ $(document).ready(function(){
     function() { owl.stop(); },
     function() { owl.play(); }
   )
-  // fix carrousel clickable buttons position
 
-	function setCarrouselDims(){
-		  var carouselImgHeight = $('.h-slider-img-wrap:first-child img').height();
-		  $('.slider').css('height', carouselImgHeight + 'px');
-		  var owlCliblesHeight = $('.owl-next').height();
-		  var owlControlsmarginTop = (carouselImgHeight + owlCliblesHeight) / 2;
-		  $('.owl-controls').css('margin-top', '-' + owlControlsmarginTop + 'px');
-	}
 //for the page startup to work correctly
-window.setTimeout(setCarrouselDims(), 16000);
+//window.setTimeout(setCarrouselDims, 6000);
   /*if (($('.slider:visible').length) > 0){
 	       setCarrouselDims();
    }*/
@@ -120,4 +122,8 @@ window.setTimeout(setCarrouselDims(), 16000);
 
 
     }
+});
+
+$(window).on("load", function() {
+    setCarrouselDims();
 });
