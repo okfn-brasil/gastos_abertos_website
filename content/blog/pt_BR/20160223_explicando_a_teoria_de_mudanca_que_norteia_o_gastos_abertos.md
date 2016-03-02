@@ -1,7 +1,7 @@
 title: Explicando a Teoria de Mudança que norteia o Gastos Abertos
 published: True
 categories: Gastos Abertos
-tags: gastos abertos, gastos públicos, cidadania, orçamento público, participação, foo
+tags: gastos abertos, gastos públicos, cidadania, orçamento público, participação, teoria de mudança
 author: Thiago Rondon
 cover: img/blog/photo.jpg
 
