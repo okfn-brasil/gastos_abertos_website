@@ -2,14 +2,16 @@ title: Explicando a Teoria de Mudança que norteia o Gastos Abertos
 published: True
 categories: Gastos Abertos
 tags: gastos abertos, gastos públicos, cidadania, orçamento público, participação, foo
-author: gastos_abertos
+author: Thiago Rondon
 cover: img/blog/photo.jpg
 
 ## Explicando a Teoria de Mudança que norteia o Gastos Abertos
 
 Nosso novo objetivo, em termos de resultado social, é melhorar a participação cidadã na discussão do orçamento público e a prestação de contas orçamentárias por parte dos municípios
 
-A nova coordenação do projeto Gastos Abertos desenvolveu uma ilustração da Teoria de Mudança que pretende nortear o projeto. Trata-se de uma descrição de como e por que se espera determinada mudança em um contexto particular.
+A nova coordenação do projeto Gastos Abertos desenvolveu uma [ilustração da Teoria de Mudança](https://creately.com/diagram/ikl715ge1/2aIxCkV91F3QErmEYOaX5zUuE4%3D) que pretende nortear o projeto. Trata-se de uma descrição de como e por que se espera determinada mudança em um contexto particular.
+
+[<img width="500px" src="https://cdn-images-1.medium.com/max/1600/1*0E2WYJXfciPIkhCi7W7tQg.png">](http://creately.com/diagram/ikl715ge1/2aIxCkV91F3QErmEYOaX5zUuE4%3D)
 
 A Teoria de Mudança mapeia e explica, ainda que de forma abrangente, todas as etapas que deverão ocorrer entre o início de um projeto projeto e seu final, e as relações causais entre metas e condições: quais passos a iniciativa deve seguir e como estes passos ajudarão a alcançar as transformações desejadas. Além disso, facilita a compreensão entre a conexão das atividades que o projeto irá realizar e do alcance dos seus objetivos de longo prazo. Este processo auxilia a elaboração do planejamento estratégico e estipula métricas para avaliar o progresso do projeto.
 
