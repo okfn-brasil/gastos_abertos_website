@@ -85,7 +85,7 @@ $(document).ready(function(){
        if(windowWidth < 67.35714285714286){
          $('.team-photos div .team-member-icon').each(function(){
            var id= $(this).parent().attr("id");
-           $('.team-info #' + id).insertAfter(this);
+           $('.team-info #' + id).show().insertAfter(this);
          });
          $('.team-info .team-member.shown').insertAfter('.selected');
 
@@ -94,10 +94,10 @@ $(document).ready(function(){
            var author = $('.team-photos div .team-member-icon');
            author.each(function(){
              $(this).removeClass('selected');
-             $(this).parent().find('.team-member').removeClass('shown').hide();
+             //$(this).parent().find('.team-member').removeClass('shown').hide();
            });
            $(this).addClass('selected');
-           $(this).parent().find('.team-member').addClass('shown').show();
+           //$(this).parent().find('.team-member').addClass('shown').show();
          });
        }else{
          $('.team-photos div .team-member-icon').click(function() {
