@@ -2409,6 +2409,13 @@ blockquote:after {
   -o-filter: blur(3px);
   -ms-filter: blur(3px);
   filter: blur(3px); }
+i[class^='fi-'], i[class*=' fi-']{
+  margin: 0 5px 0 0;
+}
+.social-share{ display: inline-block;}
+.fi-social-facebook{ color: #3b3f8f;}
+.fi-social-twitter{ color: #85bdf2;}
+.fb_iframe_widget{ line-height: 10px;}
 
 @media only screen and (min-width: 58.9375em) {
   .blog-post-content {
