@@ -6,7 +6,7 @@ author: gastos_abertos
 cover: img/blog/photo.jpg
 
 ## Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias da cidade de São Paulo
-Em parceria com o Gastos Abertos, o <a href="http://www.voltdata.info/" target="_blank">Volt Data Lab</a> mostra que Infra-Estrutura Urbana e Habitação foram as secretarias que registraram o menor ritmo de execução orçamentária em 2015
+Infra-Estrutura Urbana e Habitação foram as secretarias que registraram o menor ritmo de execução orçamentária em 2015
 
 As duas secretarias do Município de São Paulo que mais dependem de recursos federais, Infra-Estrutura Urbana e Habitação, foram as que registraram o menor ritmo de execução orçamentária em 2015, com uma baixa aplicação de recursos em obras importantes de mobilidade urbana e manutenção de mananciais.
 
@@ -78,3 +78,5 @@ Uma vez definido, aprovado e atualizado o orçamento público, podem-se iniciar 
 A Lei Orçamentária anual prevê a RECEITA e fixa a DESPESA. A FIXAÇÃO é, portanto, o primeiro estágio da despesa. A despesa também é fixada por meio dos créditos adicionais. Assim sendo, nenhuma DESPESA pode ser realizada sem Crédito Orçamentário que a comporte, diferentemente da receita que é prevista e poderá ser cobrada independentemente de prévia autorização orçamentária, bastando que a lei criadora do tributo esteja em vigor antes do início do exercício financeiro, ainda que o Orçamento já tenha sido aprovado e publicado.
 
 Fonte: <a href="http://www.fazenda.sp.gov.br/download/cge/manual_siafem_integra.pdf" target="_blank">Manual de Procedimentos Contábeis da Administração Pública do Estado de São Paulo</a></div>
+
+A matéria acima é uma parceria entre o Gastos Abertos e o <a href="http://www.voltdata.info/" target="_blank">Volt Data Lab</a>, primeira parte do especial "Histórias do Orçamento". O especial tem como objetivo mostrar apresentar histórias utilizando dados orçamentários da cidade de São Paulo e seus respectivos "making ofs", isto é, o processo de elaboração das matérias, que dados foram utilizados e qual o tipo de trabalho feito para tratar as informações coletadas.
