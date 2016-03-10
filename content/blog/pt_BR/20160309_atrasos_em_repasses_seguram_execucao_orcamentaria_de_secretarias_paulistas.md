@@ -16,7 +16,7 @@ Os dados de janeiro a outubro assemelham-se ao fechado de 2014, quando, dos mais
 
 O Gastos Abertos considerou como ritmo de execução o montante já liquidado (despesas reconhecidas) dos recursos no ano, dividido pelo orçamento atualizado.
 
-<iframe class="highcharts-iframe" src="//cloud.highcharts.com/embed/eqatyn" style="border: 0; width: 100%; height: 500px"></iframe><span style="font-size:7px"><a href="https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit?usp=sharing" target="_blank">Todos os dados podem ser obtidos tabelados aqui.</a></span>
+<iframe class="highcharts-iframe" src="//cloud.highcharts.com/embed/eqatyn" style="border: 0; width: 100%; height: 500px"></iframe><span style="font-size:10px"><a href="https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit?usp=sharing" target="_blank">Todos os dados podem ser obtidos tabelados aqui.</a></span>
 
 Para Odilon Guedes, economista e coordenador do Grupo de Trabalho de Orçamento da Rede Nossa São Paulo, boa parte de atrasos em repasses se deve ao ajuste fiscal do governo federal, motivado pelo fraco desempenho da economia brasileira e por esforços de redução de gastos públicos. <cite>"O governo está fazendo esforço com ajuste fiscal e acaba prejudicando tudo", disse o economista.</cite>
 
@@ -38,7 +38,7 @@ Desconsiderados fundos e recursos sob outras pastas, SEHAB e SIURB tiveram uma e
 
 Vale notar, também, que as duas pastas tiveram substanciais reduções em seus orçamentos de 2015 - ou seja, primeiramente foi previsto um montante para o ano que depois foi revisado para baixo. Isso, em tese, diminuiria a distância entre liquidação de recursos e o esperado no orçamento, já que as secretarias teriam menos recursos para gastar no ano.
 
-###Projetos
+### Projetos
 
 A SIURB enfrentou um lento ritmo de execução em diversos projetos. Por exemplo, a implantação e requalificação de terminais de ônibus, um grande plano da administração municipal para mobilidade urbana, teve apenas cerca de 20% da verba liquidada, enquanto a execução do <a href="http://www.prefeitura.sp.gov.br/cidade/secretarias/upload/infraestrutura/arquivos/audiencia_publica_carlos_caldeira.pdf" target="_blank">Plano Viário Sul</a>, um projeto para o qual a União deveria inicialmente repassar mais de R$ 130 milhões e que contempla diversos corredores de ônibus, não teve liquidação de recursos federais neste ano.
 
@@ -58,21 +58,21 @@ A Secretaria de Educação, com um orçamento de R$ 10 bilhões para o ano, o ma
 
 <iframe class="highcharts-iframe" src="//cloud.highcharts.com/embed/ylizyt" style="border: 0; width: 100%; height: 500px"></iframe>
 
-<div style="width:50%; float:right; border: 1px solid #666">
-#### A execução orçamentária
+<div style="width:50%; height: auto !important; float:right; border: 1px solid #666">
+### A execução orçamentária
 
 A execução do orçamento público possui diversas etapas. Para esta reportagem, o ritmo executado foi considerado a partir da Liquidação dos recursos, ou seja, a partir do momento em que a administração pública reconheceu a despesa em seu orçamento. Essa referência baseia-se em recomendações de três especialistas orçamentários ouvidos pelo Gastos Abertos.
  
 Uma vez definido, aprovado e atualizado o orçamento público, podem-se iniciar as etapas de execução dos recursos na seguinte ordem:
  
 <ol start="1">
-  <li>Fixação: A despesa é fixada pela Lei Orçamentária Anual</li>
-  <li>Reserva: A reserva é feita através do sistema por documento &ldquo;NR&rdquo;, indicando na licitação de onde virão os recursos para pagamento da despesa. A reserva não configura nenhum direito ao fornecedor, apenas indica que há recursos orçamentários para que a despesa seja efetuada.</li>
-  <li>Licitação: Todas as compras e contratos efetuados com a Administração são, via de regra, precedidos de processo licitatórios nas respectivas modalidades</li>
-  <li>Empenho: Empenho da despesa, pela Lei Federal 4.320/64, é a primeira fase de execução. Ocorre via de regra na assinatura do contrato. O valor do empenho corresponde à parcela do contrato que será cumprida no exercício, o empenho configura um compromisso por parte da Administração de que o valor empenhado será pago desde de que o contrato seja cumprido e atestado pela Administração é a chamada &ldquo;NE&rdquo;. Não é permitida a realização de despesa sem prévio empenho, existe a figura da limitação de empenho, quando a arrecadação não acompanha a realização da despesa. Deve-se ter cuidado com a emissão dos empenhos nos dois últimos quadrimestres do mandato, observando o que reza a Lei de Responsabilidade Fiscal.</li>
-  <li>Liquidação: A liquidação é a segunda fase da execução. Ocorre quando o contrato ou parte dele é efetivamente cumprido. A liquidação configura um direito do fornecedor a receber o pagamento correspondente ao seu valor, uma vez que ela indica que o valor empenhado foi executado no total ou em parte. È a chamada &ldquo;NL&rdquo;. Para efeitos contábeis a despesa é contabilizada pela sua liquidação.</li>
-  <li>Programação: É a chamada Programação de Desembolso – PD, que cria o critério de pagamentos conforme o cronograma de entrega do serviço ou material contratado.</li>
-  <li>Pagamento: O pagamento é a última fase da despesa pública e é efetuado quando ordenado após a sua devida liquidação.</li>
+  <li><b>Fixação:</b> A despesa é fixada pela Lei Orçamentária Anual</li>
+  <li><b>Reserva:</b> A reserva é feita através do sistema por documento &ldquo;NR&rdquo;, indicando na licitação de onde virão os recursos para pagamento da despesa. A reserva não configura nenhum direito ao fornecedor, apenas indica que há recursos orçamentários para que a despesa seja efetuada.</li>
+  <li><b>Licitação:</b> Todas as compras e contratos efetuados com a Administração são, via de regra, precedidos de processo licitatórios nas respectivas modalidades</li>
+  <li><b>Empenho:</b> Empenho da despesa, pela Lei Federal 4.320/64, é a primeira fase de execução. Ocorre via de regra na assinatura do contrato. O valor do empenho corresponde à parcela do contrato que será cumprida no exercício, o empenho configura um compromisso por parte da Administração de que o valor empenhado será pago desde de que o contrato seja cumprido e atestado pela Administração é a chamada &ldquo;NE&rdquo;. Não é permitida a realização de despesa sem prévio empenho, existe a figura da limitação de empenho, quando a arrecadação não acompanha a realização da despesa. Deve-se ter cuidado com a emissão dos empenhos nos dois últimos quadrimestres do mandato, observando o que reza a Lei de Responsabilidade Fiscal.</li>
+  <li><b>Liquidação:</b> A liquidação é a segunda fase da execução. Ocorre quando o contrato ou parte dele é efetivamente cumprido. A liquidação configura um direito do fornecedor a receber o pagamento correspondente ao seu valor, uma vez que ela indica que o valor empenhado foi executado no total ou em parte. È a chamada &ldquo;NL&rdquo;. Para efeitos contábeis a despesa é contabilizada pela sua liquidação.</li>
+  <li><b>Programação:</b> É a chamada Programação de Desembolso – PD, que cria o critério de pagamentos conforme o cronograma de entrega do serviço ou material contratado.</li>
+  <li><b>Pagamento:</b> O pagamento é a última fase da despesa pública e é efetuado quando ordenado após a sua devida liquidação.</li>
 </ol>
  
 A Lei Orçamentária anual prevê a RECEITA e fixa a DESPESA. A FIXAÇÃO é, portanto, o primeiro estágio da despesa. A despesa também é fixada por meio dos créditos adicionais. Assim sendo, nenhuma DESPESA pode ser realizada sem Crédito Orçamentário que a comporte, diferentemente da receita que é prevista e poderá ser cobrada independentemente de prévia autorização orçamentária, bastando que a lei criadora do tributo esteja em vigor antes do início do exercício financeiro, ainda que o Orçamento já tenha sido aprovado e publicado.
