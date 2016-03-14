@@ -59,7 +59,7 @@ A Secretaria de Educação, com um orçamento de R$ 10 bilhões para o ano, o ma
 <iframe class="highcharts-iframe" src="//cloud.highcharts.com/embed/ylizyt" style="border: 0; width: 100%; height: 500px"></iframe>
 
 <div style="border: 1px solid #666; margin: 16px; padding: 16px">
-### A execução orçamentária
+<b>A execução orçamentária<b><br><br>
 
 A execução do orçamento público possui diversas etapas. Para esta reportagem, o ritmo executado foi considerado a partir da Liquidação dos recursos, ou seja, a partir do momento em que a administração pública reconheceu a despesa em seu orçamento. Essa referência baseia-se em recomendações de três especialistas orçamentários ouvidos pelo Gastos Abertos.
  
