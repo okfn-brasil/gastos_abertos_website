@@ -59,7 +59,7 @@ A Secretaria de Educação, com um orçamento de R$ 10 bilhões para o ano, o ma
 <iframe class="highcharts-iframe" src="//cloud.highcharts.com/embed/ylizyt" style="border: 0; width: 100%; height: 500px"></iframe>
 
 <div style="border: 1px solid #666; margin: 16px; padding: 16px">
-<b>A execução orçamentária<b><br><br>
+<b>A execução orçamentária</mb><br><br>
 
 A execução do orçamento público possui diversas etapas. Para esta reportagem, o ritmo executado foi considerado a partir da Liquidação dos recursos, ou seja, a partir do momento em que a administração pública reconheceu a despesa em seu orçamento. Essa referência baseia-se em recomendações de três especialistas orçamentários ouvidos pelo Gastos Abertos.
  
@@ -77,6 +77,6 @@ Uma vez definido, aprovado e atualizado o orçamento público, podem-se iniciar 
  
 A Lei Orçamentária anual prevê a RECEITA e fixa a DESPESA. A FIXAÇÃO é, portanto, o primeiro estágio da despesa. A despesa também é fixada por meio dos créditos adicionais. Assim sendo, nenhuma DESPESA pode ser realizada sem Crédito Orçamentário que a comporte, diferentemente da receita que é prevista e poderá ser cobrada independentemente de prévia autorização orçamentária, bastando que a lei criadora do tributo esteja em vigor antes do início do exercício financeiro, ainda que o Orçamento já tenha sido aprovado e publicado.
 
-Fonte: <a href="http://www.fazenda.sp.gov.br/download/cge/manual_siafem_integra.pdf" target="_blank">Manual de Procedimentos Contábeis da Administração Pública do Estado de São Paulo</a></div>
+<br/><br/>Fonte: <a href="http://www.fazenda.sp.gov.br/download/cge/manual_siafem_integra.pdf" target="_blank">Manual de Procedimentos Contábeis da Administração Pública do Estado de São Paulo</a></div>
 
 A matéria acima é uma parceria entre o Gastos Abertos e o <a href="http://www.voltdata.info/" target="_blank">Volt Data Lab</a>, primeira parte do especial "Histórias do Orçamento". O especial tem como objetivo mostrar apresentar histórias utilizando dados orçamentários da cidade de São Paulo e seus respectivos "making ofs", isto é, o processo de elaboração das matérias, que dados foram utilizados e qual o tipo de trabalho feito para tratar as informações coletadas.
