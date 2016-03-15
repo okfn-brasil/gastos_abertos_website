@@ -6,6 +6,7 @@ build/*
 pyandoc
 frontend/bower_components
 frontend/node_modules
+frontend/bower-installer/
 settings/local_settings.py
 coverage
 npm-debug.log
