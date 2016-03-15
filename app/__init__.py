@@ -16,7 +16,7 @@ from flask_frozen import Freezer
 from .app import app
 from .util import add_l10n_prefix, remove_l10n_prefix
 from .blog import (authors, sorted_authors, posts, sorted_posts, get_post_url,
-                   posts_by_tag, posts_by_category)
+                   posts_by_tag, posts_by_category, historias_posts, historia_get_post_url)
 from .pages import pages
 
 # Add the babel extension
@@ -46,6 +46,8 @@ def page_urls():
 def blog_posts_urls():
     for post in posts:
         yield get_post_url(post)
+    for post in historias_posts:
+        yield historia_get_post_url(post)
 
 #
 # Routes

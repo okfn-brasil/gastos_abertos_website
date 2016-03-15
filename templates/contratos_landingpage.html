@@ -5,14 +5,13 @@
 {% endblock %}
 
 
-{% block title %}Contratos{% endblock %}
+
 
 {% block content %}
-  {% call title() %}Contratos{% endcall %}
-  <div class="page-head landingpage">
+
+  <div class="page-head landingpage contratos-page-heading">
     <div class="row">
       <div class="content">
-        <div class="feature icon"><img src="{{ url_for('static', filename='img/icon_estrutura-04.png') }}"></div>
         <div class="feature text">Aqui é possível encontrar dados detalhados dos contratos assinados pelo Município de São Paulo durante o ano de 2014<!-- TODO: atualizar o texto quando tivermos 2015 -->.</div>
       </div>
     </div>
@@ -20,7 +19,7 @@
   <div class="{% if page.class %}{{ page.class }}{% endif %}" {% if page.id %}id="{{ page.id }}"{% endif %}>
     <div class="page-subhead landingpage">
       <div class="row">
-          <p>A navegação engloba informações como CNPJ das empresas prestadoras de serviços, descrição do contrato (qualquer palavra presente na descrição do contrato é listada, como “material hospitalar”, “alimentos”, etc.), número e modalidade da licitação, nome do fornecedor. 
+          <p>A navegação engloba informações como CNPJ das empresas prestadoras de serviços, descrição do contrato (qualquer palavra presente na descrição do contrato é listada, como “material hospitalar”, “alimentos”, etc.), número e modalidade da licitação, nome do fornecedor.
           <p>Estes dados são informados pela própria Prefeitura de São Paulo em seu Portal da Transparência desde o ano de 2014
       </div>
     </div>

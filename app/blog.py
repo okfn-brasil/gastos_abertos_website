@@ -14,7 +14,13 @@ from .util import add_l10n_prefix, remove_l10n_prefix
 
 posts = FlatPages(app, 'blog')
 authors = FlatPages(app, 'authors')
+historias_posts = FlatPages(app, 'historias')
 
+def historia_get_post_url(post):
+    path = remove_l10n_prefix(post.path)
+    date = post.meta['date']
+    name = path[9:]
+    return '/historia/{}/{}/{}/{}/'.format(date.year, date.month, date.day, name)
 
 def get_post_url(post):
     path = remove_l10n_prefix(post.path)
@@ -34,6 +40,9 @@ def get_post_date(post):
 posts_by_tag = defaultdict(list)
 tags = set()
 
+historias_posts_by_tag = defaultdict(list)
+historias_tags = set()
+
 def process_post_tags(post):
     global tags
     tags_ = [(tag.strip(), unicodedata.normalize(
@@ -44,9 +53,22 @@ def process_post_tags(post):
         tags.add((_, tag))
     post.meta['tags'] = tags_
 
+def xprocess_post_tags(post):
+    global historias_tags
+    tags_ = [(tag.strip(), unicodedata.normalize(
+        'NFKD', tag.lower().strip().replace(' ', '_')).encode('ascii', 'ignore')) for
+        tag in post.meta.get('tags', '').split(',')]
+    for _, tag in tags_:
+        posts_by_tag[tag].append(post)
+        historias_tags.add((_, tag))
+    post.meta['tags'] = tags_
+
 
 posts_by_category = defaultdict(list)
 categories = set()
+
+historias_posts_by_category = defaultdict(list)
+historias_categories = set()
 
 
 def process_post_categories(post):
@@ -57,6 +79,16 @@ def process_post_categories(post):
     for _, category in categories_:
         posts_by_category[category].append(post)
         categories.add((_, category))
+    post.meta['categories'] = categories_
+
+def xprocess_post_categories(post):
+    global historias_categories
+    categories_ = [(category.strip(), unicodedata.normalize(
+        'NFKD', category.lower().strip().replace(' ', '_')).encode('ascii', 'ignore')) for
+        category in post.meta.get('categories', '').split(',')]
+    for _, category in categories_:
+        posts_by_category[category].append(post)
+        historias_categories.add((_, category))
     post.meta['categories'] = categories_
 
 
@@ -70,6 +102,18 @@ def get_posts_by_tag(tag):
 
 def get_posts_by_category(category):
     return sort_posts(posts_by_category[category])
+
+def sort_historias_posts(historias_posts):
+    return sorted(historias_posts, key=lambda p: p.meta.get('date'), reverse=True)
+
+
+def get_historias_posts_by_tag(tag):
+    return sort_historias_posts(historias_posts_by_tag[tag])
+
+
+def get_historias_posts_by_category(category):
+    return sort_historias_posts(historias_posts_by_category[category])
+
 
 
 def process_post(post):
@@ -86,6 +130,20 @@ for post in posts:
 
 sorted_authors = sorted(authors, key=lambda a: a.meta.get('pos', 100))
 sorted_posts = sort_posts(posts)
+
+def xprocess_post(post):
+    post.meta['id'] = 'historia'
+    post.meta['date'] = get_post_date(post)
+    print historia_get_post_url(post)
+    xprocess_post_tags(post)
+    xprocess_post_categories(post)
+    post.permalink = historia_get_post_url(post)
+
+
+for post in historias_posts:
+    xprocess_post(post)
+
+sorted_historias_posts = sort_historias_posts(historias_posts)
 
 
 from .pages import pages
@@ -104,6 +162,62 @@ def blog_posts_by_tag(tag):
     template = page.meta.get('template', 'page.html')
     today = datetime.datetime.now().strftime("%B %dth %Y")
     return render_template(template, page=page, today=today, pages=pages, posts=get_posts_by_tag(tag), authors=sorted_authors, tags=tags, categories=categories)
+
+
+@app.route('/historia/<int:year>/<int:month>/<int:day>/<path:path>/')
+def historia_post_with_date(year, month, day, path):
+    ''' Blog post from markdown file '''
+    return historia_post_with_category_and_date(None, year, month, day, path)
+
+
+@app.route('/historia/tags/<string:tag>/')
+def historias_posts_by_tag(tag):
+    ''' Blog historias_posts by tag '''
+    # Render the page
+    page = pages.get_or_404(add_l10n_prefix('historias'))
+    template = page.meta.get('template', 'page.html')
+    today = datetime.datetime.now().strftime("%B %dth %Y")
+    return render_template(template, page=page, today=today, pages=pages, historias_posts=get_historias_posts_by_tag(tag),  tags=tags, categories=categories)
+
+
+@app.route('/historia/<string:category>/<int:year>/<int:month>/<int:day>/<path:path>/')
+def historia_post_with_category_and_date(category, year, month, day, path):
+    ''' Blog post from markdown file '''
+    path = '{:04}{:02}{:02}_{}'.format(year, month, day, path)
+    path = add_l10n_prefix(path)
+    return historia_post(path)
+
+
+@app.route('/historia/<string:category>/')
+def historias_posts_by_category(category):
+    ''' Blog historias_posts by category '''
+    # Render the page
+    page = pages.get_or_404(add_l10n_prefix('historias'))
+    template = page.meta.get('template', 'page.html')
+    today = datetime.datetime.now().strftime("%B %dth %Y")
+    return render_template(template, page=page, today=today, pages=pages, historias_posts=get_historias_posts_by_category(category), tags=tags, categories=categories)
+
+
+
+def historia_post(path):
+    ''' Blog historias_posts from markdown file '''
+
+    # Get the post
+    post = historias_posts.get_or_404(path)
+
+    # Get custom template
+    template = post.meta.get('template', 'historia_post.html')
+
+    # Verify if need redirect
+    redirect_ = post.meta.get('redirect', None)
+    if redirect_:
+        return redirect(url_for('historia_post', path=redirect_))
+
+    today = datetime.datetime.now().strftime("%B %dth %Y")
+
+    # Render the page
+    return render_template(template, post=post, page=post, today=today, pages=pages, historias_posts=historias_posts, tags=tags, categories=categories)
+
 
 
 @app.route('/blog/<string:category>/<int:year>/<int:month>/<int:day>/<path:path>/')

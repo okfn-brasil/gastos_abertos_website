@@ -9,3 +9,5 @@ frontend/node_modules
 settings/local_settings.py
 coverage
 npm-debug.log
+.DS_Store
+*/.DS_Store

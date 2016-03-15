@@ -9,8 +9,8 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,600,400italic' rel='stylesheet'>
     <link rel="stylesheet" href="/static/vendor/owl-carousel/owl.carousel.css">
     <link rel="stylesheet" href="/static/vendor/owl-carousel/owl.theme.css">
-    <link rel="stylesheet" href="/static/css/app.css" />
-    <link rel="stylesheet" href="/static/css/main.css" />
+    <link rel="stylesheet" href="/static/css/app.css?ver=1.0"/>
+    <link rel="stylesheet" href="/static/css/main.css?ver=1.0" />
     <link rel="icon" type="image/png" href="/static/img/favicon.png">
     <!-- <script src="bower_components/modernizr/modernizr.js"></script> -->
     {% block head %}
@@ -20,7 +20,7 @@
   </head>
   <body>
 
-<!-- HEADER :: START -->  
+<!-- HEADER :: START -->
     <div class="page-wrap">
       {% include 'includes/header.html' %}
       <!-- .page-wrap should be closed before .site-footer -->
@@ -41,9 +41,11 @@
     <script src="{{ url_for('static', filename='vendor/jquery/js/jquery.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/modernizr/js/modernizr.js') }}"></script>
     <script src="{{ url_for('static', filename='vendor/foundation/js/foundation.js') }}"></script>
-    <script src="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='javascripts/app.js') }}"></script>
-    
+    <script src="{{ url_for('static', filename='vendor/jquery-scrollspy/jquery-scrollspy.js') }}"></script>
+	<script src="{{ url_for('static', filename='vendor/owl-carousel/owl.carousel.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='javascripts/app.js') }}?ver=1.2"></script>
+    <script src="{{ url_for('static', filename='javascripts/main.js') }}"></script>
+
     <script>
       if (window.location.host == 'p.gastosabertos.org') {
         $('.page-wrap').addClass('site-preview');
@@ -53,4 +55,3 @@
     {% endblock %}
   </body>
 </html>
-

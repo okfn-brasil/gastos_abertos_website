@@ -3,11 +3,8 @@
 {% block title %}{{ page.title }}{% endblock %}
 
 {% block content %}
-  {% if page.title %}
-  {{ title(page.title) }}
-  {% endif %}
-  {% if page.head %}
-  <div class="page-head">
+   {% if page.head %}
+  <div class="page-head head-sobre" style="background: url(../static/img/hearder-sobre_2.jpg)">
     <div class="row">
       <div class="content">{{ page.head | safe }}</div>
     </div>
@@ -21,14 +18,25 @@
       <div class="content-highlights team subsection">
         <div class="row" data-equalizer>
           <span class="title">Nosso Time:</span>
-          
+
+          <div class="team-photos">
           {% for author in authors %}
           {% if author.team == 'gastos_abertos' %}
-            <div data-equalizer-watch class="team-member">
-              <div class="content-preview-header">
+          <div class="team-member-wrap">
+            <div  class="team-member-icon">
                 <div class="avatar">
-                  <img src="{{ url_for('static', filename=author.avatar) }}">
+                  <img height="200" width="200" src="{{ url_for('static', filename=author.avatar) }}">
                 </div>
+            </div>
+          </div><!--end od div with authors id-->
+          {% endif %}
+          {% endfor %}
+          </div> <!--  End of .team-photos -->
+		  <div class="team-info">
+			  {% for author in authors %}
+          {% if author.team == 'gastos_abertos' %}
+            <div data-equalizer-watch  class="team-member">
+              <div class="content-preview-header">
                 <div class="name">
                   {{ author.name }}
                 </div>
@@ -44,36 +52,30 @@
             </div>
           {% endif %}
           {% endfor %}
-    
+
+		  </div> <!-- End of .team-info -->
             <div data-equalizer-watch class="team-member">
               <div class="content-preview-header">
-                <div class="avatar">
-                </div>
                 <div class="title">
                   Agradecimentos
                 </div>
                 <div class="content-preview-info">
-                  <div class="name">Sol</div>
-                  <div>Identidade visual</div>
-                  <div class="name">Andres Martano</div>
-                  <div>Desenvolvimento e colaborador</div>
-                  <div class="name">Wiba</div>
-                  <div>Consultoria</div>
-                  <div class="name">Gisele Craveiro</div>
-                  <div>Colaboradora</div>
-                  <div class="name">Marco Túlio Pires</div>
-                  <div>Colaborador</div>
+                  <div>Sol: Identidade visual</div>
+                  <div>Andres Martano: Desenvolvimento e colaborador</div>
+                  <div>Wiba: Consultoria</div>
+                  <div>Gisele Craveiro: Colaboradora</div>
+                  <div>Marco Túlio Pires: Colaborador</div>
                 </div>
               </div>
             </div>
 
         </div>
       </div>
-    
+
       <div class="content-highlights initiatives">
         <div class="row" data-equalizer>
           <span class="title">Outras Ferramentas:</span>
-          
+
             <div data-equalizer-watch class="initiative">
               <img src="{{ url_for('static', filename='img/initiatives/openspending.png') }}">
               <div class="content-preview-header" style="background: #8BBB7D; color: #fff;">
@@ -86,7 +88,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div data-equalizer-watch class="initiative">
               <img src="{{ url_for('static', filename='img/initiatives/cuidandomeubairro.png') }}">
               <div class="content-preview-header" style="background: #F2F2F2;">
@@ -99,7 +101,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div data-equalizer-watch class="initiative">
               <img src="{{ url_for('static', filename='img/initiatives/orcamentoalcance.png') }}">
               <div class="content-preview-header" style="background: #34495E; color: #fff;">
@@ -112,7 +114,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div data-equalizer-watch class="initiative">
               <img src="{{ url_for('static', filename='img/initiatives/mosaico.png') }}">
               <div class="content-preview-header" style="background: #9D9D9D; color: #fff;">
@@ -125,7 +127,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div data-equalizer-watch class="initiative">
               <div class="content-preview-header" style="background: #669988; color: #fff;">
                 <div class="">
@@ -139,7 +141,7 @@
                 </div>
               </div>
             </div>
-          
+
             <div data-equalizer-watch class="initiative">
               <img src="{{ url_for('static', filename='img/initiatives/fiscalizeagora.png') }}">
               <div class="content-preview-header" style="background: #F7F7F7;">
@@ -152,7 +154,7 @@
                 </div>
               </div>
             </div>
-    
+
         </div>
       </div>
 

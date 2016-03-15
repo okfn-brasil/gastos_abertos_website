@@ -92,6 +92,7 @@ def check_for(what, unrecoverable_msg, installation_cmd=None):
         print unrecoverable_msg
         exit()
 
+    print "%s" % local ("pwd")
     try:
         test_result = local("which %s" % what, capture=True)
         return test_result

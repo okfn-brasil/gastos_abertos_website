@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+  {% if page.title %}
+  {{ title(page.title) }}
+  {% endif %}
+  {% if page.head %}
+  <div class="page-head" style="background: url(../static/img/hearder-sobre_2.jpg)">
+    <div class="row">
+      <div class="content">{{ page.head | safe }}</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <div {% if page.class %}class="{{ page.class }}"{% endif %} {% if page.id %}id="{{ page.id }}"{% endif %}>
+    {{ page }}
+
+    <div class="content section">
+      <div class="content-highlights team subsection">
+        <div class="row" data-equalizer>
+          <span class="title">Nosso Time:</span>
+          
+          {% for author in authors %}
+          {% if author.team == 'gastos_abertos' %}
+            <div data-equalizer-watch class="team-member">
+              <div class="content-preview-header">
+                <div class="avatar">
+                  <img src="{{ url_for('static', filename=author.avatar) }}">
+                </div>
+                <div class="name">
+                  {{ author.name }}
+                </div>
+                <div class="title">
+                  {% if author.title %}{{ author.title }}{% endif %}
+                </div>
+                <div class="content-preview-info">
+                  {{ author }}
+
+                  {% if author.email %}<p>Contato: {{ author.email }}</p>{% endif %}
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+    
+            <div data-equalizer-watch class="team-member">
+              <div class="content-preview-header">
+                <div class="avatar">
+                </div>
+                <div class="title">
+                  Agradecimentos
+                </div>
+                <div class="content-preview-info">
+                  <div class="name">Sol</div>
+                  <div>Identidade visual</div>
+                  <div class="name">Andres Martano</div>
+                  <div>Desenvolvimento e colaborador</div>
+                  <div class="name">Wiba</div>
+                  <div>Consultoria</div>
+                  <div class="name">Gisele Craveiro</div>
+                  <div>Colaboradora</div>
+                  <div class="name">Marco Túlio Pires</div>
+                  <div>Colaborador</div>
+                </div>
+              </div>
+            </div>
+
+        </div>
+      </div>
+    
+      <div class="content-highlights initiatives">
+        <div class="row" data-equalizer>
+          <span class="title">Outras Ferramentas:</span>
+          
+            <div data-equalizer-watch class="initiative">
+              <img src="{{ url_for('static', filename='img/initiatives/openspending.png') }}">
+              <div class="content-preview-header" style="background: #8BBB7D; color: #fff;">
+                <div class="title">Open Spending
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="https://openspending.org/">Visitar site</a>
+                </div>
+              </div>
+            </div>
+          
+            <div data-equalizer-watch class="initiative">
+              <img src="{{ url_for('static', filename='img/initiatives/cuidandomeubairro.png') }}">
+              <div class="content-preview-header" style="background: #F2F2F2;">
+                <div class="title">Cuidando do Meu Bairro
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="http://cuidando.org.br/">Visitar site</a>
+                </div>
+              </div>
+            </div>
+          
+            <div data-equalizer-watch class="initiative">
+              <img src="{{ url_for('static', filename='img/initiatives/orcamentoalcance.png') }}">
+              <div class="content-preview-header" style="background: #34495E; color: #fff;">
+                <div class="title">Orçamento ao Seu Alcance
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="http://orcamento.inesc.org.br/">Visitar site</a>
+                </div>
+              </div>
+            </div>
+          
+            <div data-equalizer-watch class="initiative">
+              <img src="{{ url_for('static', filename='img/initiatives/mosaico.png') }}">
+              <div class="content-preview-header" style="background: #9D9D9D; color: #fff;">
+                <div class="title">Mosaico Orçamentário
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="http://dapp.fgv.br/mosaico/mosaic_f/2015">Visitar site</a>
+                </div>
+              </div>
+            </div>
+          
+            <div data-equalizer-watch class="initiative">
+              <div class="content-preview-header" style="background: #669988; color: #fff;">
+                <div class="">
+                </div>
+                <div class="title">Gastos Públicos
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="">Visitar site</a>
+                </div>
+              </div>
+            </div>
+          
+            <div data-equalizer-watch class="initiative">
+              <img src="{{ url_for('static', filename='img/initiatives/fiscalizeagora.png') }}">
+              <div class="content-preview-header" style="background: #F7F7F7;">
+                <div class="title">Fiscalize Agora
+                </div>
+                <div class="content-preview-info">
+                </div>
+                <div class="content-preview-buttons">
+                  <a class="button" href="http://www.fiscalizeagora.org/">Visitar site</a>
+                </div>
+              </div>
+            </div>
+    
+        </div>
+      </div>
+
+  </div>
+  </div>
+{% endblock %}

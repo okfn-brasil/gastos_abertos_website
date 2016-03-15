@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+  <article class="blog-post" itemscope itemtype="http://schema.org/BlogPosting">
+    <header class="blog-post-header">
+      {{ title(post.title, type='blog-post', cover=post.cover) }}
+      {% if post.cover %}
+      <div class="blog-post-cover">
+        <img src="{{ url_for('static', filename=post.cover) }}" alt="">
+      </div>
+      {% endif %}
+    </header>
+
+    <div class="row">
+      <div class="content blog-post-content" itemprop="articleBody">
+        {{ post }}
+      </div>
+      {% if post.author %}
+      <div class="content blog-post-author">
+        <div class="avatar">
+          {% if post.author.avatar %}
+          <img src="{{ url_for('static', filename=post.author.avatar) }}" alt="foto do autor">
+          {% endif %}
+        </div>
+        <div class="info">
+          <span class="title">Sobre o autor</span> {{ post.author.name }}<br>{{ post.author }}
+          {% if post.author.website %}
+          <a class="website" href="{{ post.author.website }}">Website</a>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+
+    </div>
+  </article>
+{% endblock %}
