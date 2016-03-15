@@ -1,4 +1,4 @@
-title: Making of: Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias de SP
+title: 'Making of: Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias de SP'
 published: False
 categories: Gastos Abertos
 tags: repasses federais, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretarias
@@ -13,15 +13,15 @@ São Paulo - Dezembro/2015
 A tabela-base para este tutorial está <a href="https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit?usp=sharing" target="_blank">neste link</a>
 Para saber mais como funciona a execução do orçamento, acesse <a href="http://www.fazenda.sp.gov.br/download/cge/manual_siafem_integra.pdf" target="_blank">este link</a>
 
-Na primeira história do orçamento, quisemos saber qual era o ritmo de de execução orçamentária das secretarias do município de São Paulo, a fim de reconhecer quais delas estavam aquém em seus investimentos previstos para o ano. 
+Na primeira história do orçamento, quisemos saber qual era o ritmo de de execução orçamentária das secretarias do município de São Paulo, a fim de reconhecer quais delas estavam aquém em seus investimentos previstos para o ano.
 
 Para isso, foi preciso recorrer aos <a href="http://orcamento.prefeitura.sp.gov.br/orcamento/" target="_blank">dados disponibilizados</a> pela Prefeitura mensalmente detalhando orçamento inicial, orçamento atualizado, montante empenhado e montante liquidado. (Aba 1 da tabela-base)
 
 No entanto, a Prefeitura não calcula o ritmo da execução orçamentária - ou seja, quanto do orçamento foi efetivamente liquidado.
 
-Para se chegar a esse ritmo foram levados em consideração dois parâmetros: o orçamento atualizado para o ano e a liquidação de recursos. 
+Para se chegar a esse ritmo foram levados em consideração dois parâmetros: o orçamento atualizado para o ano e a liquidação de recursos.
 
-O orçamento para determinado ano é definido com antecipação de vários meses e votado pela Câmara dos Vereadores. Assim, quando esse orçamento passa de fato a valer, alguns ajustes no montante definido são realizados para refletir as necessidades e características de secretarias com o andamento do ano corrente. 
+O orçamento para determinado ano é definido com antecipação de vários meses e votado pela Câmara dos Vereadores. Assim, quando esse orçamento passa de fato a valer, alguns ajustes no montante definido são realizados para refletir as necessidades e características de secretarias com o andamento do ano corrente.
 
 Assim, considerou-se o orçamento atualizado como referência para o ritmo de execução. (Aba 2 da tabela-base)
 
@@ -29,9 +29,9 @@ Já o montante liquidado é importante porque trata-se da etapa da execução qu
 
 Logo, o montante liquidado foi utilizado como medição para o ritmo de execução do orçamento. (Aba 2 da tabela-base)
 
-Identificados os parâmetros para se calcular o ritmo de gastos das secretarias, quisemos saber quais foram as secretarias com o menor ritmo e por quê. 
+Identificados os parâmetros para se calcular o ritmo de gastos das secretarias, quisemos saber quais foram as secretarias com o menor ritmo e por quê.
 
-Assim, identificamos uma correlação entre baixa execução orçamentária e alta dependência de recursos federais na cidade de São Paulo - sem fazer um julgamento de causa e efeito para isso. Mas, no fim, foi exatamente o que os dados nos mostraram: as duas secretarias com maior dependência de recursos federais foram as que menos executaram seu orçamento em 2015. 
+Assim, identificamos uma correlação entre baixa execução orçamentária e alta dependência de recursos federais na cidade de São Paulo - sem fazer um julgamento de causa e efeito para isso. Mas, no fim, foi exatamente o que os dados nos mostraram: as duas secretarias com maior dependência de recursos federais foram as que menos executaram seu orçamento em 2015.
 
 Para se chegar ao grau de dependência, fizemos uma conta simples: qual porcentagem do orçamento atualizado de cada secretaria deveria vir da União. (Aba 3 da tabela-base)
 
