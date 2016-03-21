@@ -1,7 +1,7 @@
-title: Making of: Gestão Haddad enxuga gastos com publicidade
+title: 'Making of: Gestão Haddad enxuga gastos com publicidade'
 published: True
 categories: Gastos Abertos
-tags: publicidade, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação, 
+tags: publicidade, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação,
 author: gastos_abertos
 cover: img/blog/photo.jpg
 

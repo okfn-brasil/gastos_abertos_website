@@ -1,7 +1,7 @@
-title: Making of: Nos últimos três anos, reajustes de professores municipais de SP ficaram acima da média nacional
+title: 'Making of: Nos últimos três anos, reajustes de professores municipais de SP ficaram acima da média nacional'
 published: True
 categories: Gastos Abertos
-tags: reajuste salarial, magistério SP, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação, 
+tags: reajuste salarial, magistério SP, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação,
 author: gastos_abertos
 cover: img/blog/photo.jpg
 
@@ -12,7 +12,7 @@ A principal fonte de informações sobre os gastos da prefeitura de São Paulo c
 
 São estas planilhas do orçamento que detalham o quanto foi previsto e o quanto foi de fato gasto com cada item de cada secretaria e cada área de atuação da prefeitura. O problema é que são mais de 4.300 itens no total, a cada ano, e essa montanha de informações não está separada por área, por secretaria ou por função, tampouco agrega o total por secretaria. Se quiser chegar a essas informações, é necessário mergulhar na tabela de 4 mil linhas.
 
-Isso exigiu um tratamento dos dados por parte de nossa equipe, de maneira que fosse possível ter uma visão mais ampla das secretarias e, dentro delas, da pasta de Educação. O resultado foi <a href="https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit#gid=0" target="_blank">esta tabela, com o consolidado de 2015</a>, e <a href="https://docs.google.com/spreadsheets/d/14uZJ5gKsJECZmW2_f6wO8I1uX70TgthrtV_5lIATf_U/edit#gid=372267557" target="_blank">estas, com informações de 2014 e 2013</a>. Elas nos permitiram ver o ritmo de execução orçamentária por pasta de cada um destes anos, quer dizer, o quanto foi previsto, empenhado e liquidado por cada secretaria. 
+Isso exigiu um tratamento dos dados por parte de nossa equipe, de maneira que fosse possível ter uma visão mais ampla das secretarias e, dentro delas, da pasta de Educação. O resultado foi <a href="https://docs.google.com/spreadsheets/d/1-Dl6bu70ixom2ifSdm4YvK-ghl4GVB50HS6akwRZgs8/edit#gid=0" target="_blank">esta tabela, com o consolidado de 2015</a>, e <a href="https://docs.google.com/spreadsheets/d/14uZJ5gKsJECZmW2_f6wO8I1uX70TgthrtV_5lIATf_U/edit#gid=372267557" target="_blank">estas, com informações de 2014 e 2013</a>. Elas nos permitiram ver o ritmo de execução orçamentária por pasta de cada um destes anos, quer dizer, o quanto foi previsto, empenhado e liquidado por cada secretaria.
 
 Foi a partir deste trabalho que pudemos remontar com maior agilidade a evolução do valor liquidado ano a ano pela Secretaria Municipal de Educação (SME), saber o quanto evoluíram e compará­los a outras frentes de gastos.
 

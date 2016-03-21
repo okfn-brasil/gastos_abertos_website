@@ -1,7 +1,7 @@
-title: Making of: Os números do programa WiFi Livre em São Paulo
+title: 'Making of: Os números do programa WiFi Livre em São Paulo'
 published: True
 categories: Gastos Abertos
-tags: wifi livre sp, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação, 
+tags: wifi livre sp, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretaria de educação,
 author: gastos_abertos
 cover: img/blog/photo.jpg
 
