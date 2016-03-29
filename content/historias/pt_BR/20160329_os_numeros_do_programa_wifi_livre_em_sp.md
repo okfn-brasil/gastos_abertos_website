@@ -31,7 +31,7 @@ Segundo a SES e a Prodam, foram gastas 720 horas para produzir o site, o que sig
 O Gastos Abertos fez um levantamento completo dos principais dados e números sobre o WiFi Livre. <a href="https://github.com/voltdatalab/Docs-Wifi-Livre-SP" target="_blank"> Você pode acessar aqui todos os dados e tabelas utilizados nesta pesquisa</a>.
 
 ##MAPA
-Aqui, você pode ver todos os pontos em São Paulo que possuem acesso gratuito à Internet sobre o programa WiFi Livre SP:
+É possível conferir todos os pontos em São Paulo que possuem acesso gratuito à Internet sobre o programa WiFi Livre SP:
 <iframe width="100%" height="520" frameborder="0" src="https://voltdatalab.cartodb.com/viz/15e230d2-cb89-11e5-856a-0ef7f98ade21/embed_map" allowfullscreen webkitallowfullscreen mozallowfullscreen oallowfullscreen msallowfullscreen></iframe>
 
 Segundo a prefeitura, atualmente todos os 96 distritos da capital já estão conectados. Os 120 pontos estão distribuídos da seguinte forma:
@@ -79,7 +79,8 @@ A WCS não respondeu a e-mail solicitando comentários enviado pela equipe do Ga
 <b>R$ 103.111,20</b>
 foi o preço cobrado pela Prodam para produzir o site http://wifilivre.sp.gov.br - em um total de 720 horas gastas (R$ 142/hora).
 
-##FORNECEDORES<br><br>
+##FORNECEDORES
+<br><br>
 Ziva
 <ul>
   <li>
@@ -149,5 +150,5 @@ Multa recebida por essa empresa:<a href="http://e-negocioscidadesp.prefeitura.sp
 A matéria acima é uma parceria entre o Gastos Abertos e o <a href="http://www.voltdata.info/" target="_blank">Volt Data Lab</a>, terceira parte do especial "Histórias do Orçamento". O especial tem como objetivo mostrar apresentar histórias utilizando dados orçamentários da cidade de São Paulo e seus respectivos "making ofs", isto é, o processo de elaboração das matérias, que dados foram utilizados e qual o tipo de trabalho feito para tratar as informações coletadas. 
 
 Leia mais:<br>
-História do orçamento 1: <a href="http://gastosabertos.org/historia/2016/3/9/atrasos_em_repasses_seguram_execucao_orcamentaria_de_secretarias_paulistas/" target="_blank">Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias da cidade de São Paulo</a> e seu <a href="http://gastosabertos.org/historia/2016/3/15/making-of-atrasos_em_repasses_seguram_execucao_orcamentaria_de_secretarias_paulistas/" target="_blank">making of.</a><br>
-História do orçamento 2: <a href="http://gastosabertos.org/historia/2016/3/18/reajustes_de_professores_municipais_de_sp_ficam_acima_da_media_nacional">Nos últimos três anos, reajustes de professores municipais de SP ficam acima da média nacional</a> e seu <a href="http://gastosabertos.org/historia/2016/3/19/making_of_reajustes_de_professores_municipais_de_sp_ficam_acima_da_media_nacional" target="_blank">making of</a>
+História do orçamento 1: <a href="http://gastosabertos.org/historia/2016/3/9/atrasos_em_repasses_seguram_execucao_orcamentaria_de_secretarias_paulistas/" target="_blank">Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias da cidade de São Paulo</a> e seu <a href="http://gastosabertos.org/historia/2016/3/15/making-of-atrasos_em_repasses_seguram_execucao_orcamentaria_de_secretarias_paulistas/" target="_blank">making of</a>.<br>
+História do orçamento 2: <a href="http://gastosabertos.org/historia/2016/3/18/reajustes_de_professores_municipais_de_sp_ficam_acima_da_media_nacional">Nos últimos três anos, reajustes de professores municipais de SP ficam acima da média nacional</a> e seu <a href="http://gastosabertos.org/historia/2016/3/19/making_of_reajustes_de_professores_municipais_de_sp_ficam_acima_da_media_nacional" target="_blank">making of</a>.
