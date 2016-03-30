@@ -1,5 +1,5 @@
 title: 'Making of: Atrasos em repasses federais em 2015 seguram execução orçamentária de secretarias de SP'
-published: False
+published: True
 categories: Gastos Abertos
 tags: repasses federais, gastos públicos, orçamento, execução orçamentária, participação, são paulo, secretarias
 author: gastos_abertos
