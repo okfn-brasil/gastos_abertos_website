@@ -16,7 +16,7 @@ Os dados foram obtidos de várias maneiras: no site <a href="http://wifilivre.sp
 
 <a href="https://github.com/voltdatalab/Docs-Wifi-Livre-SP" target="_blank">Todos os documentos pode ser encontrados aqui.</a>
 
-Houve alguns empecilhos com a tabela principal do site WiFi Livre, mantido pela Prodam. O arquivo .csv fornecido pelo site está desorganização, sem colunas identificadas e sem georreferências e o Gastos Abertos teve que fazer <a href="https://github.com/voltdatalab/Docs-Wifi-Livre-SP/blob/master/CSV%20e%20GeoJSON%20geral%20pra%C3%A7as/pracas.csv" target="_blank">tudo à mão</a> baseado nessa tabela. O site também não contém documentos importantes como edital, propostas comerciais e sobre multas aplicadas contra as fornecedoras.
+Houve alguns empecilhos com a tabela principal do site WiFi Livre, mantido pela Prodam. O arquivo .csv fornecido pelo site está desorganizado, sem colunas identificadas e sem georreferências e o Gastos Abertos teve que fazer <a href="https://github.com/voltdatalab/Docs-Wifi-Livre-SP/blob/master/CSV%20e%20GeoJSON%20geral%20pra%C3%A7as/pracas.csv" target="_blank">tudo à mão</a> baseado nessa tabela. O site também não contém documentos importantes como edital, propostas comerciais e sobre multas aplicadas contra as fornecedoras.
 
 Diversas informações tiveram que ser solicitadas via LAI à Prodam e à Secretaria de Serviços (SES), considerando que suas respectivas assessorias de imprensa não se dispuseram a responder diretamente as questões solicitadas pelo Gastos Abertos via e-mail. As duas entidades, no entanto, nos forneceram todas as informações solicitadas, como proposta comercial entre Prodam e SES - um documento que não foi divulgado no Diário Oficial.
 
